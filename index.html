@@ -6,72 +6,56 @@
 <title>Juego Interactivo de Personajes Bíblicos para Niños</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-  :root {
-    --color-bg: #f0f9ff;
-    --color-primary: #3178c6;
-    --color-secondary: #ffb600;
-    --color-correct: #4caf50;
-    --color-wrong: #e53935;
-    --color-text: #333;
-    --color-button: #4a90e2;
-    --color-button-hover: #357abd;
-  }
-  * {
-    box-sizing: border-box;
-  }
   body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--color-bg);
-    margin: 0;
-    padding: 10px;
-    color: var(--color-text);
+    margin: 0; padding: 20px;
+    background: #f0f9ff;
     display: flex;
     justify-content: center;
     min-height: 100vh;
+    color: #333;
   }
   #game-container {
     max-width: 480px;
     width: 100%;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-    padding: 20px 24px 32px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    padding: 24px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
   h1, h2 {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #2a4568;
   }
-  input[type="text"] {
+  input[type=text], button {
     width: 100%;
-    padding: 12px;
     font-size: 1.1rem;
-    border: 2px solid var(--color-primary);
-    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 2px solid #3178c6;
     outline: none;
     transition: border-color 0.3s ease;
-  }
-  input[type="text"]:focus {
-    border-color: var(--color-secondary);
-  }
-  button {
-    cursor: pointer;
-    background-color: var(--color-button);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    margin-top: 16px;
-    font-size: 1rem;
-    font-weight: 700;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(70,130,180,0.4);
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
     user-select: none;
   }
+  input[type=text]:focus {
+    border-color: #ffbb33;
+  }
+  button {
+    background-color: #3178c6;
+    color: white;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
   button:hover, button:focus {
-    background-color: var(--color-button-hover);
+    background-color: #245a8b;
     outline: none;
   }
   button.bounce {
@@ -81,153 +65,152 @@
     0% { transform: translateY(0); }
     100% { transform: translateY(-8px); }
   }
-  .question-box {
-    margin-top: 24px;
+  #start-screen, #quiz-screen {
     width: 100%;
   }
-  .question-text {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
+  #quiz-screen {
+    display: none;
   }
-  .emoji-sm {
-    width: 28px;
-    height: 28px;
-    margin-left: 8px;
+  .question {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 22px;
   }
   .options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
+    margin-bottom: 20px;
   }
-  .option-button {
-    background-color: #e3f2fd;
-    border: 2px solid var(--color-primary);
-    border-radius: 6px;
-    padding: 10px;
+  .option-btn {
+    background: #d0e4ff;
+    border: 2px solid #3178c6;
+    border-radius: 10px;
+    padding: 14px;
     font-size: 1.1rem;
     font-weight: 600;
-    text-align: center;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    user-select: none;
   }
-  .option-button:hover, .option-button:focus {
-    background-color: var(--color-secondary);
-    border-color: #e67e22;
+  .option-btn:hover, .option-btn:focus {
+    background-color: #ffe599;
+    border-color: #d1a700;
     outline: none;
   }
-  .option-button.correct {
-    border-color: var(--color-correct);
-    background-color: #d0f0d6;
+  .option-btn.correct {
+    background-color: #a1d99b;
+    border-color: #3a7a0b;
+    color: #21550d;
+    cursor: default;
   }
-  .option-button.wrong {
-    border-color: var(--color-wrong);
-    background-color: #f9d6d5;
-  }
-  .message-box {
-    margin-top: 16px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-primary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .message-biblical {
-    font-style: italic;
-    font-weight: 600;
-    color: var(--color-secondary);
-  }
-  #help-btn, #next-btn, #levels-btn {
-    margin-top: 14px;
+  .option-btn.wrong {
+    background-color: #f9a69a;
+    border-color: #a8312a;
+    color: #611e19;
+    cursor: default;
   }
   #progress-bar {
     width: 100%;
-    height: 28px;
-    border-radius: 14px;
+    height: 30px;
+    background: linear-gradient(90deg, #cee1ff, #91b7ff);
+    border-radius: 15px;
     overflow: hidden;
-    margin-top: 24px;
-    background-color: #cbe0f8;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
   }
   #progress-inner {
     height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #46a9ff, #82caff);
+    width: 0%;
+    background: linear-gradient(90deg, #3178c6, #ffbb33);
+    color: white;
+    font-weight: 700;
+    text-align: right;
+    padding-right: 14px;
+    border-radius: 15px 0 0 15px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 10px;
-    color: white;
-    font-weight: 700;
+    gap: 6px;
+    white-space: nowrap;
     font-size: 1.1rem;
-    border-radius: 14px 0 0 14px;
-    animation: progressColor 3s ease infinite alternate;
-  }
-  @keyframes progressColor {
-    0% { background: linear-gradient(90deg, #46a9ff, #82caff); }
-    100% { background: linear-gradient(90deg, #ffbb33, #ffdd66); }
-  }
-  .confetti-piece {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-secondary);
-    opacity: 0;
-    border-radius: 2px;
-    animation: confetti-fall 1.2s ease forwards;
-  }
-  @keyframes confetti-fall {
-    0% { opacity: 1; transform: translateY(0) rotate(0deg); }
-    100% { opacity: 0; transform: translateY(100px) rotate(360deg); }
   }
   #levels-display {
-    margin-top: 24px;
-    width: 100%;
-    background: #eaf3ff;
-    padding: 16px 12px;
-    border-radius: 10px;
+    margin-top: 20px;
+    background: #dff0fd;
+    border-radius: 8px;
+    padding: 18px 16px;
     max-height: 220px;
     overflow-y: auto;
-    font-size: 1rem;
+    display: none;
   }
   #levels-display h3 {
     margin-top: 0;
+    margin-bottom: 14px;
+    color: #0e3d91;
   }
   .level-item {
-    padding: 6px 8px;
-    border-radius: 6px;
-    margin-bottom: 6px;
-    background-color: #d6e8ff;
+    background: #b6d1ff;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-weight: 600;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
     align-items: center;
+    color: #143eae;
   }
   .level-item.unlocked {
-    background-color: #a5d6ff;
+    background: #82bf56;
+    color: white;
+  }
+  .emoji {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    user-select: none;
+    animation: emoji-bounce 1.5s ease-in-out infinite alternate;
+  }
+  @keyframes emoji-bounce {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-6px) scale(1.2); }
+  }
+  .message-biblical {
+    font-style: italic;
     font-weight: 600;
+    color: #ffbb33;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    font-size: 1.1rem;
   }
-  .level-emoji {
-    font-size: 1.2rem;
+  .message-biblical svg {
+    width: 22px;
+    height: 22px;
+    user-select: none;
+    animation: emoji-bounce 1.5s ease-in-out infinite alternate;
   }
-  /* Animación emojis */
-  .emoji-animate {
-    animation: emoji-balance 1.5s ease infinite alternate;
-  }
-  @keyframes emoji-balance {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-6px) rotate(10deg); }
-  }
-  /* Responsive text scaling */
-  @media screen and (max-width: 400px) {
-    .question-text {
+  @media (max-width: 480px) {
+    body { padding: 16px 10px;}
+    #game-container {
+      padding: 20px 18px;
+    }
+    h1, h2 {
+      font-size: 1.4rem;
+    }
+    .question {
       font-size: 1.1rem;
     }
-    button {
-      font-size: 0.95rem;
-      padding: 10px 18px;
+    button, input[type=text], .option-btn {
+      font-size: 1rem;
+      padding: 12px;
+    }
+    #progress-inner {
+      font-size: 1rem;
+      padding-right: 10px;
     }
   }
 </style>
@@ -235,375 +218,368 @@
 <body>
 <div id="game-container" role="main" aria-live="polite" aria-atomic="true">
 
-  <!-- Pantalla Inicio -->
-  <section id="start-screen" aria-label="Inicio del juego">
+  <section id="start-screen" aria-label="Pantalla de inicio">
     <h1>Juego Interactivo de Personajes Bíblicos para Niños</h1>
-    <label for="player-name" aria-describedby="name-desc">Escribe tu nombre para comenzar:</label>
-    <input id="player-name" type="text" autocomplete="off" aria-required="true" aria-describedby="name-desc" placeholder="Tu nombre aquí" />
-    <p id="name-desc" class="message-biblical">¡Dios te ama y está feliz de que quieras aprender sobre Sus historias! 📖✨</p>
-    <button id="start-btn" class="bounce" aria-label="Comenzar juego con animación y sonido">Comenzar 🙌</button>
+    <label for="player-name" class="sr-only">Escribe tu nombre</label>
+    <input id="player-name" type="text" aria-required="true" aria-label="Nombre del jugador" placeholder="Escribe tu nombre aquí" autocomplete="off" />
+    <button id="start-btn" class="bounce" aria-label="Botón para comenzar el juego">Comenzar 🙌</button>
+    <div class="message-biblical" id="welcome-msg-initial">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#ffbb33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+        <line x1="9" y1="9" x2="9.01" y2="9" />
+        <line x1="15" y1="9" x2="15.01" y2="9" />
+      </svg>
+      ¡Dios te ama y está feliz de que quieras aprender sobre Sus historias! 📖✨
+    </div>
   </section>
 
-  <!-- Pantalla Juego -->
-  <section id="quiz-screen" aria-label="Cuestionario de personajes bíblicos" hidden>
-    <h2 id="welcome-msg"></h2>
-    <div class="question-box" aria-live="assertive" aria-atomic="true">
-      <div class="question-text" id="question-text"></div>
-      <div class="options" role="list" id="options-container"></div>
-    </div>
-    <div class="message-box" id="feedback-msg" aria-live="assertive"></div>
-    <button id="help-btn" aria-label="Ayuda para la pregunta actual">Ayuda 💡</button>
-    <button id="next-btn" aria-label="Siguiente pregunta" disabled>Avanzar ➡️</button>
-    <button id="levels-btn" aria-label="Ver niveles desbloqueados">Ver niveles 📊</button>
+  <section id="quiz-screen" aria-label="Cuestionario de personajes bíblicos" tabindex="-1" hidden>
+    <h2 id="welcome-msg" aria-live="polite"></h2>
+    <div class="question" id="question-text" aria-live="assertive" aria-atomic="true"></div>
+    <div class="options" id="options-container" role="list" aria-label="Opciones de respuesta"></div>
 
-    <div id="progress-bar" aria-label="Barra de progreso del juego">
+    <div class="message-biblical" id="biblical-msg" aria-live="polite"></div>
+    <button id="help-btn" aria-label="Mostrar pista para la pregunta" title="Mostrar pista para la pregunta">Ayuda 💡</button>
+    <button id="next-btn" aria-label="Pasar a la siguiente pregunta" disabled>Siguiente ➡️</button>
+    <button id="levels-btn" aria-label="Mostrar niveles desbloqueados">Ver niveles 📊</button>
+
+    <div id="progress-bar" aria-label="Barra de progreso">
       <div id="progress-inner" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
     </div>
 
     <div id="levels-display" aria-label="Niveles desbloqueados" hidden>
-      <h3>Progreso y Niveles</h3>
+      <h3>Niveles y progreso</h3>
       <div id="levels-list"></div>
     </div>
   </section>
 
 </div>
 
-<!-- Sonidos -->
 <audio id="sound-correct" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
 <audio id="sound-wrong" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
-<audio id="sound-bounce" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
 <audio id="sound-help" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum_hit.ogg" preload="auto"></audio>
 <audio id="sound-celebrate" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
 
 <script>
 (() => {
-  'use strict';
-
-  const gameData = {
-    biblicalMessages: [
-      {text: "¡Sigue así! 📖 Dios te guía en cada paso. Salmos 32:8", emoji: "📖"},
-      {text: "¡Muy bien! 🌟 Recuerda que con Dios todo es posible. Mateo 19:26", emoji: "🌟"},
-      {text: "¡Dios está contigo siempre! 🙏 Isaías 41:10", emoji: "🙏"},
-      {text: "¡Aprender de la Biblia es una bendición! 📚 Proverbios 2:6", emoji: "📚"},
-      {text: "¡Confía en Dios y avanza! 🚶‍♂️ Josué 1:9", emoji: "🚶‍♂️"}
-    ],
-    questions: [
-      {
-        question: "¿Quién derrotó a Goliat con una piedra y una honda?",
-        options: ["David", "Moisés", "Abraham", "Elías"],
-        correct: 0,
-        reference: "1 Samuel 17",
-        emoji: "🪨"
-      },
-      {
-        question: "¿Quién fue conocido por construir un arca para salvar a su familia y animales del diluvio?",
-        options: ["Noé", "Jonás", "José", "Isaías"],
-        correct: 0,
-        reference: "Génesis 6-9",
-        emoji: "🛶"
-      },
-      {
-        question: "¿Quién recibió los Diez Mandamientos en el Monte Sinaí?",
-        options: ["Moisés", "David", "Saúl", "Elías"],
-        correct: 0,
-        reference: "Éxodo 19-20",
-        emoji: "📜"
-      },
-      {
-        question: "¿Quién fue el profeta que desafió a los profetas de Baal en el monte Carmelo?",
-        options: ["Elías", "Isaías", "Jeremías", "Samuel"],
-        correct: 0,
-        reference: "1 Reyes 18",
-        emoji: "🔥"
-      },
-      {
-        question: "¿Qué mujer se convirtió en reina y salvó a su pueblo en Persia?",
-        options: ["Ester", "Débora", "María", "Ruth"],
-        correct: 0,
-        reference: "Ester 2-8",
-        emoji: "👑"
-      }
-    ]
-  };
-
-  // Dom elements
   const startScreen = document.getElementById('start-screen');
   const quizScreen = document.getElementById('quiz-screen');
   const playerNameInput = document.getElementById('player-name');
   const startBtn = document.getElementById('start-btn');
+  const welcomeMsgInitial = document.getElementById('welcome-msg-initial');
   const welcomeMsg = document.getElementById('welcome-msg');
   const questionText = document.getElementById('question-text');
   const optionsContainer = document.getElementById('options-container');
-  const feedbackMsg = document.getElementById('feedback-msg');
+  const biblicalMsg = document.getElementById('biblical-msg');
   const helpBtn = document.getElementById('help-btn');
   const nextBtn = document.getElementById('next-btn');
   const levelsBtn = document.getElementById('levels-btn');
   const progressInner = document.getElementById('progress-inner');
   const levelsDisplay = document.getElementById('levels-display');
   const levelsList = document.getElementById('levels-list');
+  const feedbackMsg = document.getElementById('feedback-msg');
 
-  const soundCorrect = document.getElementById('sound-correct');
-  const soundWrong = document.getElementById('sound-wrong');
-  const soundBounce = document.getElementById('sound-bounce');
-  const soundHelp = document.getElementById('sound-help');
-  const soundCelebrate = document.getElementById('sound-celebrate');
+  const sounds = {
+    correct: document.getElementById('sound-correct'),
+    wrong: document.getElementById('sound-wrong'),
+    help: document.getElementById('sound-help'),
+    celebrate: document.getElementById('sound-celebrate'),
+  };
 
-  let playerName = '';
-  let currentQuestionIndex = 0;
-  let answeredCorrectly = false;
-  let progress = [];
-  let ignoreClicks = false;
+  const biblicalMotivation = [
+    {text:"¡Sigue así! 📖 Dios te guía en cada paso. Salmos 32:8", emoji:"📖"},
+    {text:"¡Muy bien! 🌟 Recuerda que con Dios todo es posible. Mateo 19:26", emoji:"🌟"},
+    {text:"¡Dios está contigo siempre! 🙏 Isaías 41:10", emoji:"🙏"},
+    {text:"¡Aprender de la Biblia es una bendición! 📚 Proverbios 2:6", emoji:"📚"},
+    {text:"¡Confía en Dios y avanza! 🚶‍♂️ Josué 1:9", emoji:"🚶‍♂️"}
+  ];
 
-  // Utilidades
-  function createEmojiSpan(emoji, title = '') {
-    const span = document.createElement('span');
-    span.textContent = emoji;
-    span.setAttribute('role', 'img');
-    if (title) span.setAttribute('aria-label', title);
-    span.classList.add('emoji-sm', 'emoji-animate');
-    return span;
-  }
-
-  function vibrateDevice(duration = 200) {
-    if (navigator.vibrate) navigator.vibrate(duration);
-  }
-
-  function playSound(soundEl) {
-    if (!soundEl) return;
-    soundEl.currentTime = 0;
-    soundEl.play().catch(() => {});
-  }
-
-  // Guardar y cargar progreso local
-  function loadProgress() {
-    const saved = localStorage.getItem('biblicalGameProgress');
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        if (data.playerName) {
-          playerName = data.playerName;
-          currentQuestionIndex = data.currentQuestionIndex || 0;
-          progress = data.progress || [];
-        }
-      } catch {}
+  const questions = [
+    {
+      question:"¿Quién derrotó a Goliat con una piedra y una honda?",
+      options:["David","Moisés","Abraham","Elías"],
+      correctIndex:0,
+      reference:"1 Samuel 17",
+      emoji:"🪨"
+    },
+    {
+      question:"¿Quién construyó un arca para salvar a su familia y animales?",
+      options:["Noé","Jonás","José","Isaías"],
+      correctIndex:0,
+      reference:"Génesis 6-9",
+      emoji:"🛶"
+    },
+    {
+      question:"¿Quién recibió los Diez Mandamientos en el Monte Sinaí?",
+      options:["Moisés","David","Saúl","Elías"],
+      correctIndex:0,
+      reference:"Éxodo 19-20",
+      emoji:"📜"
+    },
+    {
+      question:"¿Quién fue el profeta que desafió a los profetas de Baal en el Monte Carmelo?",
+      options:["Elías","Isaías","Jeremías","Samuel"],
+      correctIndex:0,
+      reference:"1 Reyes 18",
+      emoji:"🔥"
+    },
+    {
+      question:"¿Qué mujer se convirtió en reina y salvó a su pueblo en Persia?",
+      options:["Ester","Débora","María","Ruth"],
+      correctIndex:0,
+      reference:"Ester 2-8",
+      emoji:"👑"
     }
+  ];
+
+  let playerName = "";
+  let currentQuestion = 0;
+  let answeredCorrectly = false;
+  let progress = []; // array booleano por pregunta
+
+  // Carga progreso y nombre desde localStorage
+  function loadProgress() {
+    const storedName = localStorage.getItem('biblicoPlayerName');
+    const storedProgress = localStorage.getItem('biblicoProgress');
+    const storedCurrentQ = localStorage.getItem('biblicoCurrentQuestion');
+    if (storedName) playerName = storedName;
+    if (storedProgress) progress = JSON.parse(storedProgress);
+    if (storedCurrentQ) currentQuestion = Number(storedCurrentQ);
   }
+
+  // Guarda progreso y nombre en localStorage
   function saveProgress() {
-    localStorage.setItem('biblicalGameProgress', JSON.stringify({
-      playerName,
-      currentQuestionIndex,
-      progress
-    }));
+    localStorage.setItem('biblicoPlayerName', playerName);
+    localStorage.setItem('biblicoProgress', JSON.stringify(progress));
+    localStorage.setItem('biblicoCurrentQuestion', currentQuestion.toString());
   }
 
-  // Mensaje de bienvenida motivador
-  function showWelcomeMessage() {
-    welcomeMsg.innerHTML = `¡Hola <strong>${playerName}</strong>! 🙌 Dios te ama y está feliz de que quieras aprender sobre Sus historias. ¡Vamos a divertirnos y aprender juntos! 📖✨`;
+  // Animar botón rebote y tocar sonido
+  function animateStartButton() {
+    startBtn.classList.add('bounce');
+    setTimeout(() => {
+      startBtn.classList.remove('bounce');
+    }, 500);
+    sounds.help.play().catch(() => {});
   }
 
-  // Renderizar la pregunta actual
+  // Mostrar mensaje motivador aleatorio
+  function showBiblicalMotivation() {
+    const msg = biblicalMotivation[Math.floor(Math.random()*biblicalMotivation.length)];
+    biblicalMsg.textContent = msg.text;
+  }
+
+  // Actualiza la barra de progreso
+  function updateProgressBar() {
+    const total = questions.length;
+    const count = progress.filter(v => v).length;
+    const percent = Math.round((count/total)*100);
+    progressInner.style.width = percent + '%';
+    progressInner.textContent = `${percent}% ✅`;
+    progressInner.setAttribute('aria-valuenow', percent);
+  }
+
+  // Mostrar pregunta actual
   function renderQuestion() {
-    ignoreClicks = false;
     answeredCorrectly = false;
-    feedbackMsg.textContent = '';
-    nextBtn.disabled = true;
     helpBtn.disabled = false;
-    const q = gameData.questions[currentQuestionIndex];
-    questionText.innerHTML = `${q.question} ${createEmojiSpan(q.emoji).outerHTML}`;
-    optionsContainer.innerHTML = '';
-    q.options.forEach((opt, i) => {
+    nextBtn.disabled = true;
+    biblicalMsg.textContent = "";
+    feedbackMsg.textContent = "";
+    questionText.textContent = questions[currentQuestion].question + " " + questions[currentQuestion].emoji;
+    optionsContainer.innerHTML = "";
+    questions[currentQuestion].options.forEach((opt,i) => {
       const btn = document.createElement('button');
-      btn.type = 'button';
+      btn.className = 'option-btn';
       btn.textContent = opt;
-      btn.className = 'option-button';
-      btn.setAttribute('data-index', i);
-      btn.setAttribute('role', 'listitem');
-      btn.addEventListener('click', handleAnswer);
+      btn.type = 'button';
+      btn.onclick = () => handleAnswer(i);
       optionsContainer.appendChild(btn);
     });
-
     updateProgressBar();
     hideLevelsDisplay();
   }
 
-  // Manejar respuesta de opción
-  function handleAnswer(evt) {
-    if (ignoreClicks) return;
-    const chosenIndex = +evt.currentTarget.getAttribute('data-index');
-    const correctIndex = gameData.questions[currentQuestionIndex].correct;
-    if (chosenIndex === correctIndex) {
+  // Manejar respuesta seleccionada
+  function handleAnswer(selectedIndex) {
+    if (answeredCorrectly) return;
+    const correctIndex = questions[currentQuestion].correctIndex;
+    const buttons = [...optionsContainer.children];
+    if (selectedIndex === correctIndex) {
+      buttons[selectedIndex].classList.add('correct');
+      feedbackMsg.textContent = '¡Correcto! 📖 ¡Muy bien!';
+      feedbackMsg.style.color = '#3178c6';
+      progress[currentQuestion] = true;
+      playSound(sounds.correct);
       answeredCorrectly = true;
-      markOptionCorrect(chosenIndex);
-      showFeedbackCorrect();
-      playSound(soundCorrect);
-      playConfetti();
       nextBtn.disabled = false;
       helpBtn.disabled = true;
-      progress[currentQuestionIndex] = true;
+      confettiAnimation();
       saveProgress();
     } else {
-      playSound(soundWrong);
+      buttons[selectedIndex].classList.add('wrong');
+      feedbackMsg.textContent = `¡Casi! 🙏 Recuerda la historia (${questions[currentQuestion].reference}). Intenta de nuevo.`;
+      feedbackMsg.style.color = '#d33b3b';
+      playSound(sounds.wrong);
       vibrateDevice(300);
-      markOptionWrong(chosenIndex);
-      showFeedbackIncorrect();
+      buttons[selectedIndex].disabled = true;
     }
+    buttons.forEach(btn => btn.disabled = btn.classList.contains('correct'));
   }
 
-  // Marcar opción correcta y deshabilitar opciones
-  function markOptionCorrect(correctIdx) {
-    [...optionsContainer.children].forEach((btn, i) => {
-      btn.disabled = true;
-      if (i === correctIdx) btn.classList.add('correct');
-    });
-    ignoreClicks = true;
-  }
-
-  // Marcar opción incorrecta (permite volver a intentar)
-  function markOptionWrong(wrongIdx) {
-    const btn = optionsContainer.children[wrongIdx];
-    btn.classList.add('wrong');
-    btn.disabled = true;
-  }
-
-  // Mensaje motivador correcto
-  function showFeedbackCorrect() {
-    const msg = gameData.biblicalMessages[Math.floor(Math.random()*gameData.biblicalMessages.length)];
-    feedbackMsg.innerHTML = `${msg.text} ${createEmojiSpan(msg.emoji).outerHTML}`;
-    feedbackMsg.style.color = 'var(--color-correct)';
-  }
-
-  // Mensaje motivador incorrecto con referencia bíblica
-  function showFeedbackIncorrect() {
-    const q = gameData.questions[currentQuestionIndex];
-    feedbackMsg.innerHTML = `¡Casi! 🙏 Recuerda la historia referida en (${q.reference}). Intenta de nuevo.`;
-    feedbackMsg.style.color = 'var(--color-wrong)';
-  }
-
-  // Botón ayuda muestra pista con referencia bíblica y anima
+  // Botón ayuda muestra pista bíblica
   function showHelp() {
     if (answeredCorrectly) return;
-    const q = gameData.questions[currentQuestionIndex];
-    feedbackMsg.innerHTML = `Pista: Revisa (${q.reference}) para ayudarte.`;
-    playSound(soundHelp);
+    const ref = questions[currentQuestion].reference;
+    biblicalMsg.textContent = `Pista: Revisa la historia en ${ref} 📖`;
+    playSound(sounds.help);
   }
 
-  // Avanzar a siguiente pregunta
-  function goToNextQuestion() {
-    if (!answeredCorrectly) return;
-    currentQuestionIndex++;
-    if (currentQuestionIndex >= gameData.questions.length) {
-      currentQuestionIndex = 0;
+  // Botón siguiente pregunta
+  function nextQuestion() {
+    if(!answeredCorrectly) return;
+    currentQuestion++;
+    if (currentQuestion >= questions.length) {
+      alert(`¡Felicidades, ${playerName}! Has terminado el juego 🎉`);
+      currentQuestion = 0;
+      progress = [];
+      saveProgress();
+      showStartScreen();
+      return;
     }
-    renderQuestion();
     saveProgress();
+    renderQuestion();
   }
 
   // Mostrar niveles desbloqueados y progreso
-  function showLevels() {
-    levelsDisplay.hidden = !levelsDisplay.hidden;
-    if (!levelsDisplay.hidden) {
+  function toggleLevelsDisplay() {
+    if(levelsDisplay.hidden) {
       populateLevelsList();
-      levelsBtn.textContent = 'Ocultar niveles 📉';
+      levelsDisplay.hidden = false;
+      levelsBtn.textContent = "Ocultar niveles 📉";
     } else {
-      levelsBtn.textContent = 'Ver niveles 📊';
+      levelsDisplay.hidden = true;
+      levelsBtn.textContent = "Ver niveles 📊";
     }
   }
-  function hideLevelsDisplay() {
-    levelsDisplay.hidden = true;
-    levelsBtn.textContent = 'Ver niveles 📊';
-  }
+
+  // Rellenar lista de niveles
   function populateLevelsList() {
-    levelsList.innerHTML = '';
-    gameData.questions.forEach((q, idx) => {
+    levelsList.innerHTML = "";
+    questions.forEach((q,idx) => {
       const div = document.createElement('div');
-      div.className = "level-item" + (progress[idx] ? " unlocked" : "");
-      div.textContent = `Pregunta ${idx+1}: ${q.question} `;
-      const emoji = document.createElement('span');
-      emoji.className = "level-emoji";
-      emoji.textContent = progress[idx] ? "✅" : "🔒";
-      div.appendChild(emoji);
+      div.className = 'level-item';
+      if(progress[idx]) div.classList.add('unlocked');
+      div.textContent = `Pregunta ${idx + 1}: ${q.question}`;
+      const emojiSpan = document.createElement('span');
+      emojiSpan.setAttribute('aria-hidden',true);
+      emojiSpan.className = 'emoji';
+      emojiSpan.textContent = progress[idx] ? "✅" : "🔒";
+      div.appendChild(emojiSpan);
       levelsList.appendChild(div);
     });
   }
 
-  // Barra de progreso visual y emojis
-  function updateProgressBar() {
-    const total = gameData.questions.length;
-    const correctCount = progress.filter(v => v).length;
-    const percent = Math.round((correctCount / total) * 100);
-    progressInner.style.width = percent + '%';
-    progressInner.setAttribute('aria-valuenow', percent);
-    progressInner.textContent = `${percent}% 🎉`.repeat(1);
-
-    // Animar colores - ya en CSS con keyframes
+  // Mostrar pantalla de inicio
+  function showStartScreen() {
+    startScreen.style.display = "block";
+    quizScreen.style.display = "none";
+    biblicalMsg.textContent = "";
+    welcomeMsgInitial.style.display = "flex";
   }
 
-  // Confetti simple animado por pocos segundos
-  function playConfetti() {
-    const count = 15;
-    for (let i = 0; i < count; i++) {
+  // Mostrar pantalla de cuestionario
+  function showQuizScreen() {
+    startScreen.style.display = "none";
+    quizScreen.style.display = "flex";
+    welcomeMsgInitial.style.display = "none";
+    welcomeMsg.textContent = `¡Hola ${playerName}! 🙌 Dios te ama y está feliz de que quieras aprender sobre Sus historias. ¡Vamos a divertirnos y aprender juntos! 📖✨`;
+    renderQuestion();
+  }
+
+  // Vibrar en dispositivos compatibles
+  function vibrateDevice(ms = 200) {
+    if(navigator.vibrate) navigator.vibrate(ms);
+  }
+
+  // Reproducir sonido
+  function playSound(sound) {
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
+  }
+
+  // Confetti animación al responder correcto
+  function confettiAnimation() {
+    const colors = ['#ffbb33','#34c759','#ff3b30','#5856d6','#ff9500'];
+    const count = 20;
+    for(let i=0; i<count; i++) {
       const confetti = document.createElement('div');
-      confetti.className = 'confetti-piece';
-      confetti.style.left = `${Math.random()*100}%`;
-      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
-      confetti.style.top = '0';
-      confetti.style.animationDelay = `${i/20}s`;
-      confetti.style.position = 'fixed';
-      confetti.style.zIndex = '9999';
+      confetti.className = 'confetti';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+      confetti.style.left = Math.random()*100 + '%';
+      confetti.style.animationDelay = (i * 0.1) + 's';
       document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 1200);
+      setTimeout(() => confetti.remove(), 2000);
     }
-    playSound(soundCelebrate);
+    playSound(sounds.celebrate);
   }
 
-  // Animar botón comenzar con sonido al clic
+  // Ocultar niveles
+  function hideLevelsDisplay() {
+    levelsDisplay.hidden = true;
+    levelsBtn.textContent = "Ver niveles 📊";
+  }
+
+  // Eventos
   startBtn.addEventListener('click', () => {
     const name = playerNameInput.value.trim();
-    if (!name) {
-      alert('Por favor, escribe tu nombre para comenzar.');
+    if(!name) {
+      alert("Por favor escribe tu nombre");
       playerNameInput.focus();
       return;
     }
     playerName = name;
-    saveProgress();
-    startBtn.disabled = true;
-    playSound(soundBounce);
-    setTimeout(() => {
-      startScreen.hidden = true;
-      quizScreen.hidden = false;
-      showWelcomeMessage();
-      renderQuestion();
-      startBtn.disabled = false;
-    }, 400);
+    loadProgress();
+    showQuizScreen();
   });
-
   helpBtn.addEventListener('click', () => {
     showHelp();
   });
-
   nextBtn.addEventListener('click', () => {
-    goToNextQuestion();
+    nextQuestion();
   });
-
   levelsBtn.addEventListener('click', () => {
-    showLevels();
+    toggleLevelsDisplay();
   });
 
-  // Al cargar pagina, comprobar progreso guardado
-  function initialize() {
-    loadProgress();
-    if (playerName) {
-      startScreen.hidden = true;
-      quizScreen.hidden = false;
-      playerNameInput.value = playerName;
-      showWelcomeMessage();
-      renderQuestion();
-    }
+  loadProgress();
+  if(playerName) {
+    showQuizScreen();
+  } else {
+    showStartScreen();
   }
-
-  initialize();
-
 })();
+
+// Estilos y animación para confetti - generados por JS
+const styleSheet = document.createElement('style');
+styleSheet.type = 'text/css';
+styleSheet.innerText = `
+.confetti {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  opacity: 0.9;
+  animation: fall 1.5s linear forwards;
+  z-index: 10000;
+}
+@keyframes fall {
+  0% {transform: translateY(0) rotate(0deg);}
+  100% {transform: translateY(90vh) rotate(360deg);}
+}`;
+document.head.appendChild(styleSheet);
 </script>
 </body>
 </html>
