@@ -558,386 +558,206 @@
             }
         }
 
-        // Cargar preguntas desde JSON
-        async function loadQuestions() {
-            try {
-                // Datos completos con 20 niveles y 200 preguntas
-                gameData.levels = [
-                    {
-                        level: 1,
-                        title: "Nivel 1 — Personajes Principiantes",
-                        questions: [
-                            {
-                                id: "1-01",
-                                question: "¿Quién derrotó a Goliat con una piedra y una honda?",
-                                options: ["David", "Moisés", "Abraham", "Elías"],
-                                answerIndex: 0,
-                                hint: "Fue un joven pastor que confiaba en Dios.",
-                                reference: "1 Samuel 17"
-                            },
-                            {
-                                id: "1-02",
-                                question: "¿Quién construyó un arca para salvar a los animales?",
-                                options: ["Noé", "Moisés", "Abraham", "David"],
-                                answerIndex: 0,
-                                hint: "Dios le pidió que construyera un barco muy grande.",
-                                reference: "Génesis 6-9"
-                            },
-                            {
-                                id: "1-03",
-                                question: "¿Quién fue lanzado al foso de los leones pero Dios lo protegió?",
-                                options: ["Daniel", "José", "Jonás", "Elías"],
-                                answerIndex: 0,
-                                hint: "Oraba a Dios tres veces al día.",
-                                reference: "Daniel 6"
-                            },
-                            {
-                                id: "1-04",
-                                question: "¿Quién recibió los Diez Mandamientos en el Monte Sinaí?",
-                                options: ["Moisés", "Abraham", "Noé", "David"],
-                                answerIndex: 0,
-                                hint: "Guió al pueblo de Israel fuera de Egipto.",
-                                reference: "Éxodo 20"
-                            },
-                            {
-                                id: "1-05",
-                                question: "¿Quién fue traicionado por sus hermanos y vendido como esclavo?",
-                                options: ["José", "Jacob", "Isaac", "Ismael"],
-                                answerIndex: 0,
-                                hint: "Tenía una túnica de muchos colores.",
-                                reference: "Génesis 37"
-                            },
-                            {
-                                id: "1-06",
-                                question: "¿Quién fue el primer hombre que Dios creó?",
-                                options: ["Adán", "Noé", "Abraham", "Moisés"],
-                                answerIndex: 0,
-                                hint: "Dios lo formó del polvo de la tierra.",
-                                reference: "Génesis 2"
-                            },
-                            {
-                                id: "1-07",
-                                question: "¿Quién fue la primera mujer que Dios creó?",
-                                options: ["Eva", "Sara", "Rebeca", "María"],
-                                answerIndex: 0,
-                                hint: "Dios la formó de la costilla de Adán.",
-                                reference: "Génesis 2"
-                            },
-                            {
-                                id: "1-08",
-                                question: "¿Quién obedeció a Dios y llevó a su familia a una tierra desconocida?",
-                                options: ["Abraham", "Moisés", "Noé", "David"],
-                                answerIndex: 0,
-                                hint: "Dios le prometió que sería padre de una gran nación.",
-                                reference: "Génesis 12"
-                            },
-                            {
-                                id: "1-09",
-                                question: "¿Quién fue el hombre más sabio que existió?",
-                                options: ["Salomón", "David", "Moisés", "Abraham"],
-                                answerIndex: 0,
-                                hint: "Era hijo del rey David.",
-                                reference: "1 Reyes 3"
-                            },
-                            {
-                                id: "1-10",
-                                question: "¿Quién fue alimentado por cuervos en el desierto?",
-                                options: ["Elías", "Moisés", "David", "Jonás"],
-                                answerIndex: 0,
-                                hint: "Fue un profeta que desafió a los sacerdotes de Baal.",
-                                reference: "1 Reyes 17"
-                            }
-                        ]
-                    },
-                    {
-                        level: 2,
-                        title: "Nivel 2 — Historias de Fe",
-                        questions: [
-                            {
-                                id: "2-01",
-                                question: "¿Quién caminó sobre el agua hacia Jesús?",
-                                options: ["Pedro", "Juan", "Andrés", "Felipe"],
-                                answerIndex: 0,
-                                hint: "Era pescador y uno de los discípulos más cercanos a Jesús.",
-                                reference: "Mateo 14:22-33"
-                            },
-                            {
-                                id: "2-02",
-                                question: "¿Quién fue llamado por Dios desde una zarza ardiente?",
-                                options: ["Moisés", "Abraham", "Isaías", "Jeremías"],
-                                answerIndex: 0,
-                                hint: "Dios le dijo: 'Quita tus sandalias, porque el lugar que pisas es santo'.",
-                                reference: "Éxodo 3"
-                            },
-                            {
-                                id: "2-03",
-                                question: "¿Quién interpretó el sueño del faraón sobre las vacas gordas y flacas?",
-                                options: ["José", "Daniel", "Salomón", "Samuel"],
-                                answerIndex: 0,
-                                hint: "Había sido vendido como esclavo a Egipto por sus hermanos.",
-                                reference: "Génesis 41"
-                            },
-                            {
-                                id: "2-04",
-                                question: "¿Quién fue arrojado a un pozo por sus hermanos?",
-                                options: ["José", "David", "Jonás", "Jeremías"],
-                                answerIndex: 0,
-                                hint: "Sus hermanos estaban celosos porque era el favorito de su padre.",
-                                reference: "Génesis 37"
-                            },
-                            {
-                                id: "2-05",
-                                question: "¿Quién fue la madre de Samuel?",
-                                options: ["Ana", "Sara", "Rebeca", "Raquel"],
-                                answerIndex: 0,
-                                hint: "Ella oró fervientemente por un hijo y lo dedicó a Dios.",
-                                reference: "1 Samuel 1"
-                            },
-                            {
-                                id: "2-06",
-                                question: "¿Quién fue el primer mártir de la iglesia cristiana?",
-                                options: ["Esteban", "Pedro", "Pablo", "Juan"],
-                                answerIndex: 0,
-                                hint: "Mientras lo apedreaban, vio los cielos abiertos y a Jesús de pie.",
-                                reference: "Hechos 7"
-                            },
-                            {
-                                id: "2-07",
-                                question: "¿Quién fue transformado por Jesús de pescador a pescador de hombres?",
-                                options: ["Pedro", "Juan", "Andrés", "Santiago"],
-                                answerIndex: 0,
-                                hint: "Jesús le cambió el nombre de Simón a Pedro.",
-                                reference: "Mateo 4:18-20"
-                            },
-                            {
-                                id: "2-08",
-                                question: "¿Quién fue el discípulo amado de Jesús?",
-                                options: ["Juan", "Pedro", "Santiago", "Mateo"],
-                                answerIndex: 0,
-                                hint: "Escribió el evangelio que lleva su nombre y el libro de Apocalipsis.",
-                                reference: "Juan 13:23"
-                            },
-                            {
-                                id: "2-09",
-                                question: "¿Quién fue el hombre más fuerte de la Biblia?",
-                                options: ["Sansón", "Goliat", "David", "Saúl"],
-                                answerIndex: 0,
-                                hint: "Su fuerza estaba en su cabello, que nunca se cortó.",
-                                reference: "Jueces 16"
-                            },
-                            {
-                                id: "2-10",
-                                question: "¿Quién fue el rey que construyó el primer templo en Jerusalén?",
-                                options: ["Salomón", "David", "Saúl", "Ezequías"],
-                                answerIndex: 0,
-                                hint: "Era hijo del rey David y conocido por su gran sabiduría.",
-                                reference: "1 Reyes 6"
-                            }
-                        ]
-                    },
-                    {
-                        level: 3,
-                        title: "Nivel 3 — Milagros de Jesús",
-                        questions: [
-                            {
-                                id: "3-01",
-                                question: "¿A cuántas personas alimentó Jesús con cinco panes y dos peces?",
-                                options: ["5000", "1000", "7000", "4000"],
-                                answerIndex: 0,
-                                hint: "Jesús bendijo los panes y los peces, y todos comieron hasta saciarse.",
-                                reference: "Juan 6:1-14"
-                            },
-                            {
-                                id: "3-02",
-                                question: "¿Qué discípulo negó a Jesús tres veces antes de que cantara el gallo?",
-                                options: ["Pedro", "Juan", "Andrés", "Judas"],
-                                answerIndex: 0,
-                                hint: "Después de negar a Jesús, este discípulo lloró amargamente.",
-                                reference: "Mateo 26:69-75"
-                            },
-                            {
-                                id: "3-03",
-                                question: "¿Quién fue resucitado por Jesús después de cuatro días de muerto?",
-                                options: ["Lázaro", "El hijo de la viuda", "La hija de Jairo", "Dorcas"],
-                                answerIndex: 0,
-                                hint: "Jesús lloró antes de realizar este milagro.",
-                                reference: "Juan 11:1-44"
-                            },
-                            {
-                                id: "3-04",
-                                question: "¿Qué hizo Jesús en las bodas de Caná?",
-                                options: ["Convirtió agua en vino", "Sanó a un enfermo", "Multiplicó los panes", "Resucitó a un niño"],
-                                answerIndex: 0,
-                                hint: "Este fue el primer milagro de Jesús.",
-                                reference: "Juan 2:1-11"
-                            },
-                            {
-                                id: "3-05",
-                                question: "¿Cómo se llamaba el ciego que Jesús sanó en Jericó?",
-                                options: ["Bartimeo", "Lázaro", "Simón", "Mateo"],
-                                answerIndex: 0,
-                                hint: "Este hombre gritaba '¡Jesús, Hijo de David, ten misericordia de mí!'.",
-                                reference: "Marcos 10:46-52"
-                            },
-                            {
-                                id: "3-06",
-                                question: "¿Qué hizo Jesús cuando calmó la tormenta?",
-                                options: ["Reprendió al viento y al mar", "Oró para que cesara la lluvia", "Hizo que apareciera un arcoíris", "Caminó sobre las aguas"],
-                                answerIndex: 0,
-                                hint: "Jesús estaba durmiendo en la barca cuando comenzó la tormenta.",
-                                reference: "Marcos 4:35-41"
-                            },
-                            {
-                                id: "3-07",
-                                question: "¿A quién devolvió Jesús la vista haciendo lodo con saliva?",
-                                options: ["Un ciego de nacimiento", "Bartimeo", "La suegra de Pedro", "Un paralítico"],
-                                answerIndex: 0,
-                                hint: "Jesús dijo que este hombre era ciego para que las obras de Dios se manifestaran.",
-                                reference: "Juan 9:1-12"
-                            },
-                            {
-                                id: "3-08",
-                                question: "¿Cómo se llamaba la mujer que Jesús sanó de flujo de sangre?",
-                                options: ["No se menciona su nombre", "María", "Marta", "Salomé"],
-                                answerIndex: 0,
-                                hint: "Ella tocó el manto de Jesús y quedó sana al instante.",
-                                reference: "Marcos 5:25-34"
-                            },
-                            {
-                                id: "3-09",
-                                question: "¿Qué milagro realizó Jesús en el estanque de Betesda?",
-                                options: ["Sana a un paralítico", "Alimenta a 5000", "Calma la tempestad", "Convierte agua en vino"],
-                                answerIndex: 0,
-                                hint: "Jesús le dijo a este hombre: 'Levántate, toma tu lecho y anda'.",
-                                reference: "Juan 5:1-9"
-                            },
-                            {
-                                id: "3-10",
-                                question: "¿Qué hizo Jesús después de multiplicar los panes y los peces?",
-                                options: ["Caminó sobre el agua", "Subió a un monte a orar", "Sanó a diez leprosos", "Contó la parábola del sembrador"],
-                                answerIndex: 0,
-                                hint: "Los discípulos estaban en una barca cuando vieron a Jesús acercándose.",
-                                reference: "Mateo 14:22-33"
-                            }
-                        ]
-                    },
-                    {
-                        level: 4,
-                        title: "Nivel 4 — Parábolas de Jesús",
-                        questions: [
-                            {
-                                id: "4-01",
-                                question: "¿Qué parábola habla de un hijo que se fue de casa y despilfarró su herencia?",
-                                options: ["El hijo pródigo", "El buen samaritano", "El sembrador", "Las diez vírgenes"],
-                                answerIndex: 0,
-                                hint: "El padre celebró con una fiesta cuando su hijo regresó arrepentido.",
-                                reference: "Lucas 15:11-32"
-                            },
-                            {
-                                id: "4-02",
-                                question: "¿Qué parábola habla de un hombre que ayudó a un herido en el camino?",
-                                options: ["El buen samaritano", "El hijo pródigo", "El fariseo y el publicano", "La oveja perdida"],
-                                answerIndex: 0,
-                                hint: "Sacerdotes importantes pasaron de largo, pero este hombre se detuvo a ayudar.",
-                                reference: "Lucas 10:25-37"
-                            },
-                            {
-                                id: "4-03",
-                                question: "¿Qué parábola habla de semillas que caen en diferentes tipos de terreno?",
-                                options: ["El sembrador", "La semilla de mostaza", "El trigo y la cizaña", "Los talentos"],
-                                answerIndex: 0,
-                                hint: "Algunas semillas cayeron en camino pedregoso, entre espinos y en buena tierra.",
-                                reference: "Mateo 13:1-23"
-                            },
-                            {
-                                id: "4-04",
-                                question: "¿Qué parábola habla de diez jóvenes que esperaban al novio?",
-                                options: ["Las diez vírgenes", "Los talentos", "La gran cena", "El mayordomo infiel"],
-                                answerIndex: 0,
-                                hint: "Cinco eran prudentes y llevaban aceite extra, cinco eran insensatas.",
-                                reference: "Mateo 25:1-13"
-                            },
-                            {
-                                id: "4-05",
-                                question: "¿Qué parábola habla de un hombre que enterró el dinero que recibió?",
-                                options: ["Los talentos", "Las diez vírgenes", "El hijo pródigo", "La perla de gran precio"],
-                                answerIndex: 0,
-                                hint: "Los otros siervos negociaron con el dinero y ganaron más.",
-                                reference: "Mateo 25:14-30"
-                            },
-                            {
-                                id: "4-06",
-                                question: "¿Qué parábola habla de un pastor que busca una oveja perdida?",
-                                options: ["La oveja perdida", "El buen samaritano", "El hijo pródigo", "La moneda perdida"],
-                                answerIndex: 0,
-                                hint: "El pastor deja las 99 ovejas para buscar la que se perdió.",
-                                reference: "Lucas 15:3-7"
-                            },
-                            {
-                                id: "4-07",
-                                question: "¿Qué parábola habla de un hombre que encuentra un tesoro escondido?",
-                                options: ["El tesoro escondido", "La perla de gran precio", "Los talentos", "El sembrador"],
-                                answerIndex: 0,
-                                hint: "El hombre vende todo lo que tiene para comprar el campo donde está el tesoro.",
-                                reference: "Mateo 13:44"
-                            },
-                            {
-                                id: "4-08",
-                                question: "¿Qué parábola habla de un hombre que siembra buena semilla y su enemigo siembra mala hierba?",
-                                options: ["El trigo y la cizaña", "El sembrador", "La semilla de mostaza", "Los labradores malvados"],
-                                answerIndex: 0,
-                                hint: "Jesús explica que al final de los tiempos los ángeles separarán lo bueno de lo malo.",
-                                reference: "Mateo 13:24-30"
-                            },
-                            {
-                                id: "4-09",
-                                question: "¿Qué parábola habla de un fariseo y un recaudador de impuestos que oraban en el templo?",
-                                options: ["El fariseo y el publicano", "El buen samaritano", "Los dos hijos", "La oveja perdida"],
-                                answerIndex: 0,
-                                hint: "El recaudador de impuestos se consideraba pecador, mientras que el fariseo se creía justo.",
-                                reference: "Lucas 18:9-14"
-                            },
-                            {
-                                id: "4-10",
-                                question: "¿Qué parábola habla de una pequeña semilla que se convierte en un gran árbol?",
-                                options: ["La semilla de mostaza", "El sembrador", "El trigo y la cizaña", "Los talentos"],
-                                answerIndex: 0,
-                                hint: "Jesús comparó esta semilla con el reino de los cielos.",
-                                reference: "Mateo 13:31-32"
-                            }
-                        ]
-                    },
-                    // Niveles 5-20 continuarían aquí con 10 preguntas cada uno
-                    // Para ahorrar espacio, solo se muestran los primeros 4 niveles
-                    // En la implementación completa habría 20 niveles con 200 preguntas
-                ];
-                
-                // Mezclar opciones en todas las preguntas
-                gameData.levels.forEach(level => {
-                    level.questions.forEach(question => {
-                        // Guardar la respuesta correcta
-                        const correctAnswer = question.options[question.answerIndex];
-                        
-                        // Mezclar las opciones
-                        for (let i = question.options.length - 1; i > 0; i--) {
-                            const j = Math.floor(Math.random() * (i + 1));
-                            [question.options[i], question.options[j]] = [question.options[j], question.options[i]];
+        // Cargar preguntas
+        function loadQuestions() {
+            // Datos de ejemplo con 2 niveles y 20 preguntas
+            gameData.levels = [
+                {
+                    level: 1,
+                    title: "Nivel 1 — Personajes Principiantes",
+                    questions: [
+                        {
+                            id: "1-01",
+                            question: "¿Quién derrotó a Goliat con una piedra y una honda?",
+                            options: ["David", "Moisés", "Abraham", "Elías"],
+                            answerIndex: 0,
+                            hint: "Fue un joven pastor que confiaba en Dios.",
+                            reference: "1 Samuel 17"
+                        },
+                        {
+                            id: "1-02",
+                            question: "¿Quién construyó un arca para salvar a los animales?",
+                            options: ["Noé", "Moisés", "Abraham", "David"],
+                            answerIndex: 0,
+                            hint: "Dios le pidió que construyera un barco muy grande.",
+                            reference: "Génesis 6-9"
+                        },
+                        {
+                            id: "1-03",
+                            question: "¿Quién fue lanzado al foso de los leones pero Dios lo protegió?",
+                            options: ["Daniel", "José", "Jonás", "Elías"],
+                            answerIndex: 0,
+                            hint: "Oraba a Dios tres veces al día.",
+                            reference: "Daniel 6"
+                        },
+                        {
+                            id: "1-04",
+                            question: "¿Quién recibió los Diez Mandamientos en el Monte Sinaí?",
+                            options: ["Moisés", "Abraham", "Noé", "David"],
+                            answerIndex: 0,
+                            hint: "Guió al pueblo de Israel fuera de Egipto.",
+                            reference: "Éxodo 20"
+                        },
+                        {
+                            id: "1-05",
+                            question: "¿Quién fue traicionado por sus hermanos y vendido como esclavo?",
+                            options: ["José", "Jacob", "Isaac", "Ismael"],
+                            answerIndex: 0,
+                            hint: "Tenía una túnica de muchos colores.",
+                            reference: "Génesis 37"
+                        },
+                        {
+                            id: "1-06",
+                            question: "¿Quién fue el primer hombre que Dios creó?",
+                            options: ["Adán", "Noé", "Abraham", "Moisés"],
+                            answerIndex: 0,
+                            hint: "Dios lo formó del polvo de la tierra.",
+                            reference: "Génesis 2"
+                        },
+                        {
+                            id: "1-07",
+                            question: "¿Quién fue la primera mujer que Dios creó?",
+                            options: ["Eva", "Sara", "Rebeca", "María"],
+                            answerIndex: 0,
+                            hint: "Dios la formó de la costilla de Adán.",
+                            reference: "Génesis 2"
+                        },
+                        {
+                            id: "1-08",
+                            question: "¿Quién obedeció a Dios y llevó a su familia a una tierra desconocida?",
+                            options: ["Abraham", "Moisés", "Noé", "David"],
+                            answerIndex: 0,
+                            hint: "Dios le prometió que sería padre de una gran nación.",
+                            reference: "Génesis 12"
+                        },
+                        {
+                            id: "1-09",
+                            question: "¿Quién fue el hombre más sabio que existió?",
+                            options: ["Salomón", "David", "Moisés", "Abraham"],
+                            answerIndex: 0,
+                            hint: "Era hijo del rey David.",
+                            reference: "1 Reyes 3"
+                        },
+                        {
+                            id: "1-10",
+                            question: "¿Quién fue alimentado por cuervos en el desierto?",
+                            options: ["Elías", "Moisés", "David", "Jonás"],
+                            answerIndex: 0,
+                            hint: "Fue un profeta que desafió a los sacerdotes de Baal.",
+                            reference: "1 Reyes 17"
                         }
-                        
-                        // Encontrar el nuevo índice de la respuesta correcta
-                        question.answerIndex = question.options.indexOf(correctAnswer);
-                    });
-                });
-                
-                // Inicializar progreso si no existe
-                if (!localStorage.getItem('bibleQuizProgress')) {
-                    initializeProgress();
-                } else {
-                    loadProgress();
+                    ]
+                },
+                {
+                    level: 2,
+                    title: "Nivel 2 — Historias de Fe",
+                    questions: [
+                        {
+                            id: "2-01",
+                            question: "¿Quién caminó sobre el agua hacia Jesús?",
+                            options: ["Pedro", "Juan", "Andrés", "Felipe"],
+                            answerIndex: 0,
+                            hint: "Era pescador y uno de los discípulos más cercanos a Jesús.",
+                            reference: "Mateo 14:22-33"
+                        },
+                        {
+                            id: "2-02",
+                            question: "¿Quién fue llamado por Dios desde una zarza ardiente?",
+                            options: ["Moisés", "Abraham", "Isaías", "Jeremías"],
+                            answerIndex: 0,
+                            hint: "Dios le dijo: 'Quita tus sandalias, porque el lugar que pisas es santo'.",
+                            reference: "Éxodo 3"
+                        },
+                        {
+                            id: "2-03",
+                            question: "¿Quién interpretó el sueño del faraón sobre las vacas gordas y flacas?",
+                            options: ["José", "Daniel", "Salomón", "Samuel"],
+                            answerIndex: 0,
+                            hint: "Había sido vendido como esclavo a Egipto por sus hermanos.",
+                            reference: "Génesis 41"
+                        },
+                        {
+                            id: "2-04",
+                            question: "¿Quién fue arrojado a un pozo por sus hermanos?",
+                            options: ["José", "David", "Jonás", "Jeremías"],
+                            answerIndex: 0,
+                            hint: "Sus hermanos estaban celosos porque era el favorito de su padre.",
+                            reference: "Génesis 37"
+                        },
+                        {
+                            id: "2-05",
+                            question: "¿Quién fue la madre de Samuel?",
+                            options: ["Ana", "Sara", "Rebeca", "Raquel"],
+                            answerIndex: 0,
+                            hint: "Ella oró fervientemente por un hijo y lo dedicó a Dios.",
+                            reference: "1 Samuel 1"
+                        },
+                        {
+                            id: "2-06",
+                            question: "¿Quién fue el primer mártir de la iglesia cristiana?",
+                            options: ["Esteban", "Pedro", "Pablo", "Juan"],
+                            answerIndex: 0,
+                            hint: "Mientras lo apedreaban, vio los cielos abiertos y a Jesús de pie.",
+                            reference: "Hechos 7"
+                        },
+                        {
+                            id: "2-07",
+                            question: "¿Quién fue transformado por Jesús de pescador a pescador de hombres?",
+                            options: ["Pedro", "Juan", "Andrés", "Santiago"],
+                            answerIndex: 0,
+                            hint: "Jesús le cambió el nombre de Simón a Pedro.",
+                            reference: "Mateo 4:18-20"
+                        },
+                        {
+                            id: "2-08",
+                            question: "¿Quién fue el discípulo amado de Jesús?",
+                            options: ["Juan", "Pedro", "Santiago", "Mateo"],
+                            answerIndex: 0,
+                            hint: "Escribió el evangelio que lleva su nombre y el libro de Apocalipsis.",
+                            reference: "Juan 13:23"
+                        },
+                        {
+                            id: "2-09",
+                            question: "¿Quién fue el hombre más fuerte de la Biblia?",
+                            options: ["Sansón", "Goliat", "David", "Saúl"],
+                            answerIndex: 0,
+                            hint: "Su fuerza estaba en su cabello, que nunca se cortó.",
+                            reference: "Jueces 16"
+                        },
+                        {
+                            id: "2-10",
+                            question: "¿Quién fue el rey que construyó el primer templo en Jerusalén?",
+                            options: ["Salomón", "David", "Saúl", "Ezequías"],
+                            answerIndex: 0,
+                            hint: "Era hijo del rey David y conocido por su gran sabiduría.",
+                            reference: "1 Reyes 6"
+                        }
+                    ]
                 }
-            } catch (error) {
-                console.error('Error cargando preguntas:', error);
+            ];
+            
+            // Mezclar opciones en todas las preguntas
+            gameData.levels.forEach(level => {
+                level.questions.forEach(question => {
+                    // Guardar la respuesta correcta
+                    const correctAnswer = question.options[question.answerIndex];
+                    
+                    // Mezclar las opciones
+                    for (let i = question.options.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [question.options[i], question.options[j]] = [question.options[j], question.options[i]];
+                    }
+                    
+                    // Encontrar el nuevo índice de la respuesta correcta
+                    question.answerIndex = question.options.indexOf(correctAnswer);
+                });
+            });
+            
+            // Inicializar progreso si no existe
+            if (!localStorage.getItem('bibleQuizProgress')) {
                 initializeProgress();
+            } else {
+                loadProgress();
             }
         }
 
@@ -1282,23 +1102,29 @@
         }
 
         // Inicializar juego
-        async function initGame() {
-            await loadQuestions();
+        function initGame() {
+            loadQuestions();
             loadLevelMap();
             
-            // Event listeners
+            // Asignar event listeners a los botones
             document.getElementById('start-btn').addEventListener('click', startGame);
-            document.getElementById('view-levels-btn').addEventListener('click', () => {
+            document.getElementById('view-levels-btn').addEventListener('click', function() {
                 loadLevelMap();
                 showScreen('levels-screen');
             });
             document.getElementById('reset-progress-btn').addEventListener('click', resetProgress);
-            document.getElementById('back-from-levels').addEventListener('click', () => showScreen('welcome-screen'));
+            document.getElementById('back-from-levels').addEventListener('click', function() {
+                showScreen('welcome-screen');
+            });
             document.getElementById('show-hint-btn').addEventListener('click', showHint);
             document.getElementById('next-question-btn').addEventListener('click', nextQuestion);
-            document.getElementById('back-to-levels').addEventListener('click', () => showScreen('levels-screen'));
-            document.getElementById('play-again-btn').addEventListener('click', () => loadLevel(gameData.currentLevel));
-            document.getElementById('next-level-btn').addEventListener('click', () => {
+            document.getElementById('back-to-levels').addEventListener('click', function() {
+                showScreen('levels-screen');
+            });
+            document.getElementById('play-again-btn').addEventListener('click', function() {
+                loadLevel(gameData.currentLevel);
+            });
+            document.getElementById('next-level-btn').addEventListener('click', function() {
                 if (gameData.currentLevel < gameData.levels.length) {
                     loadLevel(gameData.currentLevel + 1);
                 } else {
@@ -1306,20 +1132,16 @@
                     showScreen('levels-screen');
                 }
             });
-            document.getElementById('back-to-levels-from-results').addEventListener('click', () => {
+            document.getElementById('back-to-levels-from-results').addEventListener('click', function() {
                 showScreen('levels-screen');
             });
             
-            document.getElementById('player-name').addEventListener('input', (e) => {
+            document.getElementById('player-name').addEventListener('input', function(e) {
                 updateWelcomeMessage(e.target.value || 'amigo/a');
             });
             
-            document.getElementById('theme-selector').addEventListener('change', (e) => {
+            document.getElementById('theme-selector').addEventListener('change', function(e) {
                 changeTheme(e.target.value);
-            });
-            
-            document.getElementById('sound-enabled').addEventListener('change', (e) => {
-                // No es necesario hacer nada aquí ya que los sonidos se controlan con playSound()
             });
             
             // Cargar tema guardado si existe
@@ -1330,13 +1152,13 @@
             }
             
             // Guardar preferencias de tema
-            document.getElementById('theme-selector').addEventListener('change', (e) => {
+            document.getElementById('theme-selector').addEventListener('change', function(e) {
                 localStorage.setItem('bibleQuizTheme', e.target.value);
             });
             
             // Reproducir sonido de clic en botones
             document.querySelectorAll('button').forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', function() {
                     playSound(sounds.click);
                 });
             });
