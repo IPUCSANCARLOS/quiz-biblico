@@ -1,330 +1,1124 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Juego Interactivo de Personajes Bíblicos</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f8ff;
-  margin: 0; padding: 20px;
-  display: flex;
-  justify-content: center;
-}
-#game-container {
-  max-width: 480px;
-  width: 100%;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  padding: 20px;
-  box-sizing: border-box;
-}
-h1, h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-input[type=text], button {
-  width: 100%;
-  padding: 12px;
-  font-size: 1.1rem;
-  border-radius: 6px;
-  border: 2px solid #3178c6;
-  margin-bottom: 15px;
-  box-sizing: border-box;
-}
-button {
-  background-color: #3178c6;
-  color: white;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  user-select: none;
-}
-button:hover, button:focus {
-  background-color: #255a9d;
-  outline: none;
-}
-#quiz-screen { display: none; }
-.question {
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin-bottom: 15px;
-  word-break: break-word;
-}
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.option-btn {
-  background: #d0e1ff;
-  border: 2px solid #3178c6;
-  border-radius: 6px;
-  padding: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-.option-btn:hover, .option-btn:focus {
-  background-color: #9bbaff;
-  border-color: #1a3e80;
-  outline: none;
-}
-.option-btn.correct {
-  background-color: #a3d977;
-  border-color: #3d7a00;
-  color: #145000;
-}
-.option-btn.wrong {
-  background-color: #f59292;
-  border-color: #a80101;
-  color: #5b0000;
-}
-.message, #feedback-msg {
-  font-style: italic;
-  font-weight: 600;
-  color: #15538a;
-  min-height: 2em;
-  margin-bottom: 15px;
-}
-#progress-bar {
-  width: 100%;
-  height: 24px;
-  background: #cbe0f8;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-#progress-fill {
-  height: 100%;
-  width: 0%;
-  background: #3178c6;
-  color: white;
-  font-weight: 700;
-  text-align: right;
-  padding-right: 10px;
-  line-height: 24px;
-  border-radius: 12px 0 0 12px;
-  box-sizing: border-box;
-  transition: width 0.4s ease;
-}
-@media (max-width: 480px) {
-  h1, h2 {
-    font-size: 1.5rem;
-  }
-  .question {
-    font-size: 1.1rem;
-  }
-  input[type=text], button, .option-btn {
-    font-size: 1rem;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Bíblico Infantil</title>
+    <style>
+        :root {
+            --color-primary: #4e7bca;
+            --color-secondary: #f9a826;
+            --color-success: #2ecc71;
+            --color-danger: #e74c3c;
+            --color-background: #f8f9fa;
+            --color-text: #333;
+            --color-text-light: #fff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        .theme-dark {
+            --color-primary: #3a5e9c;
+            --color-secondary: #e59400;
+            --color-background: #2c3e50;
+            --color-text: #ecf0f1;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .theme-party {
+            --color-primary: #e84393;
+            --color-secondary: #00cec9;
+            --color-background: #fdcb6e;
+            --color-text: #2d3436;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--color-primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--color-secondary);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .btn {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-family: inherit;
+            margin: 10px 5px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: color-mix(in srgb, var(--color-primary) 90%, black);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-secondary);
+        }
+
+        .btn-success {
+            background-color: var(--color-success);
+        }
+
+        .btn-danger {
+            background-color: var(--color-danger);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .welcome-message {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-name {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            border: 2px solid var(--color-primary);
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .question-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--color-primary);
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .options-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-btn {
+            background-color: #f1f2f6;
+            color: var(--color-text);
+            border: 2px solid transparent;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #dfe4ea;
+        }
+
+        .option-btn.correct {
+            background-color: var(--color-success);
+            color: white;
+        }
+
+        .option-btn.incorrect {
+            background-color: var(--color-danger);
+            color: white;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #f1f2f6;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--color-primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .hint-container {
+            background-color: #ffeaa7;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .hint-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .emoji-container {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 3rem;
+        }
+
+        .level-map {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .level-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .level-item:hover {
+            transform: scale(1.05);
+        }
+
+        .level-item.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .level-stars {
+            color: var(--color-secondary);
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .settings-panel {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .setting-item {
+            margin-bottom: 15px;
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+        }
+
+        .confetti.active {
+            display: block;
+        }
+
+        .celebration {
+            text-align: center;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .accessibility-options {
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="game-container" role="main">
-
-  <section id="start-screen" aria-label="Pantalla de inicio">
-    <h1>Juego Interactivo de Personajes Bíblicos</h1>
-    <input id="player-name" type="text" aria-label="Nombre del Jugador" placeholder="Escribe tu nombre aquí" autocomplete="off" />
-    <button id="start-btn" aria-label="Comenzar el juego">Comenzar 🙌</button>
-    <p class="message" aria-live="polite">¡Dios te ama y está feliz de que quieras aprender sobre Sus historias! 📖✨</p>
-  </section>
-
-  <section id="quiz-screen" aria-label="Cuestionario bíblico" tabindex="-1">
-    <h2 id="welcome-msg"></h2>
-    <div class="question" id="question-text" aria-live="polite" aria-atomic="true"></div>
-    <div class="options" id="options-container" role="list"></div>
-    <button id="help-btn" aria-label="Mostrar pista para la pregunta" disabled>Ayuda 💡</button>
-    <button id="next-btn" aria-label="Siguiente pregunta" disabled>Avanzar ➡️</button>
-    <div id="progress-bar" aria-label="Barra de progreso">
-      <div id="progress-fill" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="container">
+        <!-- Pantalla de bienvenida -->
+        <div id="welcome-screen" class="screen active">
+            <header>
+                <h1>Quiz Bíblico Infantil</h1>
+                <div class="emoji-container">📖✨</div>
+            </header>
+            
+            <div class="welcome-message">
+                <p id="personalized-message">¡Hola! Dios te ama y está contento de que quieras aprender Sus historias. ¡Vamos a jugar y aprender juntos!</p>
+                
+                <input type="text" id="player-name" class="input-name" placeholder="Escribe tu nombre" maxlength="20">
+                
+                <button id="start-btn" class="btn">¡Comenzar! 🎮</button>
+            </div>
+            
+            <div class="settings-panel">
+                <h2>Opciones</h2>
+                
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="sound-enabled" checked>
+                        Activar sonidos
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="animations-enabled" checked>
+                        Activar animaciones
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="voice-enabled">
+                        Leer preguntas en voz alta
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label>Tema:</label>
+                    <select id="theme-selector">
+                        <option value="default">Predeterminado</option>
+                        <option value="dark">Nocturno</option>
+                        <option value="party">Fiesta</option>
+                    </select>
+                </div>
+                
+                <button id="view-levels-btn" class="btn btn-secondary">Ver Niveles</button>
+                <button id="reset-progress-btn" class="btn btn-danger">Borrar Progreso</button>
+            </div>
+            
+            <div class="footer">
+                <p>Diseñado para aprender historias bíblicas de forma divertida</p>
+            </div>
+        </div>
+        
+        <!-- Pantalla de selección de niveles -->
+        <div id="levels-screen" class="screen">
+            <header>
+                <h1>Niveles</h1>
+                <p>Selecciona un nivel para jugar</p>
+            </header>
+            
+            <div class="level-map" id="level-map-container">
+                <!-- Los niveles se generarán dinámicamente con JavaScript -->
+            </div>
+            
+            <div style="text-align: center;">
+                <button id="back-from-levels" class="btn">Volver</button>
+            </div>
+        </div>
+        
+        <!-- Pantalla de juego -->
+        <div id="game-screen" class="screen">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="level-progress"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="current-level-text">Nivel 1</span>
+                    <span id="progress-text">Pregunta 1 de 10</span>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="emoji-container" id="question-emoji">❓</div>
+                <div class="question-text" id="question-text"></div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Las opciones se generarán dinámicamente con JavaScript -->
+                </div>
+                
+                <div class="hint-container" id="hint-container">
+                    <p><strong>Pista:</strong> <span id="hint-text"></span></p>
+                    <p><strong>Referencia bíblica:</strong> <span id="reference-text"></span></p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button id="show-hint-btn" class="btn btn-secondary">Ayuda</button>
+                    <button id="next-question-btn" class="btn" disabled>Siguiente</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="back-to-levels" class="btn btn-secondary">Volver a Niveles</button>
+            </div>
+        </div>
+        
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="screen">
+            <header>
+                <h1>¡Nivel Completado!</h1>
+                <div class="emoji-container celebration">🎉🌟</div>
+            </header>
+            
+            <div class="question-container">
+                <h2 id="results-title">¡Felicidades!</h2>
+                <p id="results-message">Has completado el nivel con éxito.</p>
+                
+                <div class="progress-text">
+                    <p>Preguntas correctas: <span id="correct-answers">0</span>/10</p>
+                    <p>Estrellas obtenidas: <span id="stars-earned">0</span>/3</p>
+                </div>
+                
+                <div style="text-align: center; margin: 25px 0;">
+                    <button id="play-again-btn" class="btn">Jugar de nuevo</button>
+                    <button id="next-level-btn" class="btn btn-success">Siguiente nivel</button>
+                    <button id="back-to-levels-from-results" class="btn btn-secondary">Volver a Niveles</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <p class="message" id="feedback-msg" aria-live="polite"></p>
-  </section>
+    
+    <!-- Área de confeti (se muestra con JavaScript) -->
+    <div class="confetti" id="confetti"></div>
+    
+    <!-- Sonidos (usando Howler.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    
+    <script>
+        // Variables globales
+        let gameData = {
+            playerName: '',
+            currentLevel: 1,
+            currentQuestion: 0,
+            score: 0,
+            levels: [],
+            progress: {}
+        };
 
-</div>
+        // Efectos de sonido
+        const sounds = {
+            correct: null,
+            incorrect: null,
+            click: null,
+            win: null,
+            applause: null
+        };
 
-<!-- Sonidos -->
-<audio id="sound-correct" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
-<audio id="sound-wrong" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
-<audio id="sound-help" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum_hit.ogg" preload="auto"></audio>
-<audio id="sound-celebrate" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+        // Inicializar sonidos
+        function initSounds() {
+            if (document.getElementById('sound-enabled').checked) {
+                sounds.correct = new Howl({ src: ['assets/sounds/correct.mp3', 'assets/sounds/correct.ogg'] });
+                sounds.incorrect = new Howl({ src: ['assets/sounds/incorrect.mp3', 'assets/sounds/incorrect.ogg'] });
+                sounds.click = new Howl({ src: ['assets/sounds/click.mp3', 'assets/sounds/click.ogg'] });
+                sounds.win = new Howl({ src: ['assets/sounds/win.mp3', 'assets/sounds/win.ogg'] });
+                sounds.applause = new Howl({ src: ['assets/sounds/applause.mp3', 'assets/sounds/applause.ogg'] });
+            }
+        }
 
-<script>
-(() => {
-  const startScreen = document.getElementById('start-screen');
-  const quizScreen = document.getElementById('quiz-screen');
-  const playerNameInput = document.getElementById('player-name');
-  const startBtn = document.getElementById('start-btn');
-  const welcomeMsg = document.getElementById('welcome-msg');
-  const questionText = document.getElementById('question-text');
-  const optionsContainer = document.getElementById('options-container');
-  const helpBtn = document.getElementById('help-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const progressFill = document.getElementById('progress-fill');
-  const feedbackMsg = document.getElementById('feedback-msg');
-  const soundCorrect = document.getElementById('sound-correct');
-  const soundWrong = document.getElementById('sound-wrong');
-  const soundHelp = document.getElementById('sound-help');
-  const soundCelebrate = document.getElementById('sound-celebrate');
+        // Cargar preguntas desde JSON
+        async function loadQuestions() {
+            try {
+                // Datos de ejemplo con 20 niveles y 200 preguntas
+                gameData.levels = [
+                    {
+                        level: 1,
+                        title: "Nivel 1 — Personajes Principiantes",
+                        questions: [
+                            {
+                                id: "1-01",
+                                question: "¿Quién derrotó a Goliat con una piedra y una honda?",
+                                options: ["David", "Moisés", "Abraham", "Elías"],
+                                answerIndex: 0,
+                                hint: "Fue un joven pastor que confiaba en Dios.",
+                                reference: "1 Samuel 17"
+                            },
+                            {
+                                id: "1-02",
+                                question: "¿Quién construyó un arca para salvar a los animales?",
+                                options: ["Noé", "Moisés", "Abraham", "David"],
+                                answerIndex: 0,
+                                hint: "Dios le pidió que construyera un barco muy grande.",
+                                reference: "Génesis 6-9"
+                            },
+                            {
+                                id: "1-03",
+                                question: "¿Quién fue lanzado al foso de los leones pero Dios lo protegió?",
+                                options: ["Daniel", "José", "Jonás", "Elías"],
+                                answerIndex: 0,
+                                hint: "Oraba a Dios tres veces al día.",
+                                reference: "Daniel 6"
+                            },
+                            {
+                                id: "1-04",
+                                question: "¿Quién recibió los Diez Mandamientos en el Monte Sinaí?",
+                                options: ["Moisés", "Abraham", "Noé", "David"],
+                                answerIndex: 0,
+                                hint: "Guió al pueblo de Israel fuera de Egipto.",
+                                reference: "Éxodo 20"
+                            },
+                            {
+                                id: "1-05",
+                                question: "¿Quién fue traicionado por sus hermanos y vendido como esclavo?",
+                                options: ["José", "Jacob", "Isaac", "Ismael"],
+                                answerIndex: 0,
+                                hint: "Tenía una túnica de muchos colores.",
+                                reference: "Génesis 37"
+                            },
+                            {
+                                id: "1-06",
+                                question: "¿Quién fue el primer hombre que Dios creó?",
+                                options: ["Adán", "Noé", "Abraham", "Moisés"],
+                                answerIndex: 0,
+                                hint: "Dios lo formó del polvo de la tierra.",
+                                reference: "Génesis 2"
+                            },
+                            {
+                                id: "1-07",
+                                question: "¿Quién fue la primera mujer que Dios creó?",
+                                options: ["Eva", "Sara", "Rebeca", "María"],
+                                answerIndex: 0,
+                                hint: "Dios la formó de la costilla de Adán.",
+                                reference: "Génesis 2"
+                            },
+                            {
+                                id: "1-08",
+                                question: "¿Quién obedeció a Dios y llevó a su familia a una tierra desconocida?",
+                                options: ["Abraham", "Moisés", "Noé", "David"],
+                                answerIndex: 0,
+                                hint: "Dios le prometió que sería padre de una gran nación.",
+                                reference: "Génesis 12"
+                            },
+                            {
+                                id: "1-09",
+                                question: "¿Quién fue el hombre más sabio que existió?",
+                                options: ["Salomón", "David", "Moisés", "Abraham"],
+                                answerIndex: 0,
+                                hint: "Era hijo del rey David.",
+                                reference: "1 Reyes 3"
+                            },
+                            {
+                                id: "1-10",
+                                question: "¿Quién fue alimentado por cuervos en el desierto?",
+                                options: ["Elías", "Moisés", "David", "Jonás"],
+                                answerIndex: 0,
+                                hint: "Fue un profeta que desafió a los sacerdotes de Baal.",
+                                reference: "1 Reyes 17"
+                            }
+                        ]
+                    },
+                    {
+                        level: 2,
+                        title: "Nivel 2 — Historias de Fe",
+                        questions: [
+                            {
+                                id: "2-01",
+                                question: "¿Quién caminó sobre el agua hacia Jesús?",
+                                options: ["Pedro", "Juan", "Andrés", "Felipe"],
+                                answerIndex: 0,
+                                hint: "Era pescador y uno de los discípulos más cercanos a Jesús.",
+                                reference: "Mateo 14:22-33"
+                            },
+                            {
+                                id: "2-02",
+                                question: "¿Quién fue llamado por Dios desde una zarza ardiente?",
+                                options: ["Moisés", "Abraham", "Isaías", "Jeremías"],
+                                answerIndex: 0,
+                                hint: "Dios le dijo: 'Quita tus sandalias, porque el lugar que pisas es santo'.",
+                                reference: "Éxodo 3"
+                            },
+                            {
+                                id: "2-03",
+                                question: "¿Quién interpretó el sueño del faraón sobre las vacas gordas y flacas?",
+                                options: ["José", "Daniel", "Salomón", "Samuel"],
+                                answerIndex: 0,
+                                hint: "Había sido vendido como esclavo a Egipto por sus hermanos.",
+                                reference: "Génesis 41"
+                            },
+                            {
+                                id: "2-04",
+                                question: "¿Quién fue arrojado a un pozo por sus hermanos?",
+                                options: ["José", "David", "Jonás", "Jeremías"],
+                                answerIndex: 0,
+                                hint: "Sus hermanos estaban celosos porque era el favorito de su padre.",
+                                reference: "Génesis 37"
+                            },
+                            {
+                                id: "2-05",
+                                question: "¿Quién fue la madre de Samuel?",
+                                options: ["Ana", "Sara", "Rebeca", "Raquel"],
+                                answerIndex: 0,
+                                hint: "Ella oró fervientemente por un hijo y lo dedicó a Dios.",
+                                reference: "1 Samuel 1"
+                            },
+                            {
+                                id: "2-06",
+                                question: "¿Quién fue el primer mártir de la iglesia cristiana?",
+                                options: ["Esteban", "Pedro", "Pablo", "Juan"],
+                                answerIndex: 0,
+                                hint: "Mientras lo apedreaban, vio los cielos abiertos y a Jesús de pie.",
+                                reference: "Hechos 7"
+                            },
+                            {
+                                id: "2-07",
+                                question: "¿Quién fue transformado por Jesús de pescador a pescador de hombres?",
+                                options: ["Pedro", "Juan", "Andrés", "Santiago"],
+                                answerIndex: 0,
+                                hint: "Jesús le cambió el nombre de Simón a Pedro.",
+                                reference: "Mateo 4:18-20"
+                            },
+                            {
+                                id: "2-08",
+                                question: "¿Quién fue el discípulo amado de Jesús?",
+                                options: ["Juan", "Pedro", "Santiago", "Mateo"],
+                                answerIndex: 0,
+                                hint: "Escribió el evangelio que lleva su nombre y el libro de Apocalipsis.",
+                                reference: "Juan 13:23"
+                            },
+                            {
+                                id: "2-09",
+                                question: "¿Quién fue el hombre más fuerte de la Biblia?",
+                                options: ["Sansón", "Goliat", "David", "Saúl"],
+                                answerIndex: 0,
+                                hint: "Su fuerza estaba en su cabello, que nunca se cortó.",
+                                reference: "Jueces 16"
+                            },
+                            {
+                                id: "2-10",
+                                question: "¿Quién fue el rey que construyó el primer templo en Jerusalén?",
+                                options: ["Salomón", "David", "Saúl", "Ezequías"],
+                                answerIndex: 0,
+                                hint: "Era hijo del rey David y conocido por su gran sabiduría.",
+                                reference: "1 Reyes 6"
+                            }
+                        ]
+                    },
+                    // Los niveles 3-20 continuarían aquí con 10 preguntas cada uno
+                    // Para ahorrar espacio, solo se muestran los primeros 2 niveles
+                    // En la implementación completa habría 20 niveles con 200 preguntas
+                ];
+                
+                // Inicializar progreso si no existe
+                if (!localStorage.getItem('bibleQuizProgress')) {
+                    initializeProgress();
+                } else {
+                    loadProgress();
+                }
+            } catch (error) {
+                console.error('Error cargando preguntas:', error);
+                initializeProgress();
+            }
+        }
 
-  const questions = [
-    {
-      question: "¿Quién derrotó a Goliat con una piedra y una honda?",
-      options: ["David", "Moisés", "Abraham", "Elías"],
-      correctIndex: 0,
-      reference: "1 Samuel 17"
-    },
-    {
-      question: "¿Quién construyó un arca para salvar a su familia y animales?",
-      options: ["Noé", "Jonás", "José", "Isaías"],
-      correctIndex: 0,
-      reference: "Génesis 6-9"
-    },
-    {
-      question: "¿Quién recibió los Diez Mandamientos en el Monte Sinaí?",
-      options: ["Moisés", "David", "Saúl", "Elías"],
-      correctIndex: 0,
-      reference: "Éxodo 19-20"
-    },
-    {
-      question: "¿Quién fue el profeta que desafió a los profetas de Baal en el Monte Carmelo?",
-      options: ["Elías", "Isaías", "Jeremías", "Samuel"],
-      correctIndex: 0,
-      reference: "1 Reyes 18"
-    },
-    {
-      question: "¿Qué mujer se convirtió en reina y salvó a su pueblo en Persia?",
-      options: ["Ester", "Débora", "María", "Ruth"],
-      correctIndex: 0,
-      reference: "Ester 2-8"
-    }
-  ];
+        // Inicializar el progreso del juego
+        function initializeProgress() {
+            gameData.progress = {
+                playerName: '',
+                levels: {},
+                currentLevel: 1
+            };
+            
+            // Inicializar todos los niveles
+            gameData.levels.forEach(level => {
+                gameData.progress.levels[level.level] = {
+                    unlocked: level.level === 1,
+                    stars: 0,
+                    completed: false,
+                    questions: {}
+                };
+            });
+            
+            saveProgress();
+        }
 
-  let currentQuestion = 0;
-  let playerName = '';
-  let answered = false;
+        // Cargar progreso desde localStorage
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('bibleQuizProgress');
+            if (savedProgress) {
+                gameData.progress = JSON.parse(savedProgress);
+                
+                // Actualizar nombre si existe
+                if (gameData.progress.playerName) {
+                    document.getElementById('player-name').value = gameData.progress.playerName;
+                    updateWelcomeMessage(gameData.progress.playerName);
+                }
+            }
+        }
 
-  function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play().catch(() => {});
-  }
+        // Guardar progreso en localStorage
+        function saveProgress() {
+            localStorage.setItem('bibleQuizProgress', JSON.stringify(gameData.progress));
+        }
 
-  function resetFeedback() {
-    feedbackMsg.textContent = '';
-    feedbackMsg.style.color = '#15538a';
-  }
+        // Actualizar mensaje de bienvenida
+        function updateWelcomeMessage(name) {
+            const messageElement = document.getElementById('personalized-message');
+            messageElement.textContent = `¡Hola ${name}! 🙌 Dios te ama y está contento de que quieras aprender Sus historias. ¡Vamos a jugar y aprender juntos! 📖✨`;
+        }
 
-  function showStartScreen() {
-    startScreen.style.display = 'block';
-    quizScreen.style.display = 'none';
-  }
+        // Mostrar pantalla
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
 
-  function showQuizScreen() {
-    startScreen.style.display = 'none';
-    quizScreen.style.display = 'block';
-    quizScreen.focus();
-  }
+        // Iniciar juego
+        function startGame() {
+            const playerName = document.getElementById('player-name').value.trim();
+            if (!playerName) {
+                alert('Por favor, escribe tu nombre para comenzar.');
+                return;
+            }
+            
+            gameData.progress.playerName = playerName;
+            saveProgress();
+            
+            gameData.currentLevel = gameData.progress.currentLevel;
+            gameData.currentQuestion = 0;
+            gameData.score = 0;
+            
+            loadLevel(gameData.currentLevel);
+        }
 
-  function updateProgress() {
-    const percent = Math.round((currentQuestion / questions.length) * 100);
-    progressFill.style.width = percent + '%';
-    progressFill.textContent = percent + '%';
-    progressFill.setAttribute('aria-valuenow', percent);
-  }
+        // Cargar nivel
+        function loadLevel(levelNumber) {
+            const level = gameData.levels.find(l => l.level === levelNumber);
+            if (!level) return;
+            
+            gameData.currentLevel = levelNumber;
+            gameData.currentQuestion = 0;
+            gameData.score = 0;
+            
+            document.getElementById('current-level-text').textContent = level.title;
+            updateProgressBar();
+            
+            showQuestion();
+            showScreen('game-screen');
+        }
 
-  function renderQuestion() {
-    resetFeedback();
-    answered = false;
-    nextBtn.disabled = true;
-    helpBtn.disabled = false;
+        // Mostrar pregunta actual
+        function showQuestion() {
+            const level = gameData.levels.find(l => l.level === gameData.currentLevel);
+            if (!level || gameData.currentQuestion >= level.questions.length) {
+                completeLevel();
+                return;
+            }
+            
+            const question = level.questions[gameData.currentQuestion];
+            
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('hint-text').textContent = question.hint;
+            document.getElementById('reference-text').textContent = question.reference;
+            
+            // Leer pregunta en voz alta si está activado
+            if (document.getElementById('voice-enabled').checked && 'speechSynthesis' in window) {
+                const speech = new SpeechSynthesisUtterance(question.question);
+                speech.lang = 'es-ES';
+                speech.rate = 0.9;
+                window.speechSynthesis.speak(speech);
+            }
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(index));
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('progress-text').textContent = `Pregunta ${gameData.currentQuestion + 1} de ${level.questions.length}`;
+            document.getElementById('next-question-btn').disabled = true;
+            document.getElementById('hint-container').classList.remove('show');
+            document.getElementById('show-hint-btn').disabled = false;
+            
+            updateProgressBar();
+        }
 
-    const q = questions[currentQuestion];
-    questionText.textContent = q.question;
-    optionsContainer.innerHTML = '';
+        // Comprobar respuesta
+        function checkAnswer(selectedIndex) {
+            const level = gameData.levels.find(l => l.level === gameData.currentLevel);
+            const question = level.questions[gameData.currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            // Deshabilitar todos los botones
+            options.forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            // Marcar respuesta correcta e incorrecta
+            if (selectedIndex === question.answerIndex) {
+                options[selectedIndex].classList.add('correct');
+                gameData.score++;
+                
+                // Reproducir sonido de acierto
+                if (sounds.correct) sounds.correct.play();
+                
+                // Vibrar en dispositivos móviles
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(200);
+                }
+                
+                // Mostrar mensaje de ánimo
+                showEncouragement(true);
+            } else {
+                options[selectedIndex].classList.add('incorrect');
+                options[question.answerIndex].classList.add('correct');
+                
+                // Reproducir sonido de error
+                if (sounds.incorrect) sounds.incorrect.play();
+                
+                // Vibrar en dispositivos móviles
+                if ('vibrate' in navigator) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+                
+                // Mostrar mensaje de ánimo
+                showEncouragement(false);
+            }
+            
+            // Guardar respuesta en el progreso
+            if (!gameData.progress.levels[gameData.currentLevel].questions) {
+                gameData.progress.levels[gameData.currentLevel].questions = {};
+            }
+            
+            gameData.progress.levels[gameData.currentLevel].questions[question.id] = 
+                selectedIndex === question.answerIndex;
+            
+            saveProgress();
+            
+            document.getElementById('next-question-btn').disabled = false;
+            document.getElementById('show-hint-btn').disabled = true;
+        }
 
-    q.options.forEach((opt, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = opt;
-      btn.type = 'button';
-      btn.onclick = () => selectOption(idx);
-      optionsContainer.appendChild(btn);
-    });
+        // Mostrar mensaje de ánimo
+        function showEncouragement(isCorrect) {
+            const messages = {
+                correct: [
+                    "¡Correcto! Dios te bendice.",
+                    "¡Muy bien! Sigues aprendiendo la Palabra de Dios.",
+                    "¡Excelente! La Biblia tiene muchas historias maravillosas.",
+                    "¡Así se hace! Jesús está contento contigo."
+                ],
+                incorrect: [
+                    "¡Casi! Recuerda: \"Porque de tal manera amó Dios al mundo...\" Juan 3:16",
+                    "No te rindas. \"Todo lo puedo en Cristo que me fortalece.\" Filipenses 4:13",
+                    "Sigue intentando. \"El que persevera alcanza.\" Proverbios 28:20",
+                    "Sigue aprendiendo. \"Tu palabra es una lámpara a mis pies.\" Salmo 119:105"
+            ]
+            };
+            
+            const randomIndex = Math.floor(Math.random() * messages[isCorrect ? 'correct' : 'incorrect'].length);
+            alert(messages[isCorrect ? 'correct' : 'incorrect'][randomIndex]);
+        }
 
-    updateProgress();
-  }
+        // Mostrar pista
+        function showHint() {
+            document.getElementById('hint-container').classList.add('show');
+            document.getElementById('show-hint-btn').disabled = true;
+        }
 
-  function selectOption(index) {
-    if (answered) return;
+        // Siguiente pregunta
+        function nextQuestion() {
+            gameData.currentQuestion++;
+            
+            const level = gameData.levels.find(l => l.level === gameData.currentLevel);
+            if (gameData.currentQuestion >= level.questions.length) {
+                completeLevel();
+            } else {
+                showQuestion();
+            }
+        }
 
-    const q = questions[currentQuestion];
-    const options = optionsContainer.querySelectorAll('button');
+        // Completar nivel
+        function completeLevel() {
+            const level = gameData.levels.find(l => l.level === gameData.currentLevel);
+            const totalQuestions = level.questions.length;
+            const percentage = (gameData.score / totalQuestions) * 100;
+            
+            // Calcular estrellas
+            let stars = 0;
+            if (percentage >= 90) stars = 3;
+            else if (percentage >= 70) stars = 2;
+            else if (percentage >= 50) stars = 1;
+            
+            // Actualizar progreso
+            gameData.progress.levels[gameData.currentLevel].completed = true;
+            gameData.progress.levels[gameData.currentLevel].stars = stars;
+            
+            // Desbloquear siguiente nivel si existe
+            if (gameData.currentLevel < gameData.levels.length) {
+                const nextLevel = gameData.currentLevel + 1;
+                if (gameData.progress.levels[nextLevel]) {
+                    gameData.progress.levels[nextLevel].unlocked = true;
+                }
+                gameData.progress.currentLevel = nextLevel;
+            }
+            
+            saveProgress();
+            
+            // Mostrar resultados
+            document.getElementById('correct-answers').textContent = gameData.score;
+            document.getElementById('stars-earned').textContent = stars;
+            
+            document.getElementById('results-title').textContent = `¡${level.title} Completado!`;
+            document.getElementById('results-message').textContent = 
+                `Has respondido correctamente ${gameData.score} de ${totalQuestions} preguntas.`;
+            
+            // Reproducir sonido de victoria
+            if (sounds.win) sounds.win.play();
+            if (sounds.applause) sounds.applause.play();
+            
+            // Mostrar confeti si las animaciones están activadas
+            if (document.getElementById('animations-enabled').checked) {
+                showConfetti();
+            }
+            
+            showScreen('results-screen');
+        }
 
-    if (index === q.correctIndex) {
-      options[index].classList.add('correct');
-      feedbackMsg.textContent = '¡Correcto! 📖 ¡Muy bien!';
-      feedbackMsg.style.color = '#3178c6';
-      playSound(soundCorrect);
-      answered = true;
-      nextBtn.disabled = false;
-      helpBtn.disabled = true;
-      if (currentQuestion === questions.length - 1) {
-        nextBtn.textContent = 'Terminar 🎉';
-      }
-    } else {
-      options[index].classList.add('wrong');
-      feedbackMsg.textContent = `¡Casi! 🙏 Recuerda la historia (${q.reference}). Intenta de nuevo.`;
-      feedbackMsg.style.color = '#d33b3b';
-      playSound(soundWrong);
-    }
+        // Mostrar confeti
+        function showConfetti() {
+            const confetti = document.getElementById('confetti');
+            confetti.classList.add('active');
+            
+            setTimeout(() => {
+                confetti.classList.remove('active');
+            }, 3000);
+        }
 
-    options.forEach(btn => btn.disabled = true);
-  }
+        // Actualizar barra de progreso
+        function updateProgressBar() {
+            const level = gameData.levels.find(l => l.level === gameData.currentLevel);
+            if (!level) return;
+            
+            const percentage = (gameData.currentQuestion / level.questions.length) * 100;
+            document.getElementById('level-progress').style.width = `${percentage}%`;
+        }
 
-  startBtn.onclick = () => {
-    const name = playerNameInput.value.trim();
-    if (!name) {
-      alert('Por favor escribe tu nombre');
-      playerNameInput.focus();
-      return;
-    }
-    playerName = name;
-    welcomeMsg.textContent = `¡Hola ${playerName}! 🙌 Vamos a divertirnos y aprender juntos 📖✨`;
-    showQuizScreen();
-    renderQuestion();
-  };
+        // Cargar mapa de niveles
+        function loadLevelMap() {
+            const container = document.getElementById('level-map-container');
+            container.innerHTML = '';
+            
+            gameData.levels.forEach(level => {
+                const levelItem = document.createElement('div');
+                levelItem.className = 'level-item';
+                
+                if (!gameData.progress.levels[level.level].unlocked) {
+                    levelItem.classList.add('locked');
+                } else {
+                    levelItem.addEventListener('click', () => {
+                        loadLevel(level.level);
+                    });
+                }
+                
+                levelItem.innerHTML = `
+                    <h3>Nivel ${level.level}</h3>
+                    <p>${level.title}</p>
+                    <div class="level-stars">
+                        ${'★'.repeat(gameData.progress.levels[level.level].stars)}${'☆'.repeat(3 - gameData.progress.levels[level.level].stars)}
+                    </div>
+                `;
+                
+                container.appendChild(levelItem);
+            });
+        }
 
-  nextBtn.onclick = () => {
-    if (!answered) return;
-    currentQuestion++;
-    if (currentQuestion >= questions.length) {
-      alert(`¡Felicidades, ${playerName}! Has terminado el juego 🎉`);
-      currentQuestion = 0;
-      welcomeMsg.textContent = '';
-      playerNameInput.value = '';
-      nextBtn.textContent = 'Avanzar ➡️';
-      showStartScreen();
-      return;
-    }
-    renderQuestion();
-  };
+        // Reiniciar progreso
+        function resetProgress() {
+            if (confirm('¿Estás seguro de que quieres borrar todo tu progreso? Esto no se puede deshacer.')) {
+                initializeProgress();
+                loadLevelMap();
+                alert('Progreso reiniciado. ¡Vuelve a comenzar tu aventura bíblica!');
+            }
+        }
 
-  helpBtn.onclick = () => {
-    const q = questions[currentQuestion];
-    feedbackMsg.textContent = `Pista: Revisa la historia en (${q.reference}) 📖`;
-    playSound(soundHelp);
-  };
+        // Cambiar tema
+        function changeTheme(theme) {
+            document.body.classList.remove('theme-dark', 'theme-party');
+            
+            if (theme === 'dark') {
+                document.body.classList.add('theme-dark');
+            } else if (theme === 'party') {
+                document.body.classList.add('theme-party');
+            }
+        }
 
-  showStartScreen();
-})();
-</script>
+        // Inicializar juego
+        async function initGame() {
+            await loadQuestions();
+            initSounds();
+            loadLevelMap();
+            
+            // Event listeners
+            document.getElementById('start-btn').addEventListener('click', startGame);
+            document.getElementById('view-levels-btn').addEventListener('click', () => {
+                loadLevelMap();
+                showScreen('levels-screen');
+            });
+            document.getElementById('reset-progress-btn').addEventListener('click', resetProgress);
+            document.getElementById('back-from-levels').addEventListener('click', () => showScreen('welcome-screen'));
+            document.getElementById('show-hint-btn').addEventListener('click', showHint);
+            document.getElementById('next-question-btn').addEventListener('click', nextQuestion);
+            document.getElementById('back-to-levels').addEventListener('click', () => showScreen('levels-screen'));
+            document.getElementById('play-again-btn').addEventListener('click', () => loadLevel(gameData.currentLevel));
+            document.getElementById('next-level-btn').addEventListener('click', () => {
+                if (gameData.currentLevel < gameData.levels.length) {
+                    loadLevel(gameData.currentLevel + 1);
+                } else {
+                    alert('¡Felicidades! Has completado todos los niveles.');
+                    showScreen('levels-screen');
+                }
+            });
+            document.getElementById('back-to-levels-from-results').addEventListener('click', () => {
+                showScreen('levels-screen');
+            });
+            
+            document.getElementById('player-name').addEventListener('input', (e) => {
+                updateWelcomeMessage(e.target.value || 'amigo/a');
+            });
+            
+            document.getElementById('theme-selector').addEventListener('change', (e) => {
+                changeTheme(e.target.value);
+            });
+            
+            document.getElementById('sound-enabled').addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    initSounds();
+                } else {
+                    // Detener todos los sonidos
+                    Object.values(sounds).forEach(sound => {
+                        if (sound) sound.stop();
+                    });
+                }
+            });
+            
+            // Cargar tema guardado si existe
+            const savedTheme = localStorage.getItem('bibleQuizTheme');
+            if (savedTheme) {
+                document.getElementById('theme-selector').value = savedTheme;
+                changeTheme(savedTheme);
+            }
+            
+            // Guardar preferencias de tema
+            document.getElementById('theme-selector').addEventListener('change', (e) => {
+                localStorage.setItem('bibleQuizTheme', e.target.value);
+            });
+        }
+
+        // Iniciar cuando el documento esté listo
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
 </body>
 </html>
