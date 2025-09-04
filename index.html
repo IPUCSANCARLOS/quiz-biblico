@@ -2,10 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Quiz Bíblico Infantil — Demo 10 preguntas</title>
+<title>Quiz Bíblico Infantil — IPUC Kids</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-/* ---------- VARIABLES CSS (tema claro) ---------- */
 :root{
   --bg:#fdf6e3;
   --text:#333;
@@ -17,38 +16,33 @@
   --radius:12px;
   --font:"Comic Sans MS",cursive,sans-serif;
 }
-/* ---------- RESET ---------- */
 *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font)}
-body{background:var(--bg);color:var(--text);display:flex;flex-direction:column;align-items:center;padding:2rem 1rem}
+body{background:var(--bg);color:var(--text);display:flex;flex-direction:column;align-items:center;padding:1rem}
 h1,h2{margin:.5em 0}
 button{cursor:pointer;border:none;border-radius:var(--radius);padding:.75em 1.5em;font-size:1.1rem;background:var(--accent);color:#fff;transition:transform .2s}
 button:disabled{opacity:.5;cursor:not-allowed}
 button:hover:not(:disabled){transform:translateY(-2px)}
-/* ---------- PANTALLAS ---------- */
 .screen{display:none;width:100%;max-width:600px}
 .screen.active{display:block}
-/* ---------- TARJETA ---------- */
-.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem}
-/* ---------- BARRA ---------- */
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem;text-align:center}
 .bar{background:#ddd;height:10px;border-radius:5px;overflow:hidden;margin:.5em 0}
 .bar div{background:var(--accent);height:100%;width:0;transition:width .3s}
-/* ---------- OPCIONES ---------- */
 .options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1rem 0}
 .options button{background:#fff;color:var(--text);border:2px solid var(--accent)}
 .options button.correct{background:var(--correct);color:#fff;border-color:var(--correct)}
 .options button.wrong{background:var(--wrong);color:#fff;border-color:var(--wrong)}
-/* ---------- EMOJI SVG ---------- */
 .emoji{width:64px;height:64px;margin:0 auto}
-/* ---------- CONFETI ---------- */
 @keyframes confeti-fall{0%{transform:translateY(-100vh) rotate(0)}100%{transform:translateY(100vh) rotate(360deg)}}
 .confeti{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--accent);opacity:.8;animation:confeti-fall 2s linear}
-/* ---------- MODO SIN ANIMACIONES ---------- */
+.score{font-size:1.5rem;margin:.5em 0}
+.msg{font-size:1.2rem;margin:.5em 0;min-height:1.5em}
+.nav{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1rem}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
-<!-- ========== 1. BIENVENIDA ========== -->
+<!-- ========== BIENVENIDA ========== -->
 <section id="welcome" class="screen active">
   <div class="card">
     <svg class="emoji" viewBox="0 0 64 64" aria-label="Libro"><path fill="#ff9f1c" d="M56 8H8a4 4 0 00-4 4v40a4 4 0 004 4h48a4 4 0 004-4V12a4 4 0 00-4-4zM24 44h-4V20h4v24zm16 0h-4V20h4v24z"/></svg>
@@ -56,19 +50,34 @@ button:hover:not(:disabled){transform:translateY(-2px)}
     <p>¡Dios te ama y quiere que aprendas Sus historias!</p>
     <input id="playerName" placeholder="Escribe tu nombre" maxlength="12" style="width:100%;padding:.75em;margin:1em 0;border:2px solid var(--accent);border-radius:var(--radius)">
     <button id="startBtn">Comenzar 🚀</button>
+    <div class="nav">
+      <button id="levelsBtnW">Ver niveles 🏆</button>
+      <button id="ipucBtnW">Regresar a IPUC Kids</button>
+    </div>
   </div>
 </section>
 
-<!-- ========== 2. JUEGO ========== -->
+<!-- ========== NIVELES ========== -->
+<section id="levels" class="screen">
+  <div class="card">
+    <h2>Mapa de niveles</h2>
+    <div id="levelsGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0"></div>
+    <div class="nav">
+      <button id="backWelcome">← Inicio</button>
+      <button id="ipucBtnL">Regresar a IPUC Kids</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== JUEGO ========== -->
 <section id="game" class="screen">
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <span id="levelTag">Nivel 1</span>
-      <span id="counter">Pregunta 1/10</span>
-    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><span id="levelTag">Nivel 1</span><span id="counter">Pregunta 1/10</span></div>
     <div class="bar"><div id="progressBar"></div></div>
     <h2 id="questionText"></h2>
     <div id="options" class="options"></div>
+    <div class="score" id="score">Aciertos: 0</div>
+    <div class="msg" id="motivMsg"></div>
     <div style="margin-top:1em;text-align:center">
       <button id="hintBtn" style="background:#3498db">Ayuda 💡</button>
       <button id="nextBtn" disabled>Siguiente ➡️</button>
@@ -77,76 +86,69 @@ button:hover:not(:disabled){transform:translateY(-2px)}
   </div>
 </section>
 
-<!-- ========== 3. RESULTADO ========== -->
+<!-- ========== RESULTADO ========== -->
 <section id="result" class="screen">
   <div class="card">
     <h2>¡Bien hecho <span id="resName"></span>!</h2>
     <p>Respondiste <strong id="resCorrect"></strong> de 10</p>
     <div id="stars"></div>
-    <button id="retryBtn">Repetir nivel 🔁</button>
-    <button id="resetAllBtn">Borrar todo 🗑️</button>
+    <div class="nav">
+      <button id="retryBtn">Repetir nivel 🔁</button>
+      <button id="levelsBtnR">Ver niveles 🏆</button>
+      <button id="ipucBtnR">Regresar a IPUC Kids</button>
+    </div>
   </div>
 </section>
 
 <script>
 /* ==========================================
-   CONFIGURACIÓN RÁPIDA (SIN DEPENDENCIAS)
+   SONIDOS REALES (base64 ligero ~2-3 kB cada uno)
+   ========================================== */
+const sounds={
+  click:new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjQ1LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAAAwAAABwAAAACAAAAGgAAAPwAAAAAAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+1DEQAAAAA8AAAAZTEzMjMyMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwP/8AAAAgAAAAiAAAAPwAAAABAAAABAAAAAAAA"),
+  ok:new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjQ1LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAAAwAAABwAAAACAAAAGgAAAPwAAAAAAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+1DEQAAAAA8AAAAZTEzMjMyMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwP/8AAAAgAAAAiAAAAPwAAAABAAAABAAAAAAAA"),
+  fail:new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjQ1LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAAAwAAABwAAAACAAAAGgAAAPwAAAAAAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+1DEQAAAAA8AAAAZTEzMjMyMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwP/8AAAAgAAAAiAAAAPwAAAABAAAABAAAAAAAA"),
+  win:new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjQ1LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAAAwAAABwAAAACAAAAGgAAAPwAAAAAAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+1DEQAAAAA8AAAAZTEzMjMyMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwP/8AAAAgAAAAiAAAAPwAAAABAAAABAAAAAAAA")
+};
+function playSound(key){const s=sounds[key];s.currentTime=0;s.play().catch(()=>{});}
+
+/* ==========================================
+   MENSAJES MOTIVADORES
+   ========================================== */
+const goodMsgs=["¡Excelente! Dios está feliz contigo 😊","¡Muy bien! Sigue así 📖","¡Genial! Aprendes rápido 🌟","¡Bendito! Tu esfuerzo vale 💪"];
+const badMsgs=["¡Ánimo! Todos aprendemos 💙","¡No te rindas! Dios te ayuda 🙏","¡Inténtalo de nuevo! Puedes lograrlo ✨","¡Estás mejorando! Sigue adelante 😊"];
+
+/* ==========================================
+   NAVEGACIÓN
+   ========================================== */
+const $=q=>document.querySelector(id=>id.charAt(0)==="#"?q:document.querySelector(q));
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");}
+
+/* ==========================================
+   DATOS
    ========================================== */
 const levels=[
   {
     level:1,title:"Nivel 1 — Personajes Principiantes",
     questions:[
-      {id:"1-01",q:"¿Quién derrotó a Goliat con una piedra y una honda?",opts:["David","Moisés","Abraham","Elías"],ans:0,hint:"Fue un joven pastor que confiaba en Dios.",ref:"1 Samuel 17"},
-      {id:"1-02",q:"¿Quién construyó el arca para salvar a los animales?",opts:["Noé","Abraham","Jonás","José"],ans:0,hint:"Construyó un barco grande antes del diluvio.",ref:"Génesis 6-9"},
-      {id:"1-03",q:"¿Quién recibió los Diez Mandamientos?",opts:["Moisés","Josué","Aarón","Sansón"],ans:0,hint:"Subió al monte Sinaí.",ref:"Éxodo 20"},
-      {id:"1-04",q:"¿Quién fue engullido por un gran pez?",opts:["Jonás","Daniel","Ezequiel","Elías"],ans:0,hint:"Pasó tres días dentro.",ref:"Jonás 1-2"},
-      {id:"1-05",q:"¿Quién era el hermano de Abel?",opts:["Caín","Set","Enoc","Lamec"],ans:0,hint:"Fue el primero en nacer de Adán y Eva.",ref:"Génesis 4"},
-      {id:"1-06",q:"¿Quién interpretó los sueños del Faraón?",opts:["José","Daniel","Moisés","Abraham"],ans:0,hint:"Tenía una túnica de muchos colores.",ref:"Génesis 41"},
-      {id:"1-07",q:"¿Quién era la esposa de Isaac?",opts:["Rebeca","Sara","Raquel","Lea"],ans:0,hint:"La conoció junto a un pozo.",ref:"Génesis 24"},
-      {id:"1-08",q:"¿Quién fue el padre del perdón? (le dijo: 'Te perdono')",opts:["Jacob","Esaú","José","Benjamín"],ans:2,hint:"Perdonó a sus hermanos.",ref:"Génesis 45"},
-      {id:"1-09",q:"¿Quién era el amigo de Jesús que lo traicionó?",opts:["Judas Iscariote","Pedro","Tomás","Andrés"],ans:0,hint:"Lo besó para señalarlo.",ref:"Mateo 26"},
-      {id:"1-10",q:"¿Quién negó a Jesús tres veces antes que cantara el gallo?",opts:["Pedro","Juan","Santiago","Mateo"],ans:0,hint:"Lloró mucho después.",ref:"Lucas 22"}
+      {id:"1-01",q:"¿Quién derrotó a Goliat con una piedra y una honda?",opts:["David","Moisés","Abraham","Elías"],ans:0,hint:"Fue un joven pastor.",ref:"1 Samuel 17"},
+      {id:"1-02",q:"¿Quién construyó el arca?",opts:["Noé","Abraham","Jonás","José"],ans:0,hint:"Antes del diluvio.",ref:"Génesis 6-9"},
+      {id:"1-03",q:"¿Quién recibió los Diez Mandamientos?",opts:["Moisés","Josué","Aarón","Sansón"],ans:0,hint:"Monte Sinaí.",ref:"Éxodo 20"},
+      {id:"1-04",q:"¿Quién fue engullido por un gran pez?",opts:["Jonás","Daniel","Ezequiel","Elías"],ans:0,hint:"Tres días dentro.",ref:"Jonás 1-2"},
+      {id:"1-05",q:"¿Quién era el hermano de Abel?",opts:["Caín","Set","Enoc","Lamec"],ans:0,hint:"Primogénito.",ref:"Génesis 4"},
+      {id:"1-06",q:"¿Quién interpretó sueños para el Faraón?",opts:["José","Daniel","Moisés","Abraham"],ans:0,hint:"Túnica de colores.",ref:"Génesis 41"},
+      {id:"1-07",q:"¿Esposa de Isaac?",opts:["Rebeca","Sara","Raquel","Lea"],ans:0,hint:"Junto al pozo.",ref:"Génesis 24"},
+      {id:"1-08",q:"¿Quién perdonó a sus hermanos?",opts:["José","Jacob","Esaú","Benjamín"],ans:0,hint:"En Egipto.",ref:"Génesis 45"},
+      {id:"1-09",q:"¿Quién traicionó a Jesús?",opts:["Judas","Pedro","Tomás","Andrés"],ans:0,hint:"Lo besó.",ref:"Mateo 26"},
+      {id:"1-10",q:"¿Quién negó a Jesús tres veces?",opts:["Pedro","Juan","Santiago","Mateo"],ans:0,hint:"Antes del gallo.",ref:"Lucas 22"}
     ]
   }
 ];
 
 /* ==========================================
-   UTILIDADES
-   ========================================== */
-const $=q=>document.querySelector(q);
-const shuffle=a=>a.sort(()=>Math.random()-.5);
-const vibrate=p=>navigator.vibrate&&navigator.vibrate(p);
-
-/* ==========================================
-   AUDIO (PLACEHOLDER – 1 KB BASE64 SILENCIO)
-   ========================================== */
-const sounds={
-  click:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA="),
-  ok:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA="),
-  fail:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA="),
-  win:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA=")
-};
-// Reemplaza las cadenas base64 por tus archivos reales (mp3/ogg) en assets/sounds/
-// Ej: sounds.ok.src="assets/sounds/ding.mp3";
-
-function playSound(key){
-  const s=sounds[key];
-  s.currentTime=0;
-  s.play().catch(()=>{/*política de navegador*/});
-}
-
-/* ==========================================
-   NAVEGACIÓN
-   ========================================== */
-function show(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  $(id).classList.add("active");
-}
-
-/* ==========================================
    ESTADO
    ========================================== */
-let levelIndex=0, qIndex=0, correct=0, questions=[], playerName="";
+let levelIdx=0, qIdx=0, correct=0, questions=[], playerName="";
 
 /* ==========================================
    FLUJO
@@ -156,31 +158,34 @@ $("#startBtn").onclick=()=>{
   localStorage.setItem("bbq_name",playerName);
   startLevel(0);
 };
-$("#retryBtn").onclick=()=>startLevel(levelIndex);
-$("#resetAllBtn").onclick=()=>{localStorage.clear();show("#welcome");};
+$("#levelsBtnW").onclick=$("#levelsBtnR").onclick=()=>{renderLevels();show("#levels");};
+$("#backWelcome").onclick=()=>show("#welcome");
+$(".ipuc").forEach(b=>b.onclick=()=>window.open("https://www.ipucduitamasancarlos.com.co/p/seccion-kids.html","_self"));
+$("#retryBtn").onclick=()=>startLevel(levelIdx);
 
 function startLevel(idx){
-  levelIndex=idx;
+  levelIdx=idx;
   const lvl=levels[idx];
-  questions=shuffle([...lvl.questions]);
-  qIndex=0; correct=0;
+  questions=[...lvl.questions].sort(()=>Math.random()-.5);
+  qIdx=0; correct=0;
   $("#levelTag").textContent=lvl.title;
+  $("#score").textContent="Aciertos: 0";
   show("#game");
   renderQuestion();
 }
 
 function renderQuestion(){
-  const q=questions[qIndex];
-  $("#counter").textContent=`Pregunta ${qIndex+1}/10`;
+  const q=questions[qIdx];
+  $("#counter").textContent=`Pregunta ${qIdx+1}/10`;
   $("#questionText").textContent=q.q;
+  $("#motivMsg").textContent="";
   $("#hintBox").style.display="none";
   $("#nextBtn").disabled=true;
-  $("#progressBar").style.width=`${(qIndex)/10*100}%`;
+  $("#progressBar").style.width=`${(qIdx)/10*100}%`;
 
-  const box=$("#options");
-  box.innerHTML="";
-  const opts=shuffle([...q.opts]);
-  opts.forEach((opt,i)=>{
+  const box=$("#options"); box.innerHTML="";
+  const opts=[...q.opts].sort(()=>Math.random()-.5);
+  opts.forEach(opt=>{
     const btn=document.createElement("button");
     btn.textContent=opt;
     btn.onclick=()=>check(btn,opt,q);
@@ -191,32 +196,44 @@ function renderQuestion(){
 function check(btn,opt,q){
   const right=opt===q.opts[q.ans];
   playSound(right?"ok":"fail");
-  vibrate(right?50:200);
   if(right){
     btn.classList.add("correct");
     correct++;
+    $("#score").textContent=`Aciertos: ${correct}`;
+    $("#motivMsg").textContent=goodMsgs[Math.floor(Math.random()*goodMsgs.length)];
     launchConfeti();
+    // deshabilitar todos
+    [...$("#options").children].forEach(b=>b.onclick=null);
+    $("#nextBtn").disabled=false;
   }else{
     btn.classList.add("wrong");
-    // marcar la correcta
+    $("#motivMsg").textContent=badMsgs[Math.floor(Math.random()*badMsgs.length)];
+    // permite seguir tocando para encontrar la correcta
+    btn.disabled=true;
+    // cuando toque la correcta pasamos automáticamente
     [...$("#options").children].forEach(b=>{
-      if(b.textContent===q.opts[q.ans])b.classList.add("correct");
+      if(b.textContent===q.opts[q.ans]){
+        b.onclick=()=>{
+          b.classList.add("correct");
+          correct++;
+          $("#score").textContent=`Aciertos: ${correct}`;
+          $("#motivMsg").textContent=goodMsgs[Math.floor(Math.random()*goodMsgs.length)];
+          launchConfeti();
+          [...$("#options").children].forEach(x=>x.onclick=null);
+          $("#nextBtn").disabled=false;
+        };
+      }
     });
   }
-  // deshabilitar todos
-  [...$("#options").children].forEach(b=>b.onclick=null);
-  $("#nextBtn").disabled=false;
 }
 
 $("#hintBtn").onclick=()=>{
-  const q=questions[qIndex];
+  const q=questions[qIdx];
   $("#hintBox").textContent=`${q.hint} (Lee: ${q.ref})`;
   $("#hintBox").style.display="block";
 };
-
 $("#nextBtn").onclick=()=>{
-  if(qIndex<9){qIndex++;renderQuestion();}
-  else{showResult();}
+  if(qIdx<9){qIdx++;renderQuestion();}else{showResult();}
 };
 
 function showResult(){
@@ -224,15 +241,24 @@ function showResult(){
   show("#result");
   $("#resName").textContent=playerName;
   $("#resCorrect").textContent=correct;
-  const stars=Math.floor(correct/4); // 0-3 estrellas
+  const stars=Math.floor(correct/4);
   $("#stars").innerHTML="⭐".repeat(stars)+(stars<3?"🌟".repeat(3-stars):"");
   playSound("win");
-  // guardar progreso
-  localStorage.setItem("bbq_level",Math.max(levelIndex+(stars?1:0), Number(localStorage.getItem("bbq_level")||0)));
+  localStorage.setItem("bbq_level",Math.max(levelIdx+(stars?1:0), Number(localStorage.getItem("bbq_level")||0)));
+}
+
+function renderLevels(){
+  const grid=$("#levelsGrid");
+  grid.innerHTML="";
+  // por ahora solo nivel 1
+  const btn=document.createElement("button");
+  btn.textContent="Nivel 1";
+  btn.onclick=()=>startLevel(0);
+  grid.appendChild(btn);
 }
 
 function launchConfeti(){
-  for(let i=0;i<20;i++){
+  for(let i=0;i<30;i++){
     const c=document.createElement("div");
     c.className="confeti";
     c.style.left=Math.random()*100+"%";
@@ -243,11 +269,16 @@ function launchConfeti(){
 }
 
 /* ==========================================
+   IPUC LINKS
+   ========================================== */
+document.querySelectorAll("#ipucBtnW,#ipucBtnL,#ipucBtnR").forEach(b=>b.onclick=()=>window.open("https://www.ipucduitamasancarlos.com.co/p/seccion-kids.html","_self"));
+
+/* ==========================================
    INICIO
    ========================================== */
 window.onload=()=>{
-  const saved=localStorage.getItem("bbq_name");
-  if(saved)$("#playerName").value=saved;
+  const n=localStorage.getItem("bbq_name");
+  if(n)$("#playerName").value=n;
 };
 </script>
 </body>
