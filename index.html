@@ -1,581 +1,254 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Juego Interactivo de Personajes Bíblicos para Niños</title>
+<meta charset="UTF-8">
+<title>Quiz Bíblico Infantil — Demo 10 preguntas</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-  body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0; padding: 20px;
-    background: #f0f9ff;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    color: #333;
-  }
-  #game-container {
-    max-width: 480px;
-    width: 100%;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    padding: 24px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-  }
-  h1, h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 700;
-    color: #2a4568;
-  }
-  input[type=text], button {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 12px 16px;
-    margin-bottom: 18px;
-    border-radius: 8px;
-    border: 2px solid #3178c6;
-    outline: none;
-    transition: border-color 0.3s ease;
-    box-sizing: border-box;
-    user-select: none;
-  }
-  input[type=text]:focus {
-    border-color: #ffbb33;
-  }
-  button {
-    background-color: #3178c6;
-    color: white;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
-  }
-  button:hover, button:focus {
-    background-color: #245a8b;
-    outline: none;
-  }
-  button.bounce {
-    animation: bounce 0.7s infinite alternate;
-  }
-  @keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
-  }
-  #start-screen, #quiz-screen {
-    width: 100%;
-  }
-  #quiz-screen {
-    display: none;
-  }
-  .question {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 22px;
-  }
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 20px;
-  }
-  .option-btn {
-    background: #d0e4ff;
-    border: 2px solid #3178c6;
-    border-radius: 10px;
-    padding: 14px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    cursor: pointer;
-    user-select: none;
-  }
-  .option-btn:hover, .option-btn:focus {
-    background-color: #ffe599;
-    border-color: #d1a700;
-    outline: none;
-  }
-  .option-btn.correct {
-    background-color: #a1d99b;
-    border-color: #3a7a0b;
-    color: #21550d;
-    cursor: default;
-  }
-  .option-btn.wrong {
-    background-color: #f9a69a;
-    border-color: #a8312a;
-    color: #611e19;
-    cursor: default;
-  }
-  #progress-bar {
-    width: 100%;
-    height: 30px;
-    background: linear-gradient(90deg, #cee1ff, #91b7ff);
-    border-radius: 15px;
-    overflow: hidden;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-  }
-  #progress-inner {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #3178c6, #ffbb33);
-    color: white;
-    font-weight: 700;
-    text-align: right;
-    padding-right: 14px;
-    border-radius: 15px 0 0 15px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 6px;
-    white-space: nowrap;
-    font-size: 1.1rem;
-  }
-  #levels-display {
-    margin-top: 20px;
-    background: #dff0fd;
-    border-radius: 8px;
-    padding: 18px 16px;
-    max-height: 220px;
-    overflow-y: auto;
-    display: none;
-  }
-  #levels-display h3 {
-    margin-top: 0;
-    margin-bottom: 14px;
-    color: #0e3d91;
-  }
-  .level-item {
-    background: #b6d1ff;
-    border-radius: 8px;
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    align-items: center;
-    color: #143eae;
-  }
-  .level-item.unlocked {
-    background: #82bf56;
-    color: white;
-  }
-  .emoji {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    user-select: none;
-    animation: emoji-bounce 1.5s ease-in-out infinite alternate;
-  }
-  @keyframes emoji-bounce {
-    0% { transform: translateY(0) scale(1); }
-    100% { transform: translateY(-6px) scale(1.2); }
-  }
-  .message-biblical {
-    font-style: italic;
-    font-weight: 600;
-    color: #ffbb33;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-    font-size: 1.1rem;
-  }
-  .message-biblical svg {
-    width: 22px;
-    height: 22px;
-    user-select: none;
-    animation: emoji-bounce 1.5s ease-in-out infinite alternate;
-  }
-  @media (max-width: 480px) {
-    body { padding: 16px 10px;}
-    #game-container {
-      padding: 20px 18px;
-    }
-    h1, h2 {
-      font-size: 1.4rem;
-    }
-    .question {
-      font-size: 1.1rem;
-    }
-    button, input[type=text], .option-btn {
-      font-size: 1rem;
-      padding: 12px;
-    }
-    #progress-inner {
-      font-size: 1rem;
-      padding-right: 10px;
-    }
-  }
+/* ---------- VARIABLES CSS (tema claro) ---------- */
+:root{
+  --bg:#fdf6e3;
+  --text:#333;
+  --accent:#ff9f1c;
+  --correct:#2ecc71;
+  --wrong:#e74c3c;
+  --card:#fff;
+  --shadow:0 4px 12px rgba(0,0,0,.15);
+  --radius:12px;
+  --font:"Comic Sans MS",cursive,sans-serif;
+}
+/* ---------- RESET ---------- */
+*{box-sizing:border-box;margin:0;padding:0;font-family:var(--font)}
+body{background:var(--bg);color:var(--text);display:flex;flex-direction:column;align-items:center;padding:2rem 1rem}
+h1,h2{margin:.5em 0}
+button{cursor:pointer;border:none;border-radius:var(--radius);padding:.75em 1.5em;font-size:1.1rem;background:var(--accent);color:#fff;transition:transform .2s}
+button:disabled{opacity:.5;cursor:not-allowed}
+button:hover:not(:disabled){transform:translateY(-2px)}
+/* ---------- PANTALLAS ---------- */
+.screen{display:none;width:100%;max-width:600px}
+.screen.active{display:block}
+/* ---------- TARJETA ---------- */
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem}
+/* ---------- BARRA ---------- */
+.bar{background:#ddd;height:10px;border-radius:5px;overflow:hidden;margin:.5em 0}
+.bar div{background:var(--accent);height:100%;width:0;transition:width .3s}
+/* ---------- OPCIONES ---------- */
+.options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1rem 0}
+.options button{background:#fff;color:var(--text);border:2px solid var(--accent)}
+.options button.correct{background:var(--correct);color:#fff;border-color:var(--correct)}
+.options button.wrong{background:var(--wrong);color:#fff;border-color:var(--wrong)}
+/* ---------- EMOJI SVG ---------- */
+.emoji{width:64px;height:64px;margin:0 auto}
+/* ---------- CONFETI ---------- */
+@keyframes confeti-fall{0%{transform:translateY(-100vh) rotate(0)}100%{transform:translateY(100vh) rotate(360deg)}}
+.confeti{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--accent);opacity:.8;animation:confeti-fall 2s linear}
+/* ---------- MODO SIN ANIMACIONES ---------- */
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div id="game-container" role="main" aria-live="polite" aria-atomic="true">
 
-  <section id="start-screen" aria-label="Pantalla de inicio">
-    <h1>Juego Interactivo de Personajes Bíblicos para Niños</h1>
-    <label for="player-name" class="sr-only">Escribe tu nombre</label>
-    <input id="player-name" type="text" aria-required="true" aria-label="Nombre del jugador" placeholder="Escribe tu nombre aquí" autocomplete="off" />
-    <button id="start-btn" class="bounce" aria-label="Botón para comenzar el juego">Comenzar 🙌</button>
-    <div class="message-biblical" id="welcome-msg-initial">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#ffbb33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-        <line x1="9" y1="9" x2="9.01" y2="9" />
-        <line x1="15" y1="9" x2="15.01" y2="9" />
-      </svg>
-      ¡Dios te ama y está feliz de que quieras aprender sobre Sus historias! 📖✨
+<!-- ========== 1. BIENVENIDA ========== -->
+<section id="welcome" class="screen active">
+  <div class="card">
+    <svg class="emoji" viewBox="0 0 64 64" aria-label="Libro"><path fill="#ff9f1c" d="M56 8H8a4 4 0 00-4 4v40a4 4 0 004 4h48a4 4 0 004-4V12a4 4 0 00-4-4zM24 44h-4V20h4v24zm16 0h-4V20h4v24z"/></svg>
+    <h1>Quiz Bíblico Infantil</h1>
+    <p>¡Dios te ama y quiere que aprendas Sus historias!</p>
+    <input id="playerName" placeholder="Escribe tu nombre" maxlength="12" style="width:100%;padding:.75em;margin:1em 0;border:2px solid var(--accent);border-radius:var(--radius)">
+    <button id="startBtn">Comenzar 🚀</button>
+  </div>
+</section>
+
+<!-- ========== 2. JUEGO ========== -->
+<section id="game" class="screen">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span id="levelTag">Nivel 1</span>
+      <span id="counter">Pregunta 1/10</span>
     </div>
-  </section>
-
-  <section id="quiz-screen" aria-label="Cuestionario de personajes bíblicos" tabindex="-1" hidden>
-    <h2 id="welcome-msg" aria-live="polite"></h2>
-    <div class="question" id="question-text" aria-live="assertive" aria-atomic="true"></div>
-    <div class="options" id="options-container" role="list" aria-label="Opciones de respuesta"></div>
-
-    <div class="message-biblical" id="biblical-msg" aria-live="polite"></div>
-    <button id="help-btn" aria-label="Mostrar pista para la pregunta" title="Mostrar pista para la pregunta">Ayuda 💡</button>
-    <button id="next-btn" aria-label="Pasar a la siguiente pregunta" disabled>Siguiente ➡️</button>
-    <button id="levels-btn" aria-label="Mostrar niveles desbloqueados">Ver niveles 📊</button>
-
-    <div id="progress-bar" aria-label="Barra de progreso">
-      <div id="progress-inner" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    <div class="bar"><div id="progressBar"></div></div>
+    <h2 id="questionText"></h2>
+    <div id="options" class="options"></div>
+    <div style="margin-top:1em;text-align:center">
+      <button id="hintBtn" style="background:#3498db">Ayuda 💡</button>
+      <button id="nextBtn" disabled>Siguiente ➡️</button>
     </div>
+    <p id="hintBox" style="margin-top:1em;display:none;font-size:.9em;background:#fef9e7;padding:.5em;border-radius:var(--radius)"></p>
+  </div>
+</section>
 
-    <div id="levels-display" aria-label="Niveles desbloqueados" hidden>
-      <h3>Niveles y progreso</h3>
-      <div id="levels-list"></div>
-    </div>
-  </section>
-
-</div>
-
-<audio id="sound-correct" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
-<audio id="sound-wrong" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
-<audio id="sound-help" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum_hit.ogg" preload="auto"></audio>
-<audio id="sound-celebrate" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+<!-- ========== 3. RESULTADO ========== -->
+<section id="result" class="screen">
+  <div class="card">
+    <h2>¡Bien hecho <span id="resName"></span>!</h2>
+    <p>Respondiste <strong id="resCorrect"></strong> de 10</p>
+    <div id="stars"></div>
+    <button id="retryBtn">Repetir nivel 🔁</button>
+    <button id="resetAllBtn">Borrar todo 🗑️</button>
+  </div>
+</section>
 
 <script>
-(() => {
-  // Estructura de niveles y preguntas
-  const niveles = [
-    {
-      nivel: 1,
-      preguntas: [
-        {question:"¿Quién derrotó a Goliat con una piedra y una honda?", options:["David","Moisés","Abraham","Elías"], correctIndex:0, reference:"1 Samuel 17", emoji:"🪨"},
-        {question:"¿Quién construyó un arca para salvar a su familia y animales?", options:["Noé","Jonás","José","Isaías"], correctIndex:0, reference:"Génesis 6-9", emoji:"🛶"},
-        {question:"¿Quién recibió los Diez Mandamientos en el Monte Sinaí?", options:["Moisés","David","Saúl","Elías"], correctIndex:0, reference:"Éxodo 19-20", emoji:"📜"},
-        {question:"¿Quién fue el profeta que desafió a los profetas de Baal en el Monte Carmelo?", options:["Elías","Isaías","Jeremías","Samuel"], correctIndex:0, reference:"1 Reyes 18", emoji:"🔥"},
-        {question:"¿Qué mujer se convirtió en reina y salvó a su pueblo en Persia?", options:["Ester","Débora","María","Ruth"], correctIndex:0, reference:"Ester 2-8", emoji:"👑"},
-        {question:"¿Quién fue tragado por un gran pez y luego predicó en Nínive?", options:["Jonás","Daniel","José","Noé"], correctIndex:0, reference:"Jonás 1-4", emoji:"🐋"},
-        {question:"¿Quién interpretó los sueños del faraón?", options:["José","Moisés","David","Elías"], correctIndex:0, reference:"Génesis 41", emoji:"🛌"},
-        {question:"¿Quién construyó el Templo en Jerusalén?", options:["Salomón","Saúl","David","Abraham"], correctIndex:0, reference:"1 Reyes 6", emoji:"🏰"},
-        {question:"¿Quién fue el profeta que subió al cielo en un carro de fuego?", options:["Elías","Moisés","Jeremías","Isaías"], correctIndex:0, reference:"2 Reyes 2", emoji:"🔥"},
-        {question:"¿Quién fue la madre de Jesús?", options:["María","Marta","Eva","Sara"], correctIndex:0, reference:"Lucas 1", emoji:"🤰"},
-      ]
-    },
-    {
-      nivel: 2,
-      preguntas: [
-        {question:"¿Quién fue el primer hombre en la Biblia?", options:["Adán","Noé","Abraham","Moisés"], correctIndex:0, reference:"Génesis 2", emoji:"👦"},
-        {question:"¿Quién fue la mujer que convirtió el agua en vino en las bodas de Caná?", options:["María","Eva","Marta","Débora"], correctIndex:0, reference:"Juan 2", emoji:"🍷"},
-        {question:"¿Quién fue conocido por su sabiduría y escribió muchos proverbios?", options:["Salomón","David","Saúl","Elías"], correctIndex:0, reference:"Proverbios", emoji:"📖"},
-        {question:"¿Quién fue el profeta que desafió a los reyes y fue conocido por sus visiones?", options:["Ezequiel","Isaías","Jeremías","Daniel"], correctIndex:0, reference:"Ezequiel", emoji:"👁️"},
-        {question:"¿Quién fue el discípulo que negó a Jesús tres veces?", options:["Pedro","Juan","Andrés","Santiago"], correctIndex:0, reference:"Mateo 26", emoji:"❌"},
-        {question:"¿Quién fue arrojado al foso de los leones y protegido por Dios?", options:["Daniel","Moisés","Elías","Jeremías"], correctIndex:0, reference:"Daniel 6", emoji:"🦁"},
-        {question:"¿Quién fue el rey conocido por su valentía y justicia?", options:["David","Salomón","Saúl","Nabucodonosor"], correctIndex:0, reference:"1 Samuel 16", emoji:"⚔️"},
-        {question:"¿Quién fue la mujer que ayudó a los espías hebreos en Jericó?", options:["Rahab","Rut","Ester","Débora"], correctIndex:0, reference:"Josué 2", emoji:"🏠"},
-        {question:"¿Quién fue el profeta que anunció la venida del Mesías?", options:["Isaías","Jeremías","Elías","Malaquías"], correctIndex:0, reference:"Isaías 7", emoji:"✨"},
-        {question:"¿Quién fue el hombre que construyó las pirámides según la Biblia?", options:["No se menciona en la Biblia","Faraón","Abraham","Moisés"], correctIndex:0, reference:"N/A", emoji:"🏜️"},
-      ]
-    },
-    // Añade aquí niveles 3 a 15 con 10 preguntas únicas cada una.
-    // Por brevedad solo pongo 2 niveles, manteniendo estructura.
-  ];
-
-  const totalNiveles = niveles.length;
-  let playerName = "";
-  let currentNivel = 0;
-  let currentPregunta = 0;
-  let answeredCorrectly = false;
-  let progreso = [];
-
-  // carga localStorage
-  function loadProgress() {
-    const nameLS = localStorage.getItem('biblicoPlayerName');
-    const currentNivelLS = localStorage.getItem('biblicoCurrentNivel');
-    const currentPreguntaLS = localStorage.getItem('biblicoCurrentPregunta');
-    const progresoLS = localStorage.getItem('biblicoProgreso');
-
-    if (nameLS) playerName = nameLS;
-    if (currentNivelLS) currentNivel = parseInt(currentNivelLS);
-    if (currentPreguntaLS) currentPregunta = parseInt(currentPreguntaLS);
-    if (progresoLS) progreso = JSON.parse(progresoLS);
-    else {
-      progreso = Array(totalNiveles).fill().map(() => Array(10).fill(false));
-    }
+/* ==========================================
+   CONFIGURACIÓN RÁPIDA (SIN DEPENDENCIAS)
+   ========================================== */
+const levels=[
+  {
+    level:1,title:"Nivel 1 — Personajes Principiantes",
+    questions:[
+      {id:"1-01",q:"¿Quién derrotó a Goliat con una piedra y una honda?",opts:["David","Moisés","Abraham","Elías"],ans:0,hint:"Fue un joven pastor que confiaba en Dios.",ref:"1 Samuel 17"},
+      {id:"1-02",q:"¿Quién construyó el arca para salvar a los animales?",opts:["Noé","Abraham","Jonás","José"],ans:0,hint:"Construyó un barco grande antes del diluvio.",ref:"Génesis 6-9"},
+      {id:"1-03",q:"¿Quién recibió los Diez Mandamientos?",opts:["Moisés","Josué","Aarón","Sansón"],ans:0,hint:"Subió al monte Sinaí.",ref:"Éxodo 20"},
+      {id:"1-04",q:"¿Quién fue engullido por un gran pez?",opts:["Jonás","Daniel","Ezequiel","Elías"],ans:0,hint:"Pasó tres días dentro.",ref:"Jonás 1-2"},
+      {id:"1-05",q:"¿Quién era el hermano de Abel?",opts:["Caín","Set","Enoc","Lamec"],ans:0,hint:"Fue el primero en nacer de Adán y Eva.",ref:"Génesis 4"},
+      {id:"1-06",q:"¿Quién interpretó los sueños del Faraón?",opts:["José","Daniel","Moisés","Abraham"],ans:0,hint:"Tenía una túnica de muchos colores.",ref:"Génesis 41"},
+      {id:"1-07",q:"¿Quién era la esposa de Isaac?",opts:["Rebeca","Sara","Raquel","Lea"],ans:0,hint:"La conoció junto a un pozo.",ref:"Génesis 24"},
+      {id:"1-08",q:"¿Quién fue el padre del perdón? (le dijo: 'Te perdono')",opts:["Jacob","Esaú","José","Benjamín"],ans:2,hint:"Perdonó a sus hermanos.",ref:"Génesis 45"},
+      {id:"1-09",q:"¿Quién era el amigo de Jesús que lo traicionó?",opts:["Judas Iscariote","Pedro","Tomás","Andrés"],ans:0,hint:"Lo besó para señalarlo.",ref:"Mateo 26"},
+      {id:"1-10",q:"¿Quién negó a Jesús tres veces antes que cantara el gallo?",opts:["Pedro","Juan","Santiago","Mateo"],ans:0,hint:"Lloró mucho después.",ref:"Lucas 22"}
+    ]
   }
+];
 
-  // guarda en localStorage
-  function saveProgress() {
-    localStorage.setItem('biblicoPlayerName', playerName);
-    localStorage.setItem('biblicoCurrentNivel', currentNivel);
-    localStorage.setItem('biblicoCurrentPregunta', currentPregunta);
-    localStorage.setItem('biblicoProgreso', JSON.stringify(progreso));
-  }
+/* ==========================================
+   UTILIDADES
+   ========================================== */
+const $=q=>document.querySelector(q);
+const shuffle=a=>a.sort(()=>Math.random()-.5);
+const vibrate=p=>navigator.vibrate&&navigator.vibrate(p);
 
-  // UI
-  const startScreen = document.getElementById('start-screen');
-  const quizScreen = document.getElementById('quiz-screen');
-  const playerNameInput = document.getElementById('player-name');
-  const startBtn = document.getElementById('start-btn');
-  const welcomeMsgInitial = document.getElementById('welcome-msg-initial');
-  const welcomeMsg = document.getElementById('welcome-msg');
-  const questionText = document.getElementById('question-text');
-  const optionsContainer = document.getElementById('options-container');
-  const biblicalMsg = document.getElementById('biblical-msg');
-  const helpBtn = document.getElementById('help-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const levelsBtn = document.getElementById('levels-btn');
-  const progressInner = document.getElementById('progress-inner');
-  const levelsDisplay = document.getElementById('levels-display');
-  const levelsList = document.getElementById('levels-list');
-  const feedbackMsg = document.getElementById('feedback-msg');
+/* ==========================================
+   AUDIO (PLACEHOLDER – 1 KB BASE64 SILENCIO)
+   ========================================== */
+const sounds={
+  click:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA="),
+  ok:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA="),
+  fail:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA="),
+  win:new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQAAAAA=")
+};
+// Reemplaza las cadenas base64 por tus archivos reales (mp3/ogg) en assets/sounds/
+// Ej: sounds.ok.src="assets/sounds/ding.mp3";
 
-  const sounds = {
-    correct: document.getElementById('sound-correct'),
-    wrong: document.getElementById('sound-wrong'),
-    help: document.getElementById('sound-help'),
-    celebrate: document.getElementById('sound-celebrate'),
-  };
-
-  // Animaciones y efectos
-  function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play().catch(() => {});
-  }
-
-  function vibrate(ms=200) {
-    if (navigator.vibrate) navigator.vibrate(ms);
-  }
-
-  function confettiAnimation() {
-    const colors = ['#ffbb33','#34c759','#ff3b30','#5856d6','#ff9500'];
-    const count = 20;
-    for(let i=0;i<count;i++) {
-      const confetti = document.createElement('div');
-      confetti.className = 'confetti';
-      confetti.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-      confetti.style.left = Math.random()*100 + '%';
-      confetti.style.animationDelay = (i*0.1) + 's';
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 2000);
-    }
-    playSound(sounds.celebrate);
-  }
-
-  // Mostrar pantalla inicio
-  function showStartScreen() {
-    startScreen.style.display = 'block';
-    quizScreen.style.display = 'none';
-    biblicalMsg.textContent = "";
-    welcomeMsgInitial.style.display = 'flex';
-  }
-
-  // Mostrar pregunta y opciones
-  function showQuestion() {
-    answeredCorrectly = false;
-    helpBtn.disabled = false;
-    nextBtn.disabled = true;
-    biblicalMsg.textContent = "";
-    feedbackMsg.textContent = "";
-
-    const pregunta = niveles[currentNivel].preguntas[currentPregunta];
-    questionText.textContent = `${pregunta.question} ${pregunta.emoji}`;
-    optionsContainer.innerHTML = "";
-    pregunta.options.forEach((opcion,i) => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = opcion;
-      btn.type = 'button';
-      btn.onclick = () => selectAnswer(i);
-      optionsContainer.appendChild(btn);
-    });
-    updateProgressBar();
-  }
-
-  // Actualiza barra progreso
-  function updateProgressBar() {
-    const totalPreguntas = niveles[currentNivel].preguntas.length;
-    const correctas = progreso[currentNivel].filter(r => r).length;
-    const pct = Math.round((correctas/totalPreguntas) * 100);
-    progressInner.style.width = pct+'%';
-    progressInner.textContent = `${pct}% ✅`;
-    progressInner.setAttribute('aria-valuenow', pct);
-  }
-
-  // Manejar respuesta
-  function selectAnswer(idx) {
-    if (answeredCorrectly) return;
-
-    const pregunta = niveles[currentNivel].preguntas[currentPregunta];
-    const opciones = [...optionsContainer.children];
-
-    if (idx === pregunta.correctIndex) {
-      opciones[idx].classList.add('correct');
-      feedbackMsg.textContent = "¡Correcto! 📖 ¡Muy bien!";
-      feedbackMsg.style.color = "#3178c6";
-      progreso[currentNivel][currentPregunta] = true;
-      playSound(sounds.correct);
-      answeredCorrectly = true;
-      nextBtn.disabled = false;
-      helpBtn.disabled = true;
-      confettiAnimation();
-      saveProgress();
-    } else {
-      opciones[idx].classList.add('wrong');
-      feedbackMsg.textContent = `¡Casi! 🙏 Recuerda la historia (${pregunta.reference}). Intenta de nuevo.`;
-      feedbackMsg.style.color = "#d33b3b";
-      playSound(sounds.wrong);
-      vibrate(500);
-      opciones[idx].disabled = true;
-    }
-    opciones.forEach((b,i) => b.disabled = b.classList.contains('correct'));
-  }
-
-  // Botón ayuda
-  function showHelp() {
-    if (answeredCorrectly) return;
-    biblicalMsg.textContent = `Pista: Revisa la historia en ${niveles[currentNivel].preguntas[currentPregunta].reference} 📖`;
-    playSound(sounds.help);
-  }
-
-  // Botón siguiente
-  function nextQuestion() {
-    if (!answeredCorrectly) return;
-    currentPregunta++;
-    if (currentPregunta >= niveles[currentNivel].preguntas.length) {
-      // nivel finalizado
-      if (currentNivel === totalNiveles - 1) {
-        alert("¡Felicidades! Has completado todos los niveles 🎉");
-        showReturnButton();
-      } else {
-        alert(`Nivel ${currentNivel + 1} completado. ¡Adelante al siguiente nivel! 🎉`);
-        currentNivel++;
-        currentPregunta = 0;
-        showReturnButton();
-      }
-      saveProgress();
-      return;
-    }
-    saveProgress();
-    showQuestion();
-  }
-
-  // Mostrar botón regresar al home kids
-  function showReturnButton() {
-    quizScreen.innerHTML = `
-      <h2>¡Felicidades, ${playerName}!</h2>
-      <p>Has completado el nivel ${currentNivel}.</p>
-      <button id="return-home-btn">Regresar a Sección Kids</button>
-    `;
-    const btnReturn = document.getElementById('return-home-btn');
-    btnReturn.onclick = () => window.location.href = 'https://www.ipucduitamasancarlos.com.co/p/seccion-kids.html';
-  }
-
-  // Botón niveles muestra progreso actual - (puede mejorarse)
-  function toggleLevels() {
-    // Implementación futura si se desea mostrar niveles
-    alert("Función 'Ver niveles' próximamente disponible.");
-  }
-
-  // Eventos
-  startBtn.onclick = () => {
-    const nombre = playerNameInput.value.trim();
-    if (!nombre) {
-      alert("Por favor escribe tu nombre");
-      playerNameInput.focus();
-      return;
-    }
-    playerName = nombre;
-    loadProgress();
-    showQuizScreen();
-  };
-
-  helpBtn.onclick = showHelp;
-  nextBtn.onclick = nextQuestion;
-  levelsBtn.onclick = toggleLevels;
-
-  // Mostrar pantalla juego
-  function showQuizScreen() {
-    startScreen.style.display = 'none';
-    quizScreen.style.display = 'block';
-    welcomeMsg.textContent = `¡Hola ${playerName}! 🙌 Dios te ama y está feliz de que quieras aprender sobre Sus historias. ¡Vamos a divertirnos y aprender juntos! 📖✨`;
-    if(!progreso[currentNivel]) progreso[currentNivel] = [];
-    if(!progreso[currentNivel][currentPregunta]) progreso[currentNivel][currentPregunta] = false;
-    showQuestion();
-  }
-
-  // Cargar progreso en localStorage
-  function loadProgress() {
-    const LSname = localStorage.getItem('biblicoPlayerName');
-    const LSlevel = localStorage.getItem('biblicoCurrentNivel');
-    const LSpregunta = localStorage.getItem('biblicoCurrentPregunta');
-    const LSprogreso = localStorage.getItem('biblicoProgreso');
-
-    if (LSname) playerName = LSname;
-    if (LSlevel) currentNivel = parseInt(LSlevel);
-    if (LSpregunta) currentPregunta = parseInt(LSpregunta);
-
-    if (LSprogreso) {
-      progreso = JSON.parse(LSprogreso);
-    } else {
-      progreso = Array(totalNiveles).fill().map(() => Array(10).fill(false));
-    }
-  }
-
-  // Guardar progreso en localStorage
-  function saveProgress() {
-    localStorage.setItem('biblicoPlayerName', playerName);
-    localStorage.setItem('biblicoCurrentNivel', currentNivel);
-    localStorage.setItem('biblicoCurrentPregunta', currentPregunta);
-    localStorage.setItem('biblicoProgreso', JSON.stringify(progreso));
-  }
-
-  // Inicio
-  loadProgress();
-  if(playerName) {
-    showQuizScreen();
-  } else {
-    showStartScreen();
-  }
-})();
-
-// Estilos y animación para confetti
-const styleSheet = document.createElement('style');
-styleSheet.type = 'text/css';
-styleSheet.innerText = `
-.confetti {
-  position: fixed;
-  top: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  opacity: 0.9;
-  animation: fall 1.5s linear forwards;
-  z-index: 10000;
+function playSound(key){
+  const s=sounds[key];
+  s.currentTime=0;
+  s.play().catch(()=>{/*política de navegador*/});
 }
-@keyframes fall {
-  0% {transform: translateY(0) rotate(0deg);}
-  100% {transform: translateY(90vh) rotate(360deg);}
-}`;
-document.head.appendChild(styleSheet);
+
+/* ==========================================
+   NAVEGACIÓN
+   ========================================== */
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  $(id).classList.add("active");
+}
+
+/* ==========================================
+   ESTADO
+   ========================================== */
+let levelIndex=0, qIndex=0, correct=0, questions=[], playerName="";
+
+/* ==========================================
+   FLUJO
+   ========================================== */
+$("#startBtn").onclick=()=>{
+  playerName=$("#playerName").value.trim()||"Amigo";
+  localStorage.setItem("bbq_name",playerName);
+  startLevel(0);
+};
+$("#retryBtn").onclick=()=>startLevel(levelIndex);
+$("#resetAllBtn").onclick=()=>{localStorage.clear();show("#welcome");};
+
+function startLevel(idx){
+  levelIndex=idx;
+  const lvl=levels[idx];
+  questions=shuffle([...lvl.questions]);
+  qIndex=0; correct=0;
+  $("#levelTag").textContent=lvl.title;
+  show("#game");
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q=questions[qIndex];
+  $("#counter").textContent=`Pregunta ${qIndex+1}/10`;
+  $("#questionText").textContent=q.q;
+  $("#hintBox").style.display="none";
+  $("#nextBtn").disabled=true;
+  $("#progressBar").style.width=`${(qIndex)/10*100}%`;
+
+  const box=$("#options");
+  box.innerHTML="";
+  const opts=shuffle([...q.opts]);
+  opts.forEach((opt,i)=>{
+    const btn=document.createElement("button");
+    btn.textContent=opt;
+    btn.onclick=()=>check(btn,opt,q);
+    box.appendChild(btn);
+  });
+}
+
+function check(btn,opt,q){
+  const right=opt===q.opts[q.ans];
+  playSound(right?"ok":"fail");
+  vibrate(right?50:200);
+  if(right){
+    btn.classList.add("correct");
+    correct++;
+    launchConfeti();
+  }else{
+    btn.classList.add("wrong");
+    // marcar la correcta
+    [...$("#options").children].forEach(b=>{
+      if(b.textContent===q.opts[q.ans])b.classList.add("correct");
+    });
+  }
+  // deshabilitar todos
+  [...$("#options").children].forEach(b=>b.onclick=null);
+  $("#nextBtn").disabled=false;
+}
+
+$("#hintBtn").onclick=()=>{
+  const q=questions[qIndex];
+  $("#hintBox").textContent=`${q.hint} (Lee: ${q.ref})`;
+  $("#hintBox").style.display="block";
+};
+
+$("#nextBtn").onclick=()=>{
+  if(qIndex<9){qIndex++;renderQuestion();}
+  else{showResult();}
+};
+
+function showResult(){
+  $("#progressBar").style.width="100%";
+  show("#result");
+  $("#resName").textContent=playerName;
+  $("#resCorrect").textContent=correct;
+  const stars=Math.floor(correct/4); // 0-3 estrellas
+  $("#stars").innerHTML="⭐".repeat(stars)+(stars<3?"🌟".repeat(3-stars):"");
+  playSound("win");
+  // guardar progreso
+  localStorage.setItem("bbq_level",Math.max(levelIndex+(stars?1:0), Number(localStorage.getItem("bbq_level")||0)));
+}
+
+function launchConfeti(){
+  for(let i=0;i<20;i++){
+    const c=document.createElement("div");
+    c.className="confeti";
+    c.style.left=Math.random()*100+"%";
+    c.style.background=["#ff9f1c","#2ecc71","#3498db","#e74c3c"][Math.floor(Math.random()*4)];
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
+  }
+}
+
+/* ==========================================
+   INICIO
+   ========================================== */
+window.onload=()=>{
+  const saved=localStorage.getItem("bbq_name");
+  if(saved)$("#playerName").value=saved;
+};
 </script>
 </body>
 </html>
