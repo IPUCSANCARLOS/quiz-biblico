@@ -16,6 +16,7 @@
             --color-text-light: #fff;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             --border-radius: 16px;
+            --mobile-padding: 15px;
         }
 
         * {
@@ -29,54 +30,57 @@
             font-family: 'Comic Neue', cursive, sans-serif;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             color: var(--color-text);
-            line-height: 1.6;
+            line-height: 1.5;
             min-height: 100vh;
-            padding: 20px;
+            padding: var(--mobile-padding);
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             position: relative;
         }
 
         h1 {
             color: var(--color-primary);
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
             position: relative;
             display: inline-block;
+            line-height: 1.2;
         }
 
         h1::after {
             content: "";
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 6px;
+            width: 90px;
+            height: 5px;
             background: var(--color-secondary);
             border-radius: 3px;
         }
 
         h2 {
             color: var(--color-secondary);
-            font-size: 2.2rem;
-            margin-bottom: 15px;
+            font-size: 1.7rem;
+            margin-bottom: 12px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            line-height: 1.2;
         }
 
         p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
         .screen {
@@ -96,30 +100,34 @@
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
         }
 
         .btn {
             background: linear-gradient(to bottom, var(--color-primary), #4a70cc);
             color: var(--color-text-light);
             border: none;
-            padding: 16px 32px;
+            padding: 14px 20px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-family: inherit;
-            margin: 10px 5px;
+            margin: 8px 4px;
             box-shadow: var(--shadow);
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
             font-weight: bold;
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn:active {
@@ -140,10 +148,10 @@
 
         .welcome-message {
             background-color: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -156,18 +164,18 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
         }
 
         .input-name {
             width: 100%;
-            max-width: 300px;
-            padding: 15px 20px;
+            max-width: 280px;
+            padding: 14px 18px;
             border: 3px solid var(--color-primary);
             border-radius: 50px;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 16px;
             font-family: inherit;
             text-align: center;
             transition: all 0.3s;
@@ -177,34 +185,38 @@
         .input-name:focus {
             outline: none;
             border-color: var(--color-secondary);
-            box-shadow: 0 0 0 4px rgba(249, 168, 38, 0.3);
-            transform: scale(1.05);
+            box-shadow: 0 0 0 3px rgba(249, 168, 38, 0.3);
+            transform: scale(1.03);
         }
 
         .question-container {
             background-color: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             position: relative;
             border: 3px solid var(--color-primary);
         }
 
         .question-text {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
             color: var(--color-primary);
             text-align: center;
-            line-height: 1.4;
+            line-height: 1.3;
             font-weight: bold;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .options-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         @media (min-width: 600px) {
@@ -216,23 +228,26 @@
         .option-btn {
             background-color: #f1f2f6;
             color: var(--color-text);
-            border: 3px solid transparent;
-            padding: 20px;
-            border-radius: 15px;
+            border: 2px solid transparent;
+            padding: 16px 12px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1rem;
             text-align: left;
             transition: all 0.3s;
             font-family: inherit;
             position: relative;
             overflow: hidden;
             font-weight: bold;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
         }
 
         .option-btn:hover {
             background-color: #dfe4ea;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             border-color: var(--color-primary);
         }
 
@@ -252,28 +267,28 @@
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+            20%, 40%, 60%, 80% { transform: translateX(3px); }
         }
 
         .progress-container {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             position: relative;
         }
 
         .progress-bar {
-            height: 30px;
+            height: 22px;
             background-color: #f1f2f6;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 15px;
-            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 12px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
             border: 2px solid var(--color-primary);
         }
 
@@ -282,7 +297,7 @@
             background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
             width: 0%;
             transition: width 0.5s ease;
-            border-radius: 15px;
+            border-radius: 12px;
             position: relative;
             overflow: hidden;
         }
@@ -290,18 +305,18 @@
         .progress-text {
             display: flex;
             justify-content: space-between;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: bold;
             color: var(--color-primary);
         }
 
         .hint-container {
             background: linear-gradient(to right, #ffeaa7, #fdcb6e);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
             display: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border: 2px dashed #e17055;
         }
 
@@ -312,29 +327,29 @@
 
         .emoji-container {
             text-align: center;
-            margin: 30px 0;
-            font-size: 5rem;
+            margin: 20px 0;
+            font-size: 3.5rem;
             animation: bounce 2s infinite;
         }
 
         .level-map {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .level-item {
             background: linear-gradient(145deg, #ffffff, #e6e6e6);
-            padding: 25px 15px;
-            border-radius: 20px;
+            padding: 18px 12px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            border: 3px solid var(--color-primary);
+            border: 2px solid var(--color-primary);
         }
 
         .level-item::before {
@@ -343,7 +358,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 6px;
+            height: 5px;
             background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
             transform: scaleX(1);
         }
@@ -353,8 +368,8 @@
         }
 
         .level-item:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
         }
 
         .level-item.locked {
@@ -366,36 +381,36 @@
 
         .level-stars {
             color: var(--color-secondary);
-            font-size: 1.8rem;
-            margin-top: 10px;
+            font-size: 1.5rem;
+            margin-top: 8px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .settings-panel {
             background-color: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             border: 3px solid var(--color-primary);
         }
 
         .setting-item {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
         }
 
         .setting-item label {
             margin-left: 10px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             cursor: pointer;
             font-weight: bold;
         }
 
         input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             accent-color: var(--color-primary);
         }
 
@@ -420,69 +435,69 @@
         }
 
         .reward-badge {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
             background: linear-gradient(145deg, var(--color-secondary), #e59400);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 2.2rem;
             color: white;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             animation: bounce 1s infinite;
-            border: 5px solid white;
+            border: 4px solid white;
         }
 
         .footer {
             text-align: center;
-            margin-top: 40px;
-            font-size: 1rem;
+            margin-top: 30px;
+            font-size: 0.9rem;
             color: #7f8c8d;
         }
 
         .home-button {
             display: inline-block;
-            margin-top: 20px;
-            padding: 15px 30px;
+            margin-top: 15px;
+            padding: 12px 20px;
             background: linear-gradient(to right, var(--color-primary), #4a70cc);
             color: white;
             text-decoration: none;
             border-radius: 50px;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             font-weight: bold;
             border: none;
             cursor: pointer;
             font-family: inherit;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .home-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             color: white;
         }
 
         /* Contenedor de mensajes */
         .message-container {
             position: fixed;
-            top: 20px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
             background: white;
-            padding: 18px 30px;
+            padding: 14px 22px;
             border-radius: 50px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
             z-index: 1001;
             display: none;
             animation: slideIn 0.5s forwards;
-            max-width: 80%;
+            max-width: 85%;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1rem;
-            border: 3px solid transparent;
+            font-size: 0.95rem;
+            border: 2px solid transparent;
         }
 
         .message-container.success {
@@ -498,42 +513,42 @@
         }
 
         @keyframes slideIn {
-            from { top: -100px; opacity: 0; }
-            to { top: 20px; opacity: 1; }
+            from { top: -80px; opacity: 0; }
+            to { top: 15px; opacity: 1; }
         }
 
         @keyframes slideOut {
-            from { top: 20px; opacity: 1; }
-            to { top: -100px; opacity: 0; }
+            from { top: 15px; opacity: 1; }
+            to { top: -80px; opacity: 0; }
         }
 
         /* Panel de jugador con nombre y frase bíblica */
         .player-panel {
             background: linear-gradient(to right, var(--color-primary), #4a70cc);
             color: white;
-            padding: 20px 30px;
-            border-radius: 50px;
-            margin-bottom: 30px;
+            padding: 15px 20px;
+            border-radius: 40px;
+            margin-bottom: 20px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            border: 3px solid white;
+            border: 2px solid white;
             animation: pulse 2s infinite;
         }
 
         .player-name {
             font-weight: bold;
-            font-size: 1.4rem;
-            margin-right: 15px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            font-size: 1.1rem;
+            margin-right: 12px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .bible-verse {
             font-style: italic;
-            font-size: 1rem;
+            font-size: 0.85rem;
             text-align: center;
             flex-grow: 1;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
@@ -541,68 +556,123 @@
 
         /* Responsive adjustments */
         @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+            
             h1 {
-                font-size: 2.5rem;
+                font-size: 1.9rem;
+                margin-bottom: 6px;
+            }
+            
+            h1::after {
+                bottom: -6px;
+                width: 70px;
+                height: 4px;
             }
             
             h2 {
-                font-size: 1.9rem;
+                font-size: 1.5rem;
+                margin-bottom: 10px;
             }
             
             .btn {
-                padding: 14px 25px;
-                font-size: 1.1rem;
+                padding: 12px 16px;
+                font-size: 0.95rem;
+                margin: 6px 3px;
+                min-height: 45px;
             }
             
             .question-text {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+                min-height: 50px;
             }
             
             .level-map {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .level-item {
+                padding: 15px 10px;
+            }
+            
+            .level-item h3 {
+                font-size: 1rem;
+            }
+            
+            .level-item p {
+                font-size: 0.8rem;
             }
             
             .emoji-container {
-                font-size: 4rem;
+                font-size: 3rem;
+                margin: 15px 0;
             }
             
             .message-container {
                 max-width: 90%;
-                font-size: 1rem;
-                padding: 15px 25px;
+                font-size: 0.9rem;
+                padding: 12px 18px;
             }
             
             .player-panel {
                 flex-direction: column;
-                gap: 12px;
+                gap: 8px;
                 text-align: center;
-                padding: 15px;
+                padding: 12px 15px;
+                border-radius: 30px;
             }
             
             .player-name {
                 margin-right: 0;
-                margin-bottom: 5px;
-                font-size: 1.2rem;
+                margin-bottom: 4px;
+                font-size: 1rem;
             }
             
             .bible-verse {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
             
             .input-name {
-                font-size: 1.1rem;
-                padding: 12px 18px;
+                font-size: 0.95rem;
+                padding: 12px 16px;
+                max-width: 250px;
             }
             
             .option-btn {
-                padding: 16px;
-                font-size: 1.1rem;
+                padding: 14px 10px;
+                font-size: 0.95rem;
+                min-height: 55px;
+                border-radius: 10px;
             }
             
             .reward-badge {
-                width: 100px;
-                height: 100px;
-                font-size: 2.5rem;
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .progress-bar {
+                height: 20px;
+            }
+            
+            .progress-text {
+                font-size: 0.85rem;
+            }
+            
+            .hint-container {
+                padding: 14px;
+                font-size: 0.9rem;
+            }
+            
+            .welcome-message, .question-container, .settings-panel {
+                padding: 18px;
+            }
+            
+            .footer {
+                margin-top: 25px;
             }
         }
 
@@ -617,28 +687,28 @@
         .decoration-1 {
             top: 5%;
             right: 5%;
-            font-size: 8rem;
+            font-size: 6rem;
             transform: rotate(15deg);
         }
 
         .decoration-2 {
             bottom: 5%;
             left: 5%;
-            font-size: 8rem;
+            font-size: 6rem;
             transform: rotate(-15deg);
         }
 
         .decoration-3 {
             top: 20%;
             left: 10%;
-            font-size: 5rem;
+            font-size: 4rem;
             transform: rotate(-10deg);
         }
 
         .decoration-4 {
             bottom: 20%;
             right: 10%;
-            font-size: 5rem;
+            font-size: 4rem;
             transform: rotate(10deg);
         }
 
@@ -658,6 +728,49 @@
 
         .tada {
             animation: tada 1s;
+        }
+
+        /* Agrupación de botones en móvil */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .button-group .btn {
+            flex: 1;
+            min-width: 120px;
+            max-width: 200px;
+        }
+        
+        /* Ajustes para pantallas muy pequeñas */
+        @media (max-width: 380px) {
+            .level-map {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group .btn {
+                min-width: 100%;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Mejora de espaciado general para móviles */
+        .mobile-compact {
+            margin-bottom: 15px;
+        }
+        
+        .mobile-compact-lg {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -680,20 +793,22 @@
         
         <!-- Pantalla de bienvenida -->
         <div id="welcome-screen" class="screen active">
-            <header>
+            <header class="mobile-compact">
                 <h1>Quiz Bíblico Infantil</h1>
                 <div class="emoji-container">📖✨</div>
             </header>
             
-            <div class="welcome-message">
-                <p id="personalized-message" style="font-size: 1.3rem; margin-bottom: 25px;">¡Hola! Dios te ama y está contento de que quieras aprender Sus historias. ¡Vamos a jugar y aprender juntos!</p>
+            <div class="welcome-message mobile-compact">
+                <p id="personalized-message" style="font-size: 1.1rem; margin-bottom: 20px;">¡Hola! Dios te ama y está contento de que quieras aprender Sus historias. ¡Vamos a jugar y aprender juntos!</p>
                 
                 <input type="text" id="player-name" class="input-name" placeholder="Escribe tu nombre" maxlength="20">
                 
-                <button id="start-btn" class="btn">¡Comenzar! 🎮</button>
+                <div class="button-group">
+                    <button id="start-btn" class="btn">¡Comenzar! 🎮</button>
+                </div>
             </div>
             
-            <div class="settings-panel">
+            <div class="settings-panel mobile-compact">
                 <h2>Opciones</h2>
                 
                 <div class="setting-item">
@@ -711,7 +826,7 @@
                     <label for="voice-enabled">Leer preguntas en voz alta</label>
                 </div>
                 
-                <div style="text-align: center; margin-top: 30px;">
+                <div class="button-group mobile-compact">
                     <button id="view-levels-btn" class="btn btn-secondary">Ver Niveles</button>
                     <button id="reset-progress-btn" class="btn btn-danger">Borrar Progreso</button>
                 </div>
@@ -725,16 +840,16 @@
         
         <!-- Pantalla de selección de niveles -->
         <div id="levels-screen" class="screen">
-            <header>
+            <header class="mobile-compact">
                 <h1>Niveles</h1>
                 <p>Selecciona un nivel para jugar</p>
             </header>
             
-            <div class="level-map" id="level-map-container">
+            <div class="level-map mobile-compact" id="level-map-container">
                 <!-- Los niveles se generarán dinámicamente con JavaScript -->
             </div>
             
-            <div style="text-align: center; margin-top: 30px;">
+            <div class="button-group">
                 <button id="back-from-levels" class="btn">Volver</button>
             </div>
             
@@ -745,7 +860,7 @@
         
         <!-- Pantalla de juego -->
         <div id="game-screen" class="screen">
-            <div class="progress-container">
+            <div class="progress-container mobile-compact">
                 <div class="progress-bar">
                     <div class="progress-fill" id="level-progress"></div>
                 </div>
@@ -755,7 +870,7 @@
                 </div>
             </div>
             
-            <div class="question-container">
+            <div class="question-container mobile-compact">
                 <div class="emoji-container" id="question-emoji">❓</div>
                 <div class="question-text" id="question-text"></div>
                 
@@ -768,13 +883,13 @@
                     <p><strong>Referencia bíblica:</strong> <span id="reference-text"></span></p>
                 </div>
                 
-                <div style="text-align: center;">
+                <div class="button-group">
                     <button id="show-hint-btn" class="btn btn-secondary help-pulse">💡 Ayuda</button>
                     <button id="next-question-btn" class="btn" disabled>Siguiente ➡️</button>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 30px;">
+            <div class="button-group">
                 <button id="back-to-levels" class="btn">Volver a Niveles</button>
             </div>
             
@@ -785,21 +900,21 @@
         
         <!-- Pantalla de resultados -->
         <div id="results-screen" class="screen">
-            <header>
+            <header class="mobile-compact">
                 <h1>¡Nivel Completado!</h1>
                 <div class="reward-badge" id="reward-badge">🏆</div>
             </header>
             
-            <div class="question-container">
+            <div class="question-container mobile-compact">
                 <h2 id="results-title">¡Felicidades!</h2>
-                <p id="results-message" style="font-size: 1.3rem;">Has completado el nivel con éxito.</p>
+                <p id="results-message" style="font-size: 1.1rem;">Has completado el nivel con éxito.</p>
                 
-                <div class="progress-text" style="justify-content: center; gap: 30px; margin: 25px 0;">
-                    <p>Preguntas correctas: <span id="correct-answers" style="font-size: 1.4rem;">0</span>/10</p>
-                    <p>Estrellas obtenidas: <span id="stars-earned" style="font-size: 1.4rem;">0</span>/3</p>
+                <div class="progress-text" style="justify-content: center; gap: 20px; margin: 20px 0;">
+                    <p>Preguntas correctas: <span id="correct-answers" style="font-size: 1.2rem;">0</span>/10</p>
+                    <p>Estrellas obtenidas: <span id="stars-earned" style="font-size: 1.2rem;">0</span>/3</p>
                 </div>
                 
-                <div style="text-align: center; margin: 30px 0;">
+                <div class="button-group mobile-compact-lg">
                     <button id="play-again-btn" class="btn">🔄 Jugar de nuevo</button>
                     <button id="next-level-btn" class="btn btn-success">⏭️ Siguiente nivel</button>
                     <button id="back-to-levels-from-results" class="btn">📋 Volver a Niveles</button>
@@ -1091,7 +1206,7 @@
                         {
                             id: "3-02",
                             question: "¿A quién resucitó Jesús después de cuatro días de muerto?",
-                            options: ["Lázaro", "La hija de Jairo", "El hijo de la viuda", "Dorcas"],
+                            options: ["Lázaro", "La haja de Jairo", "El hijo de la viuda", "Dorcas"],
                             answerIndex: 0,
                             hint: "Jesús lloró antes de realizar este milagro.",
                             reference: "Juan 11:1-44"
@@ -1149,7 +1264,7 @@
                             question: "¿Qué personaje bíblico fue arrebatado al cielo en un carro de fuego?",
                             options: ["Elías", "Enoc", "Moisés", "Eliseo"],
                             answerIndex: 0,
-                            hint: "Su discípulo Eliseo recibió una doble porción de su espíritu.",
+                            hint: "Su discípulo Eliseo recibió una doble porción de his espíritu.",
                             reference: "2 Reyes 2:11"
                         },
                         {
@@ -1159,178 +1274,6 @@
                             answerIndex: 0,
                             hint: "Era un sacerdote que se quedó mudo por dudar del mensaje del ángel.",
                             reference: "Lucas 1:5-25"
-                        }
-                    ]
-                },
-                {
-                    level: 4,
-                    title: "Nivel 4 — Parábolas y Enseñanzas",
-                    questions: [
-                        {
-                            id: "4-01",
-                            question: "¿Qué parábola habla de un hijo que se fue de casa y despilfarró su herencia?",
-                            options: ["El hijo pródigo", "El buen samaritano", "El sembrador", "La oveja perdida"],
-                            answerIndex: 0,
-                            hint: "El padre celebra con una fiesta cuando su hijo regresa arrepentido.",
-                            reference: "Lucas 15:11-32"
-                        },
-                        {
-                            id: "4-02",
-                            question: "¿Qué parábola enseña sobre ayudar a quienes están en necesidad?",
-                            options: ["El buen samaritano", "El hijo pródigo", "Los talentos", "La semilla de mostaza"],
-                            answerIndex: 0,
-                            hint: "Un hombre es ayudado por alguien de un grupo considerado enemigo.",
-                            reference: "Lucas 10:25-37"
-                        },
-                        {
-                            id: "4-03",
-                            question: "¿Qué parábola habla de semillas que caen en diferentes tipos de terreno?",
-                            options: ["El sembrador", "El trigo y la cizaña", "La semilla de mostaza", "La levadura"],
-                            answerIndex: 0,
-                            hint: "Algunas semillas caen en camino pedregoso, entre espinos y en buena tierra.",
-                            reference: "Mateo 13:1-23"
-                        },
-                        {
-                            id: "4-04",
-                            question: "¿Qué parábola habla de un hombre que encuentra un tesoro escondido?",
-                            options: ["El tesoro escondido", "La perla de gran precio", "Los talentos", "La red"],
-                            answerIndex: 0,
-                            hint: "El hombre vende todo lo que tiene para comprar el campo donde está el tesoro.",
-                            reference: "Mateo 13:44"
-                        },
-                        {
-                            id: "4-05",
-                            question: "¿Qué parábola enseña sobre estar preparados para la venida de Jesús?",
-                            options: ["Las diez vírgenes", "Los talentos", "El mayordomo fiel", "La gran cena"],
-                            answerIndex: 0,
-                            hint: "Cinco vírgenes eran prudentes y cinco insensatas.",
-                            reference: "Mateo 25:1-13"
-                        },
-                        {
-                            id: "4-06",
-                            question: "¿Qué parábola habla de perdonar a otros una y otra vez?",
-                            options: ["El siervo malvado", "El hijo pródigo", "El fariseo y el publicano", "La oveja perdida"],
-                            answerIndex: 0,
-                            hint: "Un siervo es perdonado una gran deuda pero no perdona una deuda pequeña.",
-                            reference: "Mateo 18:21-35"
-                        },
-                        {
-                            id: "4-07",
-                            question: "¿Qué parábola enseña sobre el uso de los dones que Dios nos da?",
-                            options: ["Los talentos", "El sembrador", "La semilla de mostaza", "El tesoro escondido"],
-                            answerIndex: 0,
-                            hint: "Un señor da diferentes cantidades de talentos a sus siervos.",
-                            reference: "Mateo 25:14-30"
-                        },
-                        {
-                            id: "4-08",
-                            question: "¿Qué parábola habla de un juez injusto y una viuda persistente?",
-                            options: ["La viuda y el juez injusto", "El fariseo y el publicano", "El amigo importuno", "Los dos deudores"],
-                            answerIndex: 0,
-                            hint: "La viuda insiste hasta que el juez le hace justicia.",
-                            reference: "Lucas 18:1-8"
-                        },
-                        {
-                            id: "4-09",
-                            question: "¿Qué parábola muestra que Dios se alegra cuando un pecador se arrepiente?",
-                            options: ["La oveja perdida", "El hijo pródigo", "La moneda perdida", "Todas las anteriores"],
-                            answerIndex: 3,
-                            hint: "Jesús contó estas tres parábolas seguidas en Lucas 15.",
-                            reference: "Lucas 15"
-                        },
-                        {
-                            id: "4-10",
-                            question: "¿Qué parábola habla de un fariseo y un recaudador de impuestos que oraban?",
-                            options: ["El fariseo y el publicano", "Los dos hijos", "Los labradores malvados", "El siervo vigilante"],
-                            answerIndex: 0,
-                            hint: "El recaudador de impuestos fue justificado por su humildad.",
-                            reference: "Lucas 18:9-14"
-                        }
-                    ]
-                },
-                {
-                    level: 5,
-                    title: "Nivel 5 — Eventos Importantes",
-                    questions: [
-                        {
-                            id: "5-01",
-                            question: "¿Qué evento sucedió cuando Jesús fue transfigurado ante sus discípulos?",
-                            options: ["Aparecieron Moisés y Elías", "Cayó fuego del cielo", "Se abrió la tierra", "Hubo un terremoto"],
-                            answerIndex: 0,
-                            hint: "Pedro quiso hacer tres enramadas para Jesús, Moisés and Elías.",
-                            reference: "Mateo 17:1-9"
-                        },
-                        {
-                            id: "5-02",
-                            question: "¿Qué sucedió cuando Jesús calmó la tormenta?",
-                            options: ["Reprendió al viento y al mar", "Oró al Padre celestial", "Caminó sobre las aguas", "Hizo que cesara la lluvia"],
-                            answerIndex: 0,
-                            hint: "Los discípulos estaban asustados y Jesús les preguntó por qué tenían poca fe.",
-                            reference: "Marcos 4:35-41"
-                        },
-                        {
-                            id: "5-03",
-                            question: "¿Qué señal dio Dios a Noé después del diluvio?",
-                            options: ["El arcoíris", "Una paloma", "Una rama de olivo", "Un trueno"],
-                            answerIndex: 0,
-                            hint: "Es un recordatorio del pacto de Dios de no destruir la tierra con agua again.",
-                            reference: "Génesis 9:12-17"
-                        },
-                        {
-                            id: "5-04",
-                            question: "¿Qué le pasó a Jonás cuando desobedeció a Dios?",
-                            options: ["Fue tragado por un gran pez", "Naufragó en una tormenta", "Fue encarcelado", "Se perdió en el desierto"],
-                            answerIndex: 0,
-                            hint: "Estuvo tres días y tres noches en el vientre del pez.",
-                            reference: "Jonás 1:17"
-                        },
-                        {
-                            id: "5-05",
-                            question: "¿Qué le sucedió a Pablo en el camino a Damasco?",
-                            options: ["Una luz del cielo lo cegó", "Oyó una voz desde el cielo", "Cayó al suelo", "Todas las anteriores"],
-                            answerIndex: 3,
-                            hint: "Jesús se le apareció y lo llamó al apostolado.",
-                            reference: "Hechos 9:1-9"
-                        },
-                        {
-                            id: "5-06",
-                            question: "¿Qué milagro sucedió cuando Pedro y Juan fueron a la puerta del templo?",
-                            options: ["Sanaron a un cojo", "Resucitaron a una niña", "Convirtieron agua en vino", "Multiplicaron panes"],
-                            answerIndex: 0,
-                            hint: "El hombre cojo de nacimiento pedía limosna a la puerta llamada Hermosa.",
-                            reference: "Hechos 3:1-10"
-                        },
-                        {
-                            id: "5-07",
-                            question: "¿Qué sucedió cuando los israelitas cruzaron el Mar Rojo?",
-                            options: ["Las aguas se dividieron", "Apareció un puente", "Cayeron maná del cielo", "Hubo un terremoto"],
-                            answerIndex: 0,
-                            hint: "Moisés extendió su mano sobre el mar y las aguas se dividieron.",
-                            reference: "Éxodo 14:21-22"
-                        },
-                        {
-                            id: "5-08",
-                            question: "¿Qué señal vio Gideon para confirmar que Dios estaba con él?",
-                            options: ["El rocío sobre el vellón", "Una columna de fuego", "Una zarza ardiente", "Una estrella brillante"],
-                            answerIndex: 0,
-                            hint: "Pidió a Dios que el rocío cayera solo sobre un vellón de lana.",
-                            reference: "Jueces 6:36-40"
-                        },
-                        {
-                            id: "5-09",
-                            question: "¿Qué le sucedió a Daniel cuando fue arrojado al foso de los leones?",
-                            options: ["Dios cerró la boca de los leones", "Un ángel lo protegió", "Los leones se durmieron", "Fue rescatado inmediatamente"],
-                            answerIndex: 0,
-                            hint: "El rey Darío pasó la noche en ayuno y no pudo dormir.",
-                            reference: "Daniel 6:16-23"
-                        },
-                        {
-                            id: "5-10",
-                            question: "¿Qué señal vio Moisés en la zarza ardiente?",
-                            options: ["La zarza ardía pero no se consumía", "La zarza hablaba", "La zarza producía fruto", "La zarza crecía rápidamente"],
-                            answerIndex: 0,
-                            hint: "Dios le habló desde la zarza y le dijo que se quitara las sandalias.",
-                            reference: "Éxodo 3:1-6"
                         }
                     ]
                 }
