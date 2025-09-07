@@ -267,7 +267,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(to right, var(--color-primary), var(--color-secondary);
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
             width: 0%;
             transition: width 0.5s ease;
             border-radius: 15px;
@@ -333,6 +333,7 @@
             background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
             transform: scaleX(0);
             transition: transform 0.3s;
+            transform-origin: left;
         }
 
         .level-item:hover::before {
@@ -784,7 +785,7 @@
 
         // Cargar preguntas
         function loadQuestions() {
-            // Datos de ejemplo con 5 niveles y 50 preguntas
+            // Datos de ejemplo con 10 niveles y 100 preguntas
             gameData.levels = [
                 {
                     level: 1,
@@ -972,10 +973,10 @@
                         },
                         {
                             id: "3-02",
-                            question: "¿A quién resucitó Jesús de entre los muertos?",
-                            options: ["Lázaro", "Juan el Bautista", "Esteban", "Pedro"],
+                            question: "¿A quién resucitó Jesús después de cuatro días de muerto?",
+                            options: ["Lázaro", "La hija de Jairo", "El hijo de la viuda", "Dorcas"],
                             answerIndex: 0,
-                            hint: "Jesús lloró cuando supo que había muerto.",
+                            hint: "Jesús lloró cuando vio el dolor de sus hermanas.",
                             reference: "Juan 11:1-44"
                         },
                         {
@@ -983,64 +984,64 @@
                             question: "¿Cuántos panes y peces multiplicó Jesús para alimentar a una multitud?",
                             options: ["5 panes y 2 peces", "7 panes y 3 peces", "3 panes y 5 peces", "2 panes y 5 peces"],
                             answerIndex: 0,
-                            hint: "Alimentó a más de 5000 personas con esta cantidad.",
+                            hint: "Alimentó a más de 5000 personas con esta comida.",
                             reference: "Mateo 14:13-21"
                         },
                         {
                             id: "3-04",
-                            question: "¿Qué hizo Jesús para calmar una tormenta?",
-                            options: ["Reprendió al viento y al mar", "Oró a Dios Padre", "Hizo una señal con la mano", "Cantó un salmo"],
+                            question: "¿Qué hizo Jesús para sanar a un ciego de nacimiento?",
+                            options: ["Hizo lodo con saliva", "Le puso las manos", "Le dijo que se lavara", "Le sopló en los ojos"],
                             answerIndex: 0,
-                            hint: "Los discípulos estaban asustados por la tormenta.",
-                            reference: "Marcos 4:35-41"
-                        },
-                        {
-                            id: "3-05",
-                            question: "¿A quién sanó Jesús que había estado enfermo por 38 años?",
-                            options: ["Un paralítico en Betesda", "Un ciego en Jericó", "Un leproso", "La suegra de Pedro"],
-                            answerIndex: 0,
-                            hint: "Este hombre esperaba junto a un estanque para ser sanado.",
-                            reference: "Juan 5:1-15"
-                        },
-                        {
-                            id: "3-06",
-                            question: "¿Qué milagro hizo Jesús en la casa de Jairo?",
-                            options: ["Resucitó a su hija", "Sanó a su esposa", "Multiplicó su comida", "Convirtió agua en vino"],
-                            answerIndex: 0,
-                            hint: "Jairo era un principal de la sinagoga.",
-                            reference: "Marcos 5:21-43"
-                        },
-                        {
-                            id: "3-07",
-                            question: "¿Cómo sanó Jesús a un ciego de nacimiento?",
-                            options: ["Hizo lodo con saliva y lo puso en sus ojos", "Le tocó los ojos", "Le dijo que se lavara en el estanque", "Le puso las manos sobre la cabeza"],
-                            answerIndex: 0,
-                            hint: "Usó saliva y tierra para hacer barro.",
+                            hint: "Mezcló tierra con saliva y se la puso en los ojos.",
                             reference: "Juan 9:1-12"
                         },
                         {
-                            id: "3-08",
-                            question: "¿Qué hizo Jesús después de multiplicar los panes y los peces?",
-                            options: ["Caminó sobre el agua", "Subió a una montaña a orar", "Sanó a muchos enfermos", "Enseñó en la sinagoga"],
+                            id: "3-05",
+                            question: "¿Cómo se llamaba el hombre endemoniado que Jesús sanó en la región de los gadarenos?",
+                            options: ["Legión", "Bartimeo", "Simón", "Zaqueo"],
                             answerIndex: 0,
-                            hint: "Los discípulos estaban en una barca cuando ocurrió esto.",
+                            hint: "Tenía muchos demonios dentro que se llamaban a sí mismos 'Legión'.",
+                            reference: "Marcos 5:1-20"
+                        },
+                        {
+                            id: "3-06",
+                            question: "¿A qué discípulo salvó Jesús cuando comenzó a hundirse en el mar?",
+                            options: ["Pedro", "Juan", "Andrés", "Felipe"],
+                            answerIndex: 0,
+                            hint: "Este discípulo caminó sobre el agua pero luego dudó.",
                             reference: "Mateo 14:22-33"
                         },
                         {
-                            id: "3-09",
-                            question: "¿A quién devolvió Jesús la vista en Jericó?",
-                            options: ["Bartimeo", "Lázaro", "Zaqueo", "Nicodemo"],
+                            id: "3-07",
+                            question: "¿Qué mujer fue sanada al tocar el manto de Jesús?",
+                            options: ["Una mujer con flujo de sangre", "La suegra de Pedro", "María Magdalena", "La mujer samaritana"],
                             answerIndex: 0,
-                            hint: "Este hombre gritaba: '¡Jesús, Hijo de David, ten misericordia de mí!'",
-                            reference: "Marcos 10:46-52"
+                            hint: "Había estado enferma durante 12 años.",
+                            reference: "Marcos 5:25-34"
+                        },
+                        {
+                            id: "3-08",
+                            question: "¿Qué hizo Jesús para calmar una tormenta en el mar?",
+                            options: ["Reprendió al viento y al mar", "Oró al Padre celestial", "Levantó sus manos al cielo", "Cantó un salmo"],
+                            answerIndex: 0,
+                            hint: "Los discípulos estaban asustados y Él les preguntó por qué tenían poca fe.",
+                            reference: "Marcos 4:35-41"
+                        },
+                        {
+                            id: "3-09",
+                            question: "¿Cómo se llamaba el hombre paralítico que bajaron por el techo para que Jesús lo sanara?",
+                            options: ["No se menciona su nombre", "Bartimeo", "Lázaro", "Zaqueo"],
+                            answerIndex: 0,
+                            hint: "Sus amigos lo bajaron a través de una abertura en el techo.",
+                            reference: "Marcos 2:1-12"
                         },
                         {
                             id: "3-10",
-                            question: "¿Qué milagro hizo Jesús en la casa de Simón el fariseo?",
-                            options: ["Perdonó y sanó a una mujer pecadora", "Convirtió agua en vino", "Sanó a la suegra de Simón", "Resucitó a un siervo"],
+                            question: "¿A cuántos leprosos sanó Jesús cuando iba camino a Jerusalén?",
+                            options: ["Diex", "Siete", "Cinco", "Doce"],
                             answerIndex: 0,
-                            hint: "Una mujer ungió los pies de Jesús con perfume.",
-                            reference: "Lucas 7:36-50"
+                            hint: "Solo uno regresó para agradecerle, y era samaritano.",
+                            reference: "Lucas 17:11-19"
                         }
                     ]
                 },
@@ -1053,80 +1054,80 @@
                             question: "¿Qué parábola habla de un hijo que se fue de casa y despilfarró su herencia?",
                             options: ["El hijo pródigo", "El buen samaritano", "El sembrador", "La oveja perdida"],
                             answerIndex: 0,
-                            hint: "El padre celebró cuando su hijo regresó a casa.",
+                            hint: "El padre lo recibió con amor cuando regresó arrepentido.",
                             reference: "Lucas 15:11-32"
                         },
                         {
                             id: "4-02",
-                            question: "¿Qué parábola habla de un hombre que ayudó a un herido en el camino?",
-                            options: ["El buen samaritano", "El hijo pródigo", "La semilla de mostaza", "Los talentos"],
+                            question: "¿Qué parábola habla de un hombre que ayudó a un judío herido en el camino?",
+                            options: ["El buen samaritano", "El hijo pródigo", "El fariseo y el publicano", "Los talentos"],
                             answerIndex: 0,
-                            hint: "Sacerdotes y levitas pasaron de largo sin ayudar.",
+                            hint: "Los líderes religiosos pasaron de largo, pero este hombre lo ayudó.",
                             reference: "Lucas 10:25-37"
                         },
                         {
                             id: "4-03",
-                            question: "¿Qué parábola habla de diferentes tipos de terreno donde cayó una semilla?",
-                            options: ["El sembrador", "La red", "El trigo y la cizaña", "Las diez vírgenes"],
+                            question: "¿Qué parábola habla de semillas que caen en diferentes tipos de terreno?",
+                            options: ["El sembrador", "La semilla de mostaza", "El trigo y la cizaña", "La levadura"],
                             answerIndex: 0,
-                            hint: "Algunas semillas cayeron en camino, pedregales, espinos y buena tierra.",
+                            hint: "Algunas semillas cayeron en camino, entre piedras, entre espinos y en buena tierra.",
                             reference: "Mateo 13:1-23"
                         },
                         {
                             id: "4-04",
-                            question: "¿Qué parábola habla de obreros que recibieron el mismo pago por trabajar diferente tiempo?",
-                            options: ["Los obreros de la viña", "Los dos cimientos", "El fariseo y el publicano", "El mayordomo infiel"],
+                            question: "¿Qué parábola habla de un pastor que dejó 99 ovejas para buscar una perdida?",
+                            options: ["La oveja perdida", "El buen pastor", "Las ovejas y las cabras", "El redil"],
+                            answerIndex: 0,
+                            hint: "Jesús dijo que hay más alegría en el cielo por un pecador que se arrepiente.",
+                            reference: "Lucas 15:3-7"
+                        },
+                        {
+                            id: "4-05",
+                            question: "¿Qué parábola habla de trabajadores que recibieron el mismo pago por diferentes horas de trabajo?",
+                            options: ["Los trabajadores de la viña", "Los dos hijos", "Los talentos", "El mayordomo infiel"],
                             answerIndex: 0,
                             hint: "El dueño pagó igual a quienes trabajaron todo el día y a quienes trabajaron solo una hora.",
                             reference: "Mateo 20:1-16"
                         },
                         {
-                            id: "4-05",
+                            id: "4-06",
                             question: "¿Qué parábola habla de diez jóvenes que esperaban al novio?",
-                            options: ["Las diez vírgenes", "Los talentos", "La oveja perdida", "El gran banquete"],
+                            options: ["Las diez vírgenes", "La fiesta de bodas", "El amigo a medianoche", "La gran cena"],
                             answerIndex: 0,
-                            hint: "Cinco eran prudentes y cinco eran insensatas.",
+                            hint: "Cinco eran prudentes y llevaban aceite extra, cinco eran insensatas.",
                             reference: "Mateo 25:1-13"
                         },
                         {
-                            id: "4-06",
-                            question: "¿Qué parábola habla de un hombre que enterró el dinero que recibió?",
-                            options: ["Los talentos", "La perla de gran precio", "El tesoro escondido", "El hijo pródigo"],
+                            id: "4-07",
+                            question: "¿Qué parábola habla de un hombre que enterró su talento por miedo?",
+                            options: ["Los talentos", "Las minas", "El siervo vigilante", "El mayordomo fiel"],
                             answerIndex: 0,
-                            hint: "Dos siervos multiplicaron lo recibido, pero uno lo escondió.",
+                            hint: "Dos siervos multiplicaron lo recibido, pero uno lo escondió en la tierra.",
                             reference: "Mateo 25:14-30"
                         },
                         {
-                            id: "4-07",
-                            question: "¿Qué parábola habla de un juez injusto y una viuda insistente?",
-                            options: ["La viuda y el juez injusto", "El fariseo y el publicano", "El amigo importuno", "Los dos deudores"],
+                            id: "4-08",
+                            question: "¿Qué parábola habla de un juez injusto y una viuda persistente?",
+                            options: ["La viuda persistente", "El fariseo y el publicano", "El amigo a medianoche", "El juez injusto"],
                             answerIndex: 0,
-                            hint: "La viuda no dejaba de molestar al juez hasta que le hizo justicia.",
+                            hint: "La viuda insistió tanto que el juez finalmente le hizo justicia.",
                             reference: "Lucas 18:1-8"
                         },
                         {
-                            id: "4-08",
-                            question: "¿Qué parábola habla de un hombre que encontró un tesoro escondido?",
-                            options: ["El tesoro escondido", "La perla de gran precio", "Los talentos", "La red"],
-                            answerIndex: 0,
-                            hint: "Con gran gozo, vendió todo lo que tenía y compró aquel campo.",
-                            reference: "Mateo 13:44"
-                        },
-                        {
                             id: "4-09",
-                            question: "¿Qué parábola habla de un hombre que perdió una oveja y la buscó?",
-                            options: ["La oveja perdida", "La moneda perdida", "El hijo pródigo", "El buen samaritano"],
+                            question: "¿Qué parábola habla de un fariseo y un recaudador de impuestos que oraban en el templo?",
+                            options: ["El fariseo y el publicano", "Los dos deudores", "El buen samaritano", "La oveja perdida"],
                             answerIndex: 0,
-                            hint: "Dejó las 99 ovejas para buscar la que se había perdido.",
-                            reference: "Lucas 15:3-7"
+                            hint: "El recaudador de impuestos se consideraba indigno mientras el fariseo se enaltecía.",
+                            reference: "Lucas 18:9-14"
                         },
                         {
                             id: "4-10",
-                            question: "¿Qué parábola habla de un fariseo y un recaudador de impuestos que oraban?",
-                            options: ["El fariseo y el publicano", "Los dos hijos", "Los viñadores malvados", "El rico insensato"],
+                            question: "¿Qué parábola habla de un hombre que encontró un tesoro escondido en un campo?",
+                            options: ["El tesoro escondido", "La perla de gran precio", "El sembrador", "Los talentos"],
                             answerIndex: 0,
-                            hint: "El recaudador de impuestos no se atrevía ni a levantar los ojos al cielo.",
-                            reference: "Lucas 18:9-14"
+                            hint: "Vendió todo lo que tenía para comprar ese campo.",
+                            reference: "Mateo 13:44"
                         }
                     ]
                 },
@@ -1152,67 +1153,497 @@
                         },
                         {
                             id: "5-03",
-                            question: "¿Qué libro de la Biblia relata la historia de Esther?",
-                            options: ["Ester", "Rut", "Esdras", "Nehemías"],
+                            question: "¿En qué libro de la Biblia encontramos la historia de Jonás y el gran pez?",
+                            options: ["Jonás", "Job", "Joel", "Amós"],
                             answerIndex: 0,
-                            hint: "Ester era una reina que salvó a su pueblo.",
-                            reference: "Libro de Ester"
+                            hint: "Jonás trató de huir de Dios pero terminó en el vientre de un gran pez.",
+                            reference: "Jonás 1:17"
                         },
                         {
                             id: "5-04",
-                            question: "¿Qué libro contiene los Diez Mandamientos?",
-                            options: ["Éxodo", "Levítico", "Deuteronomio", "Números"],
-                            answerIndex: 0,
-                            hint: "También relata la salida de Egipto del pueblo de Israel.",
-                            reference: "Éxodo 20"
-                        },
-                        {
-                            id: "5-05",
-                            question: "¿Qué libro de la Biblia habla sobre la construcción del templo?",
-                            options: ["1 Reyes", "2 Samuel", "1 Crónicas", "2 Crónicas"],
-                            answerIndex: 0,
-                            hint: "Salomón construyó el primer templo en Jerusalén.",
-                            reference: "1 Reyes 6"
-                        },
-                        {
-                            id: "5-06",
-                            question: "¿Qué libro contiene el Sermón del Monte?",
+                            question: "¿Qué libro del Nuevo Testamento contiene el Sermón del Monte?",
                             options: ["Mateo", "Marcos", "Lucas", "Juan"],
                             answerIndex: 0,
                             hint: "Jesús enseñó las bienaventuranzas en este sermón.",
                             reference: "Mateo 5-7"
                         },
                         {
+                            id: "5-05",
+                            question: "¿Qué libro de la Biblia habla sobre la construcción del tabernáculo?",
+                            options: ["Éxodo", "Levítico", "Números", "Deuteronomio"],
+                            answerIndex: 0,
+                            hint: "Dio instrucciones detalladas para construir el lugar de adoración.",
+                            reference: "Éxodo 25-40"
+                        },
+                        {
+                            id: "5-06",
+                            question: "¿Qué libro de la Biblia contiene la famosa frase 'El Señor es mi pastor, nada me faltará'?",
+                            options: ["Salmos", "Proverbios", "Cantares", "Eclesiastés"],
+                            answerIndex: 0,
+                            hint: "Es el salmo más conocido y querido.",
+                            reference: "Salmo 23:1"
+                        },
+                        {
                             id: "5-07",
-                            question: "¿Qué libro de la Biblia relata el viaje de Pablo a Roma?",
-                            options: ["Hechos", "Romanos", "Efesios", "Filipenses"],
-                            answerIndex: 0,
-                            hint: "Fue escrito por Lucas, el médico amado.",
-                            reference: "Hechos 27-28"
-                        },
-                        {
-                            id: "5-08",
-                            question: "¿Qué libro de la Biblia contiene la historia de Jonás?",
-                            options: ["Jonás", "Amós", "Oseas", "Miqueas"],
-                            answerIndex: 0,
-                            hint: "Jonás fue tragado por un gran pez.",
-                            reference: "Libro de Jonás"
-                        },
-                        {
-                            id: "5-09",
-                            question: "¿Qué libro de la Biblia habla sobre la sabiduría?",
-                            options: ["Proverbios", "Job", "Eclesiastés", "Cantares"],
-                            answerIndex: 0,
-                            hint: "Muchos de sus proverbios fueron escritos por Salomón.",
-                            reference: "Proverbios 1:1"
-                        },
-                        {
-                            id: "5-10",
                             question: "¿Qué libro del Nuevo Testamento fue escrito por un médico?",
                             options: ["Lucas", "Marcos", "Juan", "Mateo"],
                             answerIndex: 0,
-                            hint: "Escribió el tercer evangelio y el libro de Hechos.",
+                            hint: "Escribió un evangelio y el libro de Hechos.",
                             reference: "Colosenses 4:14"
+                        },
+                        {
+                            id: "5-08",
+                            question: "¿Qué libro de la Biblia narra los inicios de la iglesia cristiana?",
+                            options: ["Hechos", "Romanos", "1 Corintios", "Gálatas"],
+                            answerIndex: 0,
+                            hint: "Cuenta lo que sucedió después de la ascensión de Jesús.",
+                            reference: "Hechos 1:1"
+                        },
+                        {
+                            id: "5-09",
+                            question: "¿Qué libro de la Biblia contiene la historia de Rut y Booz?",
+                            options: ["Rut", "Ester", "Cantares", "Job"],
+                            answerIndex: 0,
+                            hint: "Es la historia de una mujer fiel que se convirtió en antepasada de David.",
+                            reference: "Rut 1-4"
+                        },
+                        {
+                            id: "5-10",
+                            question: "¿Qué libro de la Biblia contiene las palabras 'Todo lo puedo en Cristo que me fortalece'?",
+                            options: ["Filipenses", "Efesios", "Colosenses", "Gálatas"],
+                            answerIndex: 0,
+                            hint: "Fue escrita por Pablo desde la prisión.",
+                            reference: "Filipenses 4:13"
+                        }
+                    ]
+                },
+                {
+                    level: 6,
+                    title: "Nivel 6 — Mujeres de la Biblia",
+                    questions: [
+                        {
+                            id: "6-01",
+                            question: "¿Quién fue la madre de Jesús?",
+                            options: ["María", "Isabel", "Ana", "Ester"],
+                            answerIndex: 0,
+                            hint: "Ella dio a luz al Salvador en Belén.",
+                            reference: "Mateo 1:18-25"
+                        },
+                        {
+                            id: "6-02",
+                            question: "¿Quién fue la mujer que traicionó a Sansón cortándole el cabello?",
+                            options: ["Dalila", "Raquel", "Rut", "Debora"],
+                            answerIndex: 0,
+                            hint: "Ella reveló el secreto de su fuerza a los filisteos.",
+                            reference: "Jueces 16:4-22"
+                        },
+                        {
+                            id: "6-03",
+                            question: "¿Quién fue la reina que arriesgó su vida para salvar a su pueblo?",
+                            options: ["Ester", "Jezabel", "Atalía", "Vasti"],
+                            answerIndex: 0,
+                            hint: "Su famosa frase fue: 'Si perezco, que perezca'.",
+                            reference: "Ester 4:16"
+                        },
+                        {
+                            id: "6-04",
+                            question: "¿Quién fue la primera mujer mencionada en la Biblia?",
+                            options: ["Eva", "Sara", "Rebeca", "Lea"],
+                            answerIndex: 0,
+                            hint: "Fue creada de la costilla de Adán.",
+                            reference: "Génesis 2:21-22"
+                        },
+                        {
+                            id: "6-05",
+                            question: "¿Quién fue la profetisa que guió al pueblo de Israel en una batalla?",
+                            options: ["Débora", "Ana", "Hulda", "María"],
+                            answerIndex: 0,
+                            hint: "Ella juzgaba a Israel bajo una palmera.",
+                            reference: "Jueces 4:4-5"
+                        },
+                        {
+                            id: "6-06",
+                            question: "¿Quién fue la suegra de Rut?",
+                            options: ["Noemí", "Orfa", "Sara", "Raquel"],
+                            answerIndex: 0,
+                            hint: "Sus dos nueras quisieron acompañarla cuando regresó a Belén.",
+                            reference: "Rut 1:1-22"
+                        },
+                        {
+                            id: "6-07",
+                            question: "¿Quién fue la mujer que dio a luz a Samuel después de años de esterilidad?",
+                            options: ["Ana", "Elisabet", "Raquel", "Sara"],
+                            answerIndex: 0,
+                            hint: "Hizo un voto a Dios de dedicar a su hijo al servicio del templo.",
+                            reference: "1 Samuel 1:1-20"
+                        },
+                        {
+                            id: "6-08",
+                            question: "¿Quién fue la mujer que escondió a dos espías israelitas en Jericó?",
+                            options: ["Rahab", "Rut", "Ester", "Débora"],
+                            answerIndex: 0,
+                            hint: "Ató un cordón escarlata en su ventana para ser protegida.",
+                            reference: "Josué 2:1-21"
+                        },
+                        {
+                            id: "6-09",
+                            question: "¿Quién fue la esposa de Abraham y madre de Isaac?",
+                            options: ["Sara", "Rebeca", "Lea", "Agar"],
+                            answerIndex: 0,
+                            hint: "Dios le cambió el nombre de Sarai a Sara.",
+                            reference: "Génesis 17:15-16"
+                        },
+                        {
+                            id: "6-10",
+                            question: "¿Quién fue la mujer que regó los camellos de Eliezer en el pozo?",
+                            options: ["Rebeca", "Raquel", "Lea", "Sara"],
+                            answerIndex: 0,
+                            hint: "Ella se convirtió en esposa de Isaac.",
+                            reference: "Génesis 24:1-67"
+                        }
+                    ]
+                },
+                {
+                    level: 7,
+                    title: "Nivel 7 — Profetas de Israel",
+                    questions: [
+                        {
+                            id: "7-01",
+                            question: "¿Qué profeta fue llevado al cielo en un carro de fuego?",
+                            options: ["Elías", "Eliseo", "Isaías", "Jeremías"],
+                            answerIndex: 0,
+                            hint: "Su discípulo Eliseo recibió una doble porción de su espíritu.",
+                            reference: "2 Reyes 2:11"
+                        },
+                        {
+                            id: "7-02",
+                            question: "¿Qué profeta fue enviado a Nínive a predicar el arrepentimiento?",
+                            options: ["Jonás", "Amós", "Oseas", "Miqueas"],
+                            answerIndex: 0,
+                            hint: "Intentó huir en un barco pero fue tragado por un gran pez.",
+                            reference: "Jonás 1:1-17"
+                        },
+                        {
+                            id: "7-03",
+                            question: "¿Qué profeta vio la visión de huesos secos que volvieron a la vida?",
+                            options: ["Ezequiel", "Daniel", "Isaías", "Jeremías"],
+                            answerIndex: 0,
+                            hint: "Estaba en el exilio en Babilonia cuando tuvo esta visión.",
+                            reference: "Ezequiel 37:1-14"
+                        },
+                        {
+                            id: "7-04",
+                            question: "¿Qué profeta fue arrojado al foso de los leones?",
+                            options: ["Daniel", "Jeremías", "Isaías", "Ezequiel"],
+                            answerIndex: 0,
+                            hint: "Dios envió un ángel para cerrar la boca de los leones.",
+                            reference: "Daniel 6:16-23"
+                        },
+                        {
+                            id: "7-05",
+                            question: "¿Qué profeta se casó con una mujer infiel como símbolo del pueblo de Israel?",
+                            options: ["Oseas", "Amós", "Miqueas", "Nahúm"],
+                            answerIndex: 0,
+                            hint: "Su matrimonio representaba la relación entre Dios e Israel.",
+                            reference: "Oseas 1:2-3"
+                        },
+                        {
+                            id: "7-06",
+                            question: "¿Qué profeta anunció el nacimiento del Mesías de una virgen?",
+                            options: ["Isaías", "Jeremías", "Ezequiel", "Daniel"],
+                            answerIndex: 0,
+                            hint: "Profetizó: 'He aquí que la virgen concebirá y dará a luz un hijo'.",
+                            reference: "Isaías 7:14"
+                        },
+                        {
+                            id: "7-07",
+                            question: "¿Qué profeta lloró por la destrucción de Jerusalén?",
+                            options: ["Jeremías", "Isaías", "Ezequiel", "Daniel"],
+                            answerIndex: 0,
+                            hint: "Es conocido como 'el profeta llorón'.",
+                            reference: "Lamentaciones"
+                        },
+                        {
+                            id: "7-08",
+                            question: "¿Qué profeta interpretó el sueño de Nabucodonosor sobre la estatua?",
+                            options: ["Daniel", "Ezequiel", "Jeremías", "Isaías"],
+                            answerIndex: 0,
+                            hint: "Reveló que los diferentes materiales representaban reinos futuros.",
+                            reference: "Daniel 2:31-45"
+                        },
+                        {
+                            id: "7-09",
+                            question: "¿Qué profeta fue enviado a predicar a Judá durante el reinado de Uzías?",
+                            options: ["Isaías", "Jeremías", "Ezequiel", "Daniel"],
+                            answerIndex: 0,
+                            hint: "Tuvo una visión de Dios en el templo con serafines.",
+                            reference: "Isaías 6:1-8"
+                        },
+                        {
+                            id: "7-10",
+                            question: "¿Qué profeta fue contemporáneo de Nehemías y animó a reconstruir Jerusalén?",
+                            options: ["Zacarías", "Ageo", "Malaquías", "Joel"],
+                            answerIndex: 0,
+                            hint: "Tuvo visiones de candelabros de oro y olivos.",
+                            reference: "Zacarías 4:1-14"
+                        }
+                    ]
+                },
+                {
+                    level: 8,
+                    title: "Nivel 8 — Apóstoles de Jesús",
+                    questions: [
+                        {
+                            id: "8-01",
+                            question: "¿Quién fue el primer apóstol en ser llamado por Jesús?",
+                            options: ["Andrés", "Pedro", "Juan", "Felipe"],
+                            answerIndex: 0,
+                            hint: "Era hermano de Simón Pedro y antes era discípulo de Juan el Bautista.",
+                            reference: "Juan 1:35-40"
+                        },
+                        {
+                            id: "8-02",
+                            question: "¿Qué apóstol era recaudador de impuestos antes de seguir a Jesús?",
+                            options: ["Mateo", "Tomás", "Bartolomé", "Simón"],
+                            answerIndex: 0,
+                            hint: "También se le llamaba Leví.",
+                            reference: "Mateo 9:9"
+                        },
+                        {
+                            id: "8-03",
+                            question: "¿Qué apóstol dudó de la resurrección de Jesús?",
+                            options: ["Tomás", "Felipe", "Bartolomé", "Judas Tadeo"],
+                            answerIndex: 0,
+                            hint: "Es conocido como 'Tomás el incrédulo'.",
+                            reference: "Juan 20:24-29"
+                        },
+                        {
+                            id: "8-04",
+                            question: "¿Qué apóstol traicionó a Jesús por treinta monedas de plata?",
+                            options: ["Judas Iscariote", "Simón", "Judas Tadeo", "Felipe"],
+                            answerIndex: 0,
+                            hint: "Luego se arrepintió y devolvió el dinero antes de quitarse la vida.",
+                            reference: "Mateo 26:14-16"
+                        },
+                        {
+                            id: "8-05",
+                            question: "¿Qué apóstol era hermano de Juan?",
+                            options: ["Santiago", "Pedro", "Andrés", "Felipe"],
+                            answerIndex: 0,
+                            hint: "Fue el primer apóstol en ser martirizado.",
+                            reference: "Hechos 12:1-2"
+                        },
+                        {
+                            id: "8-06",
+                            question: "¿Qué apóstol era conocido como 'el Zelote'?",
+                            options: ["Simón", "Judas Tadeo", "Tomás", "Bartolomé"],
+                            answerIndex: 0,
+                            hint: "Antes de seguir a Jesús, pertenecía a un grupo revolucionario.",
+                            reference: "Lucas 6:15"
+                        },
+                        {
+                            id: "8-07",
+                            question: "¿Qué apóstol presentó a Jesús a su hermano Pedro?",
+                            options: ["Andrés", "Juan", "Felipe", "Santiago"],
+                            answerIndex: 0,
+                            hint: "Encontró primero a Jesús y luego fue a buscar a su hermano.",
+                            reference: "Juan 1:40-42"
+                        },
+                        {
+                            id: "8-08",
+                            question: "¿Qué apóstol era pescador junto con su hermano Andrés?",
+                            options: ["Pedro", "Juan", "Santiago", "Felipe"],
+                            answerIndex: 0,
+                            hint: "Jesús le cambió el nombre de Simón a Pedro.",
+                            reference: "Mateo 4:18-20"
+                        },
+                        {
+                            id: "8-09",
+                            question: "¿Qué apóstol era de Caná y presentó a Jesús a Natanael?",
+                            options: ["Felipe", "Andrés", "Tomás", "Mateo"],
+                            answerIndex: 0,
+                            hint: "Jesús lo encontró y le dijo 'Sígueme'.",
+                            reference: "Juan 1:43-45"
+                        },
+                        {
+                            id: "8-10",
+                            question: "¿Qué apóstol escribió el último libro de la Biblia?",
+                            options: ["Juan", "Pedro", "Mateo", "Santiago"],
+                            answerIndex: 0,
+                            hint: "Fue exiliado a la isla de Patmos donde recibió la revelación.",
+                            reference: "Apocalipsis 1:9"
+                        }
+                    ]
+                },
+                {
+                    level: 9,
+                    title: "Nivel 9 — Lugares Bíblicos",
+                    questions: [
+                        {
+                            id: "9-01",
+                            question: "¿En qué ciudad nació Jesús?",
+                            options: ["Belén", "Nazaret", "Jerusalén", "Jericó"],
+                            answerIndex: 0,
+                            hint: "El profeta Miqueas profetizó que el Mesías nacería aquí.",
+                            reference: "Miqueas 5:2"
+                        },
+                        {
+                            id: "9-02",
+                            question: "¿En qué mar caminó Jesús?",
+                            options: ["Mar de Galilea", "Mar Muerto", "Mar Rojo", "Mar Mediterráneo"],
+                            answerIndex: 0,
+                            hint: "También se llama Lago de Genesaret o Mar de Tiberíades.",
+                            reference: "Mateo 14:22-33"
+                        },
+                        {
+                            id: "9-03",
+                            question: "¿En qué monte recibió Moisés los Diez Mandamientos?",
+                            options: ["Monte Sinaí", "Monte de los Olivos", "Monte Sión", "Monte Carmelo"],
+                            answerIndex: 0,
+                            hint: "También se llama Monte Horeb.",
+                            reference: "Éxodo 19:20"
+                        },
+                        {
+                            id: "9-04",
+                            question: "¿Qué ciudad fue destruida por fuego y azufre?",
+                            options: ["Sodoma", "Jericó", "Nínive", "Babilonia"],
+                            answerIndex: 0,
+                            hint: "Lot y su familia huyeron de esta ciudad antes de su destrucción.",
+                            reference: "Génesis 19:24-25"
+                        },
+                        {
+                            id: "9-05",
+                            question: "¿En qué río fue bautizado Jesús?",
+                            options: ["Río Jordán", "Río Nilo", "Río Éufrates", "Río Tigris"],
+                            answerIndex: 0,
+                            hint: "Juan el Bautista estaba bautizando en este río.",
+                            reference: "Mateo 3:13-17"
+                        },
+                        {
+                            id: "9-06",
+                            question: "¿Qué ciudad fue conocida por sus muros que cayeron al sonar las trompetas?",
+                            options: ["Jericó", "Jerusalén", "Samaria", "Babilonia"],
+                            answerIndex: 0,
+                            hint: "Josué y los israelitas marcharon alrededor de esta ciudad durante siete días.",
+                            reference: "Josué 6:1-20"
+                        },
+                        {
+                            id: "9-07",
+                            question: "¿En qué jardín oró Jesús antes de ser arrestado?",
+                            options: ["Getsemaní", "Edén", "Olivos", "Huerto del Rey"],
+                            answerIndex: 0,
+                            hint: "Está ubicado en el Monte de los Olivos.",
+                            reference: "Mateo 26:36-46"
+                        },
+                        {
+                            id: "9-08",
+                            question: "¿Qué ciudad fue el centro del imperio babilónico?",
+                            options: ["Babilonia", "Nínive", "Persia", "Asiria"],
+                            answerIndex: 0,
+                            hint: "Nabucodonosor era su rey cuando conquistó Jerusalén.",
+                            reference: "2 Reyes 24:10-16"
+                        },
+                        {
+                            id: "9-09",
+                            question: "¿En qué ciudad se encontraba el templo de Dios?",
+                            options: ["Jerusalén", "Belén", "Samaria", "Hebrón"],
+                            answerIndex: 0,
+                            hint: "Salomón construyó el primer templo aquí.",
+                            reference: "1 Reyes 6:1-38"
+                        },
+                        {
+                            id: "9-10",
+                            question: "¿Qué desierto cruzaron los israelitas durante 40 años?",
+                            options: ["Desierto de Sinaí", "Desierto de Judea", "Desierto de Negev", "Desierto de Arabia"],
+                            answerIndex: 0,
+                            hint: "Dios les proveyó maná y codornices durante su travesía.",
+                            reference: "Éxodo 16:1-36"
+                        }
+                    ]
+                },
+                {
+                    level: 10,
+                    title: "Nivel 10 — Eventos Bíblicos",
+                    questions: [
+                        {
+                            id: "10-01",
+                            question: "¿Qué evento ocurrió cuando el Espíritu Santo descendió sobre los discípulos?",
+                            options: ["Pentecostés", "La transfiguración", "La ascensión", "La última cena"],
+                            answerIndex: 0,
+                            hint: "Los discípulos comenzaron a hablar en otras lenguas.",
+                            reference: "Hechos 2:1-4"
+                        },
+                        {
+                            id: "10-02",
+                            question: "¿Qué evento milagroso permitió a los israelitas escapar de Egipto?",
+                            options: ["El cruce del Mar Rojo", "Las plagas de Egipto", "La columna de fuego", "La provisión de maná"],
+                            answerIndex: 0,
+                            hint: "Moisés extendió su mano sobre el mar y las aguas se dividieron.",
+                            reference: "Éxodo 14:21-31"
+                        },
+                        {
+                            id: "10-03",
+                            question: "¿En qué evento Jesús se transfiguró ante tres discípulos?",
+                            options: ["La transfiguración", "El bautismo", "La resurrección", "Pentecostés"],
+                            answerIndex: 0,
+                            hint: "Moisés y Elías aparecieron hablando con Jesús.",
+                            reference: "Mateo 17:1-9"
+                        },
+                        {
+                            id: "10-04",
+                            question: "¿Qué evento ocurrió cuarenta días después de la resurrección de Jesús?",
+                            options: ["La ascensión", "Pentecostés", "La última cena", "La traición de Judas"],
+                            answerIndex: 0,
+                            hint: "Jesús fue llevado al cielo ante los ojos de sus discípulos.",
+                            reference: "Hechos 1:9-11"
+                        },
+                        {
+                            id: "10-05",
+                            question: "¿Qué evento involucró a un hombre que construyó un arca?",
+                            options: ["El diluvio", "La torre de Babel", "El éxodo", "La conquista de Jericó"],
+                            answerIndex: 0,
+                            hint: "Dios envió lluvia durante 40 días y 40 noches.",
+                            reference: "Génesis 6-9"
+                        },
+                        {
+                            id: "10-06",
+                            question: "¿Qué evento ocurrió cuando Jesús alimentó a 5000 personas?",
+                            options: ["Multiplicación de panes y peces", "Las bodas de Caná", "La pesca milagrosa", "La entrada triunfal"],
+                            answerIndex: 0,
+                            hint: "Un niño aportó cinco panes y dos peces.",
+                            reference: "Juan 6:1-14"
+                        },
+                        {
+                            id: "10-07",
+                            question: "¿Qué evento marcó el inicio del ministerio de Jesús?",
+                            options: ["Su bautismo", "Su nacimiento", "Las tentaciones", "La última cena"],
+                            answerIndex: 0,
+                            hint: "Juan el Bautista lo bautizó en el río Jordán.",
+                            reference: "Mateo 3:13-17"
+                        },
+                        {
+                            id: "10-08",
+                            question: "¿Qué evento ocurrió cuando los israelitas adoraron un becerro de oro?",
+                            options: ["La idolatría en el Sinaí", "La rebelión de Coré", "La incredulidad en Cades", "La queja en el desierto"],
+                            answerIndex: 0,
+                            hint: "Moisés rompió las tablas de la ley al ver esto.",
+                            reference: "Éxodo 32:1-35"
+                        },
+                        {
+                            id: "10-09",
+                            question: "¿Qué evento ocurrió cuando Jesús resucitó a Lázaro?",
+                            options: ["La resurrección de Lázaro", "La hija de Jairo", "El hijo de la viuda", "La resurrección de Jesús"],
+                            answerIndex: 0,
+                            hint: "Jesús lloró antes de realizar este milagro.",
+                            reference: "Juan 11:1-44"
+                        },
+                        {
+                            id: "10-10",
+                            question: "¿Qué evento ocurrió cuando los israelitas cruzaron el río Jordán?",
+                            options: ["El cruce del Jordán", "El cruce del Mar Rojo", "La conquista de Jericó", "La recepción de los mandamientos"],
+                            answerIndex: 0,
+                            hint: "Las aguas se detuvieron en seco para que pudieran pasar.",
+                            reference: "Josué 3:14-17"
                         }
                     ]
                 }
